@@ -1,0 +1,655 @@
+"use client"
+
+import type React from "react"
+import { useState, useEffect } from "react"
+import {
+  ChevronLeft,
+  AlertTriangle,
+  Download,
+  Printer,
+  Mail,
+  Calendar,
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { getPortfolios, type Portfolio } from "@/lib/portfolio-types"
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts"
+
+interface InvestmentReportPageProps {
+  onTabChange: (tab: string) => void
+}
+
+const InvestmentReportPage: React.FC<InvestmentReportPageProps> = ({ onTabChange }) => {
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([])
+  const [selectedPortfolio, setSelectedPortfolio] = useState<string>("")
+  const [reportPeriod, setReportPeriod] = useState<string>("1y")
+  const [isLoading, setIsLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState("summary")
+
+  const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"]
+
+  // Mock performance data
+  const performanceData = [
+    { month: "Jan", value: 10000, benchmark: 10000 },
+    { month: "Feb", value: 10800, benchmark: 10200 },
+    { month: "Mar", value: 10500, benchmark: 10100 },
+    { month: "Apr", value: 11200, benchmark: 10500 },
+    { month: "May", value: 12000, benchmark: 10800 },
+    { month: "Jun", value: 11800, benchmark: 10600 },
+    { month: "Jul", value: 12500, benchmark: 11000 },
+    { month: "Aug", value: 13200, benchmark: 11300 },
+    { month: "Sep", value: 13800, benchmark: 11500 },
+    { month: "Oct", value: 14500, benchmark: 11800 },
+    { month: "Nov", value: 14200, benchmark: 11600 },
+    { month: "Dec", value: 15000, benchmark: 12000 },
+  ]
+
+  // Mock asset allocation data
+  const assetAllocation = [
+    { name: "Stocks", value: 65 },
+    { name: "Bonds", value: 15 },
+    { name: "Cash", value: 10 },
+    { name: "Crypto", value: 5 },
+    { name: "Real Estate", value: 5 },
+  ]
+
+  // Mock sector allocation
+  const sectorAllocation = [
+    { name: "Technology", value: 35 },
+    { name: "Healthcare", value: 20 },
+    { name: "Financials", value: 15 },
+    { name: "Consumer Discretionary", value: 12 },
+    { name: "Industrials", value: 10 },
+    { name: "Other", value: 8 },
+  ]
+
+  // Mock top holdings
+  const topHoldings = [
+    { symbol: "AAPL", name: "Apple Inc.", value: 12500, change: 15.2, weight: 12.5 },
+    { symbol: "MSFT", name: "Microsoft Corp.", value: 10800, change: 22.8, weight: 10.8 },
+    { symbol: "GOOGL", name: "Alphabet Inc.", value: 9200, change: 8.5, weight: 9.2 },
+    { symbol: "AMZN", name: "Amazon.com Inc.", value: 8500, change: 5.3, weight: 8.5 },
+    { symbol: "TSLA", name: "Tesla Inc.", value: 7200, change: 18.7, weight: 7.2 },
+  ]
+
+  // Mock income data
+  const incomeData = [
+    { source: "Dividends", amount: 1250, percentage: 65 },
+    { source: "Interest", amount: 450, percentage: 23 },
+    { source: "Capital Gains", amount: 230, percentage: 12 },
+  ]
+
+  // Mock performance metrics
+  const performanceMetrics = {
+    totalReturn: 15.2,
+    annualizedReturn: 12.8,
+    benchmarkReturn: 8.5,
+    alpha: 4.3,
+    beta: 0.92,
+    sharpeRatio: 1.8,
+  }
+
+  useEffect(() => {
+    const loadPortfolios = async () => {
+      try {
+        const data = await getPortfolios()
+        setPortfolios(data)
+        if (data.length > 0) {
+          setSelectedPortfolio(data[0].id)
+        }
+      } catch (error) {
+        console.error("Failed to load portfolios:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadPortfolios()
+  }, [])
+
+  const currentPortfolio = portfolios.find((p) => p.id === selectedPortfolio)
+  const totalValue = currentPortfolio?.balance || 0
+
+  const handleExportPDF = () => {
+    // In a real app, this would generate and download a PDF
+    alert("PDF export functionality would be implemented here")
+  }
+
+  const handlePrint = () => {
+    // In a real app, this would open the print dialog
+    window.print()
+  }
+
+  const handleEmailReport = () => {
+    // In a real app, this would email the report
+    alert("Email report functionality would be implemented here")
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#1a1a1a] pt-safe pb-[84px]">
+      <header className="bg-[#2a2a2a] shadow-md p-4 mb-6 flex items-center justify-between">
+        <div className="flex items-center">
+          <Button variant="ghost" className="mr-2" onClick={() => onTabChange("dashboard")}>
+            <ChevronLeft className="h-6 w-6 text-white" />
+          </Button>
+          <h1 className="text-2xl font-bold text-white">Investment Report</h1>
+        </div>
+        <div className="flex space-x-2">
+          <Button variant="ghost" size="icon" onClick={handleExportPDF}>
+            <Download className="h-5 w-5 text-white" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handlePrint}>
+            <Printer className="h-5 w-5 text-white" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handleEmailReport}>
+            <Mail className="h-5 w-5 text-white" />
+          </Button>
+        </div>
+      </header>
+
+      <ScrollArea className="flex-1 px-4">
+        <div className="space-y-6 pb-6">
+          {/* Demo Alert */}
+          <div className="bg-yellow-500/10 border border-yellow-500 rounded-md p-4 mb-6">
+            <div className="flex items-center">
+              <AlertTriangle className="h-5 w-5 text-yellow-500 mr-2" />
+              <p className="text-yellow-500 font-semibold">Demo Version</p>
+            </div>
+            <p className="text-yellow-400 mt-2">
+              This is a demo version with simulated investment report data. In a production environment, this would use
+              real portfolio data and performance metrics.
+            </p>
+          </div>
+
+          {/* Report Controls */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex-1 mr-2">
+              <Select value={selectedPortfolio} onValueChange={setSelectedPortfolio}>
+                <SelectTrigger className="bg-[#2a2a2a] border-gray-700 text-white">
+                  <SelectValue placeholder="Select portfolio" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#2a2a2a] border-gray-700 text-white">
+                  {portfolios.map((portfolio) => (
+                    <SelectItem key={portfolio.id} value={portfolio.id}>
+                      {portfolio.name} (${portfolio.balance.toLocaleString()})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex space-x-2">
+              {["3m", "6m", "1y", "3y", "5y", "All"].map((period) => (
+                <Button
+                  key={period}
+                  variant={reportPeriod === period ? "default" : "ghost"}
+                  size="sm"
+                  className={reportPeriod === period ? "bg-emerald-500" : "text-gray-400"}
+                  onClick={() => setReportPeriod(period)}
+                >
+                  {period}
+                </Button>
+              ))}
+              <Button variant="ghost" size="sm" className="text-gray-400">
+                <Calendar className="h-4 w-4 mr-1" /> Custom
+              </Button>
+            </div>
+          </div>
+
+          {/* Report Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-[#2a2a2a] text-white">
+              <CardContent className="p-4">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-gray-400 text-sm">Total Value</p>
+                  <DollarSign className="h-4 w-4 text-emerald-500" />
+                </div>
+                <div className="text-2xl font-bold">${totalValue.toLocaleString()}</div>
+                <p className="text-xs text-gray-400 mt-1">As of {new Date().toLocaleDateString()}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-[#2a2a2a] text-white">
+              <CardContent className="p-4">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-gray-400 text-sm">Total Return</p>
+                  <TrendingUp className="h-4 w-4 text-green-500" />
+                </div>
+                <div className="text-2xl font-bold text-green-500">+{performanceMetrics.totalReturn}%</div>
+                <p className="text-xs text-gray-400 mt-1">vs. Benchmark: +{performanceMetrics.benchmarkReturn}%</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-[#2a2a2a] text-white">
+              <CardContent className="p-4">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-gray-400 text-sm">Income Generated</p>
+                  <TrendingDown className="h-4 w-4 text-blue-500" />
+                </div>
+                <div className="text-2xl font-bold text-blue-400">
+                  ${incomeData.reduce((sum, item) => sum + item.amount, 0).toLocaleString()}
+                </div>
+                <p className="text-xs text-gray-400 mt-1">Dividends, interest, and capital gains</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Content Tabs */}
+          <Tabs defaultValue="summary" value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-4 bg-[#2a2a2a]">
+              <TabsTrigger value="summary" className="data-[state=active]:bg-emerald-500">
+                Summary
+              </TabsTrigger>
+              <TabsTrigger value="performance" className="data-[state=active]:bg-emerald-500">
+                Performance
+              </TabsTrigger>
+              <TabsTrigger value="holdings" className="data-[state=active]:bg-emerald-500">
+                Holdings
+              </TabsTrigger>
+              <TabsTrigger value="income" className="data-[state=active]:bg-emerald-500">
+                Income
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Summary Tab */}
+            <TabsContent value="summary" className="mt-4 space-y-6">
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Portfolio Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-white font-medium mb-4">Key Metrics</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Total Value:</span>
+                          <span className="text-white font-medium">${totalValue.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Total Return:</span>
+                          <span className="text-green-500 font-medium">+{performanceMetrics.totalReturn}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Annualized Return:</span>
+                          <span className="text-green-500 font-medium">+{performanceMetrics.annualizedReturn}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Benchmark Return:</span>
+                          <span className="text-blue-500 font-medium">+{performanceMetrics.benchmarkReturn}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Alpha:</span>
+                          <span className="text-green-500 font-medium">+{performanceMetrics.alpha}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Beta:</span>
+                          <span className="text-white font-medium">{performanceMetrics.beta}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Sharpe Ratio:</span>
+                          <span className="text-white font-medium">{performanceMetrics.sharpeRatio}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-[250px]">
+                      <h3 className="text-white font-medium mb-4">Asset Allocation</h3>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={assetAllocation}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                            nameKey="name"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {assetAllocation.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value: any) => [`${value}%`, "Allocation"]}
+                            contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Performance Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={performanceData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                        <XAxis dataKey="month" stroke="#888" />
+                        <YAxis stroke="#888" />
+                        <Tooltip contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }} />
+                        <Legend />
+                        <Line
+                          type="monotone"
+                          dataKey="value"
+                          name="Your Portfolio"
+                          stroke="#10b981"
+                          activeDot={{ r: 8 }}
+                        />
+                        <Line type="monotone" dataKey="benchmark" name="Benchmark" stroke="#3b82f6" />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Performance Tab */}
+            <TabsContent value="performance" className="mt-4 space-y-6">
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Performance Metrics</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Total Return</p>
+                      <p className="text-xl font-bold text-green-500">+{performanceMetrics.totalReturn}%</p>
+                      <p className="text-xs text-gray-400 mt-1">Since inception</p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Annualized Return</p>
+                      <p className="text-xl font-bold text-green-500">+{performanceMetrics.annualizedReturn}%</p>
+                      <p className="text-xs text-gray-400 mt-1">Per year average</p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Benchmark Return</p>
+                      <p className="text-xl font-bold text-blue-500">+{performanceMetrics.benchmarkReturn}%</p>
+                      <p className="text-xs text-gray-400 mt-1">S&P 500 index</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Alpha</p>
+                      <p className="text-xl font-bold text-green-500">+{performanceMetrics.alpha}%</p>
+                      <p className="text-xs text-gray-400 mt-1">Excess return</p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Beta</p>
+                      <p className="text-xl font-bold text-white">{performanceMetrics.beta}</p>
+                      <p className="text-xs text-gray-400 mt-1">Market sensitivity</p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <p className="text-gray-400 text-sm mb-1">Sharpe Ratio</p>
+                      <p className="text-xl font-bold text-white">{performanceMetrics.sharpeRatio}</p>
+                      <p className="text-xs text-gray-400 mt-1">Risk-adjusted return</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Performance Chart</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={performanceData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                        <XAxis dataKey="month" stroke="#888" />
+                        <YAxis stroke="#888" />
+                        <Tooltip contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }} />
+                        <Legend />
+                        <Line
+                          type="monotone"
+                          dataKey="value"
+                          name="Your Portfolio"
+                          stroke="#10b981"
+                          activeDot={{ r: 8 }}
+                        />
+                        <Line type="monotone" dataKey="benchmark" name="Benchmark" stroke="#3b82f6" />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Holdings Tab */}
+            <TabsContent value="holdings" className="mt-4 space-y-6">
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Top Holdings</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="space-y-4">
+                    {/* Table Header */}
+                    <div className="grid grid-cols-5 text-sm text-gray-400 pb-2 border-b border-gray-700">
+                      <div>Symbol</div>
+                      <div>Name</div>
+                      <div className="text-right">Value</div>
+                      <div className="text-right">Change</div>
+                      <div className="text-right">Weight</div>
+                    </div>
+
+                    {/* Table Rows */}
+                    {topHoldings.map((holding) => (
+                      <div
+                        key={holding.symbol}
+                        className="grid grid-cols-5 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors"
+                      >
+                        <div className="font-medium text-white">{holding.symbol}</div>
+                        <div className="text-gray-300">{holding.name}</div>
+                        <div className="text-right text-white">${holding.value.toLocaleString()}</div>
+                        <div className={`text-right ${holding.change >= 0 ? "text-green-500" : "text-red-500"}`}>
+                          {holding.change >= 0 ? "+" : ""}
+                          {holding.change}%
+                        </div>
+                        <div className="text-right text-gray-300">{holding.weight}%</div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="bg-[#2a2a2a] shadow-lg">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-white text-lg">Sector Allocation</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <div className="h-[250px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={sectorAllocation} layout="vertical">
+                          <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                          <XAxis type="number" stroke="#888" />
+                          <YAxis dataKey="name" type="category" stroke="#888" width={100} />
+                          <Tooltip
+                            formatter={(value: any) => [`${value}%`, "Allocation"]}
+                            contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
+                          />
+                          <Bar dataKey="value" fill="#10b981" radius={[0, 4, 4, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-[#2a2a2a] shadow-lg">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-white text-lg">Asset Allocation</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <div className="h-[250px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={assetAllocation}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                            nameKey="name"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {assetAllocation.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value: any) => [`${value}%`, "Allocation"]}
+                            contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            {/* Income Tab */}
+            <TabsContent value="income" className="mt-4 space-y-6">
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Income Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-white font-medium mb-4">Income Sources</h3>
+                      <div className="space-y-4">
+                        {/* Table Header */}
+                        <div className="grid grid-cols-3 text-sm text-gray-400 pb-2 border-b border-gray-700">
+                          <div>Source</div>
+                          <div className="text-right">Amount</div>
+                          <div className="text-right">Percentage</div>
+                        </div>
+
+                        {/* Table Rows */}
+                        {incomeData.map((income) => (
+                          <div
+                            key={income.source}
+                            className="grid grid-cols-3 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors"
+                          >
+                            <div className="font-medium text-white">{income.source}</div>
+                            <div className="text-right text-white">${income.amount.toLocaleString()}</div>
+                            <div className="text-right text-gray-300">{income.percentage}%</div>
+                          </div>
+                        ))}
+
+                        {/* Total Row */}
+                        <div className="grid grid-cols-3 py-3 font-semibold">
+                          <div className="text-white">Total</div>
+                          <div className="text-right text-white">
+                            ${incomeData.reduce((sum, item) => sum + item.amount, 0).toLocaleString()}
+                          </div>
+                          <div className="text-right text-gray-300">100%</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-[250px]">
+                      <h3 className="text-white font-medium mb-4">Income Distribution</h3>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={incomeData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="amount"
+                            nameKey="source"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {incomeData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value: any) => [`$${value.toLocaleString()}`, "Amount"]}
+                            contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-[#2a2a2a] shadow-lg">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-white text-lg">Income Recommendations</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="space-y-4">
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <h3 className="text-white font-medium flex items-center">
+                        <TrendingUp className="h-4 w-4 text-emerald-500 mr-2" />
+                        Dividend Growth Opportunities
+                      </h3>
+                      <p className="text-gray-300 text-sm mt-1">
+                        Consider adding more dividend growth stocks to increase your passive income over time.
+                      </p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <h3 className="text-white font-medium flex items-center">
+                        <TrendingUp className="h-4 w-4 text-emerald-500 mr-2" />
+                        Tax-Efficient Income
+                      </h3>
+                      <p className="text-gray-300 text-sm mt-1">
+                        Explore tax-advantaged income sources such as municipal bonds or qualified dividends.
+                      </p>
+                    </div>
+                    <div className="bg-[#333333] p-4 rounded-lg">
+                      <h3 className="text-white font-medium flex items-center">
+                        <TrendingUp className="h-4 w-4 text-emerald-500 mr-2" />
+                        Reinvestment Strategy
+                      </h3>
+                      <p className="text-gray-300 text-sm mt-1">
+                        Consider implementing a dividend reinvestment plan (DRIP) to compound your returns over time.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ScrollArea>
+    </div>
+  )
+}
+
+export default InvestmentReportPage
+
