@@ -1,8 +1,7 @@
-"use client"
-
 import InvestmentReportPage from "@/components/InvestmentReportPage"
 
-export default function InvestmentReportRoute() {
-  return <InvestmentReportPage onTabChange={() => {}} />
+export default function Page() {
+  return <InvestmentReportPage />
 }
+
 
