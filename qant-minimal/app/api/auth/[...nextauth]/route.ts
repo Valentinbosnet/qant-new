@@ -10,13 +10,12 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // This is a mock authentication
-        // In a real app, you would verify against your database
-        if (credentials?.email === "user@example.com" && credentials?.password === "password") {
+        // Authentification simplifiée pour le déploiement initial
+        if (credentials?.email && credentials?.password) {
           return {
             id: "1",
             name: "Demo User",
-            email: "user@example.com",
+            email: credentials.email,
           }
         }
         return null
@@ -28,14 +27,6 @@ const handler = NextAuth({
   },
   session: {
     strategy: "jwt",
-  },
-  callbacks: {
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub as string;
-      }
-      return session;
-    },
   },
 })
 
