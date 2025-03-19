@@ -10,16 +10,22 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Désactiver la minification SWC qui peut causer des problèmes
-  swcMinify: false,
-  
   // Configuration pour les routes API
   experimental: {
-    serverComponentsExternalPackages: ['@prisma/client'],
+    serverComponentsExternalPackages: ['nodemailer', '@prisma/client'],
   },
   
   // Forcer le mode de sortie standalone
   output: 'standalone',
+  
+  // Webpack config pour résoudre les problèmes de modules
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Résoudre les problèmes avec certains modules côté serveur
+      config.externals = [...config.externals, 'nodemailer'];
+    }
+    return config;
+  },
 }
 
 export default nextConfig;
