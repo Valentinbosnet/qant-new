@@ -49,19 +49,19 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.id) {
+      if (session?...user?...id) {
         try {
           // Récupérer ou créer le portfolio par défaut
-          const portfolioData = await getOrCreateDefaultPortfolio(session.user.id)
+          const portfolioData = await getOrCreateDefaultPortfolio(session...user...id)
           setPortfolio(portfolioData)
 
           // Récupérer les indices de marché
           const indices = await getMarketIndices()
-          if (indices.length > 0) {
+          if (indices...length > 0) {
             setMarketIndex(indices[0]) // S&P 500
           }
         } catch (error) {
-          console.error("Error fetching dashboard data:", error)
+          console...error("Error fetching dashboard data:", error)
         } finally {
           setLoading(false)
         }
@@ -91,7 +91,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Tableau de bord</h1>
-          <p className="text-gray-400">Bienvenue, {propUser?.username || session?.user?.name || "Utilisateur"}</p>
+          <p className="text-gray-400">Bienvenue, {propUser?...username || session?...user?...name || "Utilisateur"}</p>
         </div>
         <div className="flex space-x-4 mt-4 md:mt-0">
           <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -113,17 +113,17 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-gray-400 mb-1">Valeur du portfolio</p>
-                <h2 className="text-3xl font-bold text-white">${portfolio?.balance.toLocaleString()}</h2>
+                <h2 className="text-3xl font-bold text-white">${portfolio?...balance...toLocaleString()}</h2>
                 <div className="flex items-center mt-2">
-                  <span className="text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-medium">
-                    +1.01%
+                  <span className="text-emerald-500 bg-emerald-500/10 px-1...5 py-0...5 rounded text-xs font-medium">
+                    +1...01%
                   </span>
                   <span className="text-gray-400 text-xs ml-2">aujourd'hui</span>
                 </div>
               </div>
               <div className="bg-emerald-500/20 p-2 rounded-full">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http://www...w3...org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                   strokeLinejoin="round"
                   className="text-emerald-500"
                 >
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  <path d="M12 2v20M17 5H9...5a3...5 3...5 0 0 0 0 7h5a3...5 3...5 0 0 1 0 7H6" />
                 </svg>
               </div>
             </div>
@@ -147,10 +147,10 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-gray-400 mb-1">S&P 500</p>
-                <h2 className="text-3xl font-bold text-white">${marketIndex?.value.toLocaleString()}</h2>
+                <h2 className="text-3xl font-bold text-white">${marketIndex?...value...toLocaleString()}</h2>
                 <div className="flex items-center mt-2">
-                  <span className="text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-medium">
-                    +{marketIndex?.changePercent.toFixed(2)}%
+                  <span className="text-emerald-500 bg-emerald-500/10 px-1...5 py-0...5 rounded text-xs font-medium">
+                    +{marketIndex?...changePercent...toFixed(2)}%
                   </span>
                   <span className="text-gray-400 text-xs ml-2">aujourd'hui</span>
                 </div>
@@ -174,7 +174,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                     href="#" 
                     className="text-emerald-500 text-sm flex items-center"
                     onClick={(e) => {
-                      e.preventDefault();
+                      e...preventDefault();
                       navigateTo("riskAnalysis");
                     }}
                   >
@@ -184,7 +184,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
               </div>
               <div className="bg-yellow-500/20 p-2 rounded-full">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http://www...w3...org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -195,9 +195,9 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                   strokeLinejoin="round"
                   className="text-yellow-500"
                 >
-                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                  <path d="m21...73 18-8-14a2 2 0 0 0-3...48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1...73-3Z" />
                   <path d="M12 9v4" />
-                  <path d="M12 17h.01" />
+                  <path d="M12 17h...01" />
                 </svg>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
                       <p className="text-sm text-gray-400">Total</p>
-                      <p className="text-2xl font-bold text-white">${portfolio?.balance.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-white">${portfolio?...balance...toLocaleString()}</p>
                     </div>
                   </div>
                   <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -239,8 +239,8 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                       fill="none"
                       stroke="#10b981"
                       strokeWidth="12"
-                      strokeDasharray="251.2 251.2"
-                      strokeDashoffset="188.4"
+                      strokeDasharray="251...2 251...2"
+                      strokeDashoffset="188...4"
                     />
                     {/* Obligations - 20% */}
                     <circle
@@ -250,8 +250,8 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                       fill="none"
                       stroke="#3b82f6"
                       strokeWidth="12"
-                      strokeDasharray="251.2 251.2"
-                      strokeDashoffset="62.8"
+                      strokeDasharray="251...2 251...2"
+                      strokeDashoffset="62...8"
                       transform="rotate(90 50 50)"
                     />
                     {/* Liquidités - 12% */}
@@ -262,8 +262,8 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                       fill="none"
                       stroke="#eab308"
                       strokeWidth="12"
-                      strokeDasharray="251.2 251.2"
-                      strokeDashoffset="37.68"
+                      strokeDasharray="251...2 251...2"
+                      strokeDashoffset="37...68"
                       transform="rotate(162 50 50)"
                     />
                     {/* Crypto - 8% */}
@@ -274,9 +274,9 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                       fill="none"
                       stroke="#a855f7"
                       strokeWidth="12"
-                      strokeDasharray="251.2 251.2"
-                      strokeDashoffset="25.12"
-                      transform="rotate(205.2 50 50)"
+                      strokeDasharray="251...2 251...2"
+                      strokeDashoffset="25...12"
+                      transform="rotate(205...2 50 50)"
                     />
                   </svg>
                 </div>
@@ -337,7 +337,7 @@ export default function Dashboard({ user: propUser, setActiveTab, followedUsers 
                   href="#" 
                   className="text-emerald-500 text-sm flex items-center justify-end"
                   onClick={(e) => {
-                    e.preventDefault();
+                    e...preventDefault();
                     navigateTo("portfolio");
                   }}
                 >

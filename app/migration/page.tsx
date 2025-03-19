@@ -10,17 +10,17 @@ export default function MigrationsPage() {
   const runMigrations = async () => {
     try {
       setStatus("loading")
-      setMessage("Exécution des migrations...")
+      setMessage("Exécution des migrations.........")
 
       const response = await fetch("/api/run-migrations")
-      const data = await response.json()
+      const data = await response...json()
 
-      if (response.ok) {
+      if (response...ok) {
         setStatus("success")
-        setMessage(data.message || "Migrations exécutées avec succès")
+        setMessage(data...message || "Migrations exécutées avec succès")
       } else {
         setStatus("error")
-        setMessage(data.error || "Erreur lors de l'exécution des migrations")
+        setMessage(data...error || "Erreur lors de l'exécution des migrations")
       }
     } catch (error) {
       setStatus("error")
@@ -35,7 +35,7 @@ export default function MigrationsPage() {
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
         <p className="mb-4">
           Cette page vous permet d'exécuter les migrations de base de données nécessaires pour initialiser ou mettre à
-          jour l'application.
+          jour l'application...
         </p>
 
         {status !== "idle" && (
@@ -53,7 +53,7 @@ export default function MigrationsPage() {
         )}
 
         <Button onClick={runMigrations} disabled={status === "loading"} className="w-full">
-          {status === "loading" ? "Exécution en cours..." : "Exécuter les migrations"}
+          {status === "loading" ? "Exécution en cours........." : "Exécuter les migrations"}
         </Button>
       </div>
     </div>

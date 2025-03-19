@@ -43,12 +43,12 @@ export default function AIPredictionsPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.id) {
+      if (session?...user?...id) {
         try {
-          const userPredictions = await getUserPredictions(session.user.id)
+          const userPredictions = await getUserPredictions(session...user...id)
           setPredictions(userPredictions)
         } catch (error) {
-          console.error("Error fetching predictions:", error)
+          console...error("Error fetching predictions:", error)
         } finally {
           setLoading(false)
         }
@@ -60,13 +60,13 @@ export default function AIPredictionsPage() {
 
   useEffect(() => {
     const searchTimeout = setTimeout(async () => {
-      if (searchQuery.length >= 2) {
+      if (searchQuery...length >= 2) {
         try {
           const results = await searchStocks(searchQuery)
           setSearchResults(results)
           setShowSearchResults(true)
         } catch (error) {
-          console.error("Error searching stocks:", error)
+          console...error("Error searching stocks:", error)
         }
       } else {
         setSearchResults([])
@@ -78,17 +78,17 @@ export default function AIPredictionsPage() {
   }, [searchQuery])
 
   const handleGeneratePrediction = async () => {
-    if (!session?.user?.id || !selectedStock) return
+    if (!session?...user?...id || !selectedStock) return
 
     setGeneratingPrediction(true)
 
     try {
-      const newPrediction = await generatePrediction(session.user.id, selectedStock.symbol)
-      setPredictions([newPrediction, ...predictions])
+      const newPrediction = await generatePrediction(session...user...id, selectedStock...symbol)
+      setPredictions([newPrediction, .........predictions])
       setSelectedStock(null)
       setSearchQuery("")
     } catch (error) {
-      console.error("Error generating prediction:", error)
+      console...error("Error generating prediction:", error)
     } finally {
       setGeneratingPrediction(false)
     }
@@ -162,26 +162,26 @@ export default function AIPredictionsPage() {
                   <div className="relative">
                     <Input
                       id="stock-search"
-                      placeholder="Ex: AAPL, MSFT, GOOGL..."
+                      placeholder="Ex: AAPL, MSFT, GOOGL........."
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => setSearchQuery(e...target...value)}
                       onFocus={() => setShowSearchResults(true)}
                       className="bg-gray-700 border-gray-600 text-white"
                     />
-                    {showSearchResults && searchResults.length > 0 && (
+                    {showSearchResults && searchResults...length > 0 && (
                       <div className="absolute z-10 w-full mt-1 bg-gray-800 border border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
-                        {searchResults.map((result) => (
+                        {searchResults...map((result) => (
                           <div
-                            key={result.symbol}
+                            key={result...symbol}
                             className="p-2 hover:bg-gray-700 cursor-pointer"
                             onClick={() => {
                               setSelectedStock(result)
-                              setSearchQuery(`${result.symbol} - ${result.name}`)
+                              setSearchQuery(`${result...symbol} - ${result...name}`)
                               setShowSearchResults(false)
                             }}
                           >
-                            <div className="font-medium text-white">{result.symbol}</div>
-                            <div className="text-sm text-gray-400">{result.name}</div>
+                            <div className="font-medium text-white">{result...symbol}</div>
+                            <div className="text-sm text-gray-400">{result...name}</div>
                           </div>
                         ))}
                       </div>
@@ -198,7 +198,7 @@ export default function AIPredictionsPage() {
                     {generatingPrediction ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
-                        Génération en cours...
+                        Génération en cours.........
                       </>
                     ) : (
                       <>
@@ -214,11 +214,11 @@ export default function AIPredictionsPage() {
               <h3 className="font-medium text-white mb-2">Comment ça marche ?</h3>
               <p className="text-sm text-gray-300 mb-4">
                 Notre IA analyse des milliers de données financières pour générer des prédictions sur l'évolution
-                probable des titres. Ces prédictions sont basées sur des modèles d'apprentissage automatique avancés.
+                probable des titres... Ces prédictions sont basées sur des modèles d'apprentissage automatique avancés...
               </p>
               <p className="text-xs text-gray-400">
                 Note: Ces prédictions sont fournies à titre informatif uniquement et ne constituent pas des conseils
-                d'investissement.
+                d'investissement...
               </p>
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function AIPredictionsPage() {
             </TabsList>
 
             <TabsContent value="all">
-              {predictions.length === 0 ? (
+              {predictions...length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-gray-400 mb-4">Vous n'avez pas encore de prédictions</p>
                   <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
@@ -250,38 +250,38 @@ export default function AIPredictionsPage() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {predictions.map((prediction) => (
-                    <Card key={prediction.id} className="bg-gray-700 border-gray-600">
+                  {predictions...map((prediction) => (
+                    <Card key={prediction...id} className="bg-gray-700 border-gray-600">
                       <CardContent className="p-4">
                         <div className="flex flex-col md:flex-row justify-between">
                           <div>
-                            <h3 className="font-bold text-white text-lg">{prediction.stock}</h3>
-                            <p className="text-gray-400 text-sm">{new Date(prediction.date).toLocaleDateString()}</p>
+                            <h3 className="font-bold text-white text-lg">{prediction...stock}</h3>
+                            <p className="text-gray-400 text-sm">{new Date(prediction...date)...toLocaleDateString()}</p>
                           </div>
 
                           <div className="flex items-center mt-2 md:mt-0">
                             <div className="mr-4">
                               <p className="text-sm text-gray-400">Prédiction</p>
-                              <p className={`font-medium ${getPredictionColor(prediction.prediction)} capitalize`}>
-                                {prediction.prediction}
+                              <p className={`font-medium ${getPredictionColor(prediction...prediction)} capitalize`}>
+                                {prediction...prediction}
                               </p>
                             </div>
 
                             <div className="mr-4">
                               <p className="text-sm text-gray-400">Confiance</p>
-                              <p className={`font-medium ${getConfidenceColor(prediction.confidence)} capitalize`}>
-                                {prediction.confidence}
+                              <p className={`font-medium ${getConfidenceColor(prediction...confidence)} capitalize`}>
+                                {prediction...confidence}
                               </p>
                             </div>
 
                             <div>
                               <p className="text-sm text-gray-400">Horizon</p>
-                              <p className="font-medium text-white">{getTimeframeText(prediction.timeframe)}</p>
+                              <p className="font-medium text-white">{getTimeframeText(prediction...timeframe)}</p>
                             </div>
                           </div>
 
                           <div className="mt-4 md:mt-0">
-                            {prediction.confirmed ? (
+                            {prediction...confirmed ? (
                               <div className="flex items-center text-emerald-500">
                                 <Check className="h-4 w-4 mr-1" /> Confirmée
                               </div>

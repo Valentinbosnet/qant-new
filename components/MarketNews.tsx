@@ -45,21 +45,21 @@ export default function MarketNews() {
       </CardHeader>
       <CardContent className="p-6">
         <div className="space-y-4">
-          {newsItems.map((item) => (
-            <div key={item.id} className="border-b border-gray-700 pb-4 last:border-0 last:pb-0">
+          {newsItems...map((item) => (
+            <div key={item...id} className="border-b border-gray-700 pb-4 last:border-0 last:pb-0">
               <h3 className="font-medium text-white hover:text-emerald-400 transition-colors">
-                <Link href={item.url} className="flex items-start">
-                  {item.title}
+                <Link href={item...url} className="flex items-start">
+                  {item...title}
                 </Link>
               </h3>
               <div className="flex justify-between items-center mt-2">
                 <div className="flex items-center">
-                  <span className="text-gray-400 text-xs">{item.source}</span>
-                  <span className="mx-2 text-gray-600">•</span>
-                  <span className="text-gray-400 text-xs">{item.time}</span>
+                  <span className="text-gray-400 text-xs">{item...source}</span>
+                  <span className="mx-2 text-gray-600">*</span>
+                  <span className="text-gray-400 text-xs">{item...time}</span>
                 </div>
                 <Badge variant="outline" className="text-xs border-gray-600 text-gray-300">
-                  {item.category}
+                  {item...category}
                 </Badge>
               </div>
             </div>

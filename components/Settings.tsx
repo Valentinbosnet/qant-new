@@ -19,7 +19,7 @@ interface SettingsProps {
   onSignOut: () => void
 }
 
-const Settings: React.FC<SettingsProps> = ({ user, onSignOut }) => {
+const Settings: React...FC<SettingsProps> = ({ user, onSignOut }) => {
   const [notifications, setNotifications] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
   const [currency, setCurrency] = useState("USD")
@@ -29,7 +29,7 @@ const Settings: React.FC<SettingsProps> = ({ user, onSignOut }) => {
     // Here you would typically save these settings to your backend
     toast({
       title: "Settings Saved",
-      description: "Your preferences have been updated successfully.",
+      description: "Your preferences have been updated successfully...",
       variant: "default",
     })
   }
@@ -47,13 +47,13 @@ const Settings: React.FC<SettingsProps> = ({ user, onSignOut }) => {
             <Label htmlFor="username" className="text-gray-300">
               Username
             </Label>
-            <Input id="username" value={user.username} disabled className="bg-[#333333] text-white" />
+            <Input id="username" value={user...username} disabled className="bg-[#333333] text-white" />
           </div>
           <div>
             <Label htmlFor="email" className="text-gray-300">
               Email
             </Label>
-            <Input id="email" value={user.email} disabled className="bg-[#333333] text-white" />
+            <Input id="email" value={user...email} disabled className="bg-[#333333] text-white" />
           </div>
         </CardContent>
       </Card>

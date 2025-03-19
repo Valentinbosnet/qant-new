@@ -30,13 +30,13 @@ export default function RiskAnalysisPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.id) {
+      if (session?...user?...id) {
         try {
           // Récupérer ou créer le portfolio par défaut
-          const portfolioData = await getOrCreateDefaultPortfolio(session.user.id)
+          const portfolioData = await getOrCreateDefaultPortfolio(session...user...id)
           setPortfolio(portfolioData)
         } catch (error) {
-          console.error("Error fetching portfolio data:", error)
+          console...error("Error fetching portfolio data:", error)
         } finally {
           setLoading(false)
         }
@@ -96,10 +96,10 @@ export default function RiskAnalysisPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-gray-400 mb-1">Volatilité</p>
-                <h2 className="text-3xl font-bold text-white">15.8%</h2>
+                <h2 className="text-3xl font-bold text-white">15...8%</h2>
                 <div className="flex items-center mt-2">
-                  <span className="text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-medium">
-                    -2.3%
+                  <span className="text-emerald-500 bg-emerald-500/10 px-1...5 py-0...5 rounded text-xs font-medium">
+                    -2...3%
                   </span>
                   <span className="text-gray-400 text-xs ml-2">vs marché</span>
                 </div>
@@ -188,22 +188,22 @@ export default function RiskAnalysisPage() {
                 <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-md">
                   <h3 className="font-medium text-yellow-500 mb-1">Diversifiez davantage</h3>
                   <p className="text-sm text-gray-300">
-                    Votre portfolio est concentré dans le secteur technologique. Envisagez d'ajouter des actifs d'autres
-                    secteurs.
+                    Votre portfolio est concentré dans le secteur technologique... Envisagez d'ajouter des actifs d'autres
+                    secteurs...
                   </p>
                 </div>
 
                 <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-md">
                   <h3 className="font-medium text-emerald-500 mb-1">Bon équilibre d'actifs</h3>
                   <p className="text-sm text-gray-300">
-                    Votre répartition entre actions, obligations et liquidités est bien équilibrée.
+                    Votre répartition entre actions, obligations et liquidités est bien équilibrée...
                   </p>
                 </div>
 
                 <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-md">
                   <h3 className="font-medium text-blue-500 mb-1">Considérez des ETF</h3>
                   <p className="text-sm text-gray-300">
-                    Les ETF pourraient vous aider à diversifier davantage votre portfolio à moindre coût.
+                    Les ETF pourraient vous aider à diversifier davantage votre portfolio à moindre coût...
                   </p>
                 </div>
               </div>
@@ -235,10 +235,10 @@ export default function RiskAnalysisPage() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <span className="text-gray-300">Perte potentielle</span>
-                        <span className="text-red-500">-28.5%</span>
+                        <span className="text-red-500">-28...5%</span>
                       </div>
-                      <Progress value={28.5} className="h-2 bg-gray-700">
-                        <div className="h-full bg-red-500 rounded-full" style={{ width: "28.5%" }}></div>
+                      <Progress value={28...5} className="h-2 bg-gray-700">
+                        <div className="h-full bg-red-500 rounded-full" style={{ width: "28...5%" }}></div>
                       </Progress>
                     </div>
 
@@ -275,21 +275,21 @@ export default function RiskAnalysisPage() {
                     <div className="p-3 bg-gray-700 rounded-md">
                       <h4 className="font-medium text-white mb-1">Augmenter les liquidités</h4>
                       <p className="text-sm text-gray-300">
-                        Maintenir 20-25% de votre portfolio en liquidités pour saisir les opportunités après une chute.
+                        Maintenir 20-25% de votre portfolio en liquidités pour saisir les opportunités après une chute...
                       </p>
                     </div>
 
                     <div className="p-3 bg-gray-700 rounded-md">
                       <h4 className="font-medium text-white mb-1">Diversifier géographiquement</h4>
                       <p className="text-sm text-gray-300">
-                        Répartir vos investissements sur différents marchés pour réduire l'impact d'un krach régional.
+                        Répartir vos investissements sur différents marchés pour réduire l'impact d'un krach régional...
                       </p>
                     </div>
 
                     <div className="p-3 bg-gray-700 rounded-md">
                       <h4 className="font-medium text-white mb-1">Considérer des actifs refuge</h4>
                       <p className="text-sm text-gray-300">
-                        L'or et certaines obligations d'État peuvent offrir une protection en période de turbulences.
+                        L'or et certaines obligations d'État peuvent offrir une protection en période de turbulences...
                       </p>
                     </div>
                   </div>

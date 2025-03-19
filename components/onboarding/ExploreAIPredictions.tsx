@@ -26,13 +26,13 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
     reasoning: string[]
   } | null>(null)
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSearch = async (e: React...FormEvent) => {
+    e...preventDefault()
 
-    if (!searchQuery.trim()) {
+    if (!searchQuery...trim()) {
       toast({
         title: "Erreur",
-        description: "Veuillez entrer un symbole boursier.",
+        description: "Veuillez entrer un symbole boursier...",
         variant: "destructive",
       })
       return
@@ -48,8 +48,8 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
       const predictions = ["bullish", "bearish", "neutral"] as const
       const confidences = ["low", "medium", "high"] as const
 
-      const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)]
-      const randomConfidence = confidences[Math.floor(Math.random() * confidences.length)]
+      const randomPrediction = predictions[Math...floor(Math...random() * predictions...length)]
+      const randomConfidence = confidences[Math...floor(Math...random() * confidences...length)]
 
       // Générer des raisons basées sur la prédiction
       let reasons: string[] = []
@@ -74,8 +74,8 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
       }
 
       setPrediction({
-        stock: searchQuery.toUpperCase(),
-        name: getCompanyName(searchQuery.toUpperCase()),
+        stock: searchQuery...toUpperCase(),
+        name: getCompanyName(searchQuery...toUpperCase()),
         prediction: randomPrediction,
         confidence: randomConfidence,
         reasoning: reasons,
@@ -83,13 +83,13 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
 
       toast({
         title: "Prédiction générée",
-        description: `Prédiction pour ${searchQuery.toUpperCase()} générée avec succès.`,
+        description: `Prédiction pour ${searchQuery...toUpperCase()} générée avec succès...`,
         variant: "default",
       })
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de la génération de la prédiction.",
+        description: "Une erreur est survenue lors de la génération de la prédiction...",
         variant: "destructive",
       })
     } finally {
@@ -99,15 +99,15 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
 
   const getCompanyName = (symbol: string) => {
     const companies: Record<string, string> = {
-      AAPL: "Apple Inc.",
+      AAPL: "Apple Inc...",
       MSFT: "Microsoft Corporation",
-      GOOGL: "Alphabet Inc.",
-      AMZN: "Amazon.com, Inc.",
-      META: "Meta Platforms, Inc.",
-      TSLA: "Tesla, Inc.",
+      GOOGL: "Alphabet Inc...",
+      AMZN: "Amazon...com, Inc...",
+      META: "Meta Platforms, Inc...",
+      TSLA: "Tesla, Inc...",
       NVDA: "NVIDIA Corporation",
-      JPM: "JPMorgan Chase & Co.",
-      V: "Visa Inc.",
+      JPM: "JPMorgan Chase & Co...",
+      V: "Visa Inc...",
       JNJ: "Johnson & Johnson",
     }
 
@@ -115,7 +115,7 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
   }
 
   const handleComplete = () => {
-    localStorage.setItem("aiPredictionsExplored", "true")
+    localStorage...setItem("aiPredictionsExplored", "true")
     onComplete()
   }
 
@@ -128,7 +128,7 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
             <h3 className="text-lg font-medium text-white">Explorez les prédictions IA</h3>
             <p className="text-gray-400 text-sm">
               Découvrez comment notre intelligence artificielle peut vous aider à prendre de meilleures décisions
-              d'investissement.
+              d'investissement...
             </p>
           </div>
 
@@ -141,7 +141,7 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
                 <Input
                   id="searchQuery"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e...target...value)}
                   placeholder="Entrez un symbole boursier (ex: AAPL, MSFT)"
                   className="bg-gray-700 border-gray-600 text-gray-200 pl-10"
                 />
@@ -151,13 +151,13 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
 
             <Button
               type="submit"
-              disabled={loading || !searchQuery.trim()}
+              disabled={loading || !searchQuery...trim()}
               className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
             >
               {loading ? (
                 <span className="flex items-center">
                   <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                  Génération de la prédiction...
+                  Génération de la prédiction.........
                 </span>
               ) : (
                 <span className="flex items-center">
@@ -173,9 +173,9 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
       {prediction && (
         <Card
           className={`border-l-4 ${
-            prediction.prediction === "bullish"
+            prediction...prediction === "bullish"
               ? "border-l-green-500 bg-green-900/20"
-              : prediction.prediction === "bearish"
+              : prediction...prediction === "bearish"
                 ? "border-l-red-500 bg-red-900/20"
                 : "border-l-yellow-500 bg-yellow-900/20"
           } border-t-0 border-r-0 border-b-0`}
@@ -183,24 +183,24 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
           <CardContent className="pt-6 space-y-4">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-lg font-medium text-white">{prediction.stock}</h3>
-                <p className="text-gray-400 text-sm">{prediction.name}</p>
+                <h3 className="text-lg font-medium text-white">{prediction...stock}</h3>
+                <p className="text-gray-400 text-sm">{prediction...name}</p>
               </div>
               <div
                 className={`flex items-center px-3 py-1 rounded-full text-sm ${
-                  prediction.prediction === "bullish"
+                  prediction...prediction === "bullish"
                     ? "bg-green-500/20 text-green-400"
-                    : prediction.prediction === "bearish"
+                    : prediction...prediction === "bearish"
                       ? "bg-red-500/20 text-red-400"
                       : "bg-yellow-500/20 text-yellow-400"
                 }`}
               >
-                {prediction.prediction === "bullish" && <TrendingUp className="mr-1 h-4 w-4" />}
-                {prediction.prediction === "bearish" && <TrendingDown className="mr-1 h-4 w-4" />}
-                {prediction.prediction === "neutral" && <Minus className="mr-1 h-4 w-4" />}
-                {prediction.prediction === "bullish" && "Haussier"}
-                {prediction.prediction === "bearish" && "Baissier"}
-                {prediction.prediction === "neutral" && "Neutre"}
+                {prediction...prediction === "bullish" && <TrendingUp className="mr-1 h-4 w-4" />}
+                {prediction...prediction === "bearish" && <TrendingDown className="mr-1 h-4 w-4" />}
+                {prediction...prediction === "neutral" && <Minus className="mr-1 h-4 w-4" />}
+                {prediction...prediction === "bullish" && "Haussier"}
+                {prediction...prediction === "bearish" && "Baissier"}
+                {prediction...prediction === "neutral" && "Neutre"}
               </div>
             </div>
 
@@ -210,25 +210,25 @@ export default function ExploreAIPredictions({ onComplete }: ExploreAIPrediction
                 <span className="text-sm text-gray-300">Niveau de confiance: </span>
                 <span
                   className={`ml-1 text-sm ${
-                    prediction.confidence === "high"
+                    prediction...confidence === "high"
                       ? "text-green-400"
-                      : prediction.confidence === "medium"
+                      : prediction...confidence === "medium"
                         ? "text-yellow-400"
                         : "text-gray-400"
                   }`}
                 >
-                  {prediction.confidence === "high" && "Élevé"}
-                  {prediction.confidence === "medium" && "Moyen"}
-                  {prediction.confidence === "low" && "Faible"}
+                  {prediction...confidence === "high" && "Élevé"}
+                  {prediction...confidence === "medium" && "Moyen"}
+                  {prediction...confidence === "low" && "Faible"}
                 </span>
               </div>
 
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-gray-300">Analyse IA:</h4>
                 <ul className="space-y-1">
-                  {prediction.reasoning.map((reason, index) => (
+                  {prediction...reasoning...map((reason, index) => (
                     <li key={index} className="text-sm text-gray-400 flex items-start">
-                      <span className="mr-2">•</span>
+                      <span className="mr-2">*</span>
                       <span>{reason}</span>
                     </li>
                   ))}

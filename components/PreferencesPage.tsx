@@ -20,7 +20,7 @@ interface PreferencesPageProps {
   }
 }
 
-const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignOut, user }) => {
+const PreferencesPage: React...FC<PreferencesPageProps> = ({ setActiveTab, onSignOut, user }) => {
   const [darkMode, setDarkMode] = useState(true)
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(true)
@@ -28,13 +28,13 @@ const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignO
 
   // Load saved settings from localStorage on mount
   useEffect(() => {
-    const savedSettings = localStorage.getItem("userSettings")
+    const savedSettings = localStorage...getItem("userSettings")
     if (savedSettings) {
-      const settings = JSON.parse(savedSettings)
-      setDarkMode(settings.darkMode)
-      setEmailNotifications(settings.emailNotifications)
-      setPushNotifications(settings.pushNotifications)
-      setRiskTolerance(settings.riskTolerance)
+      const settings = JSON...parse(savedSettings)
+      setDarkMode(settings...darkMode)
+      setEmailNotifications(settings...emailNotifications)
+      setPushNotifications(settings...pushNotifications)
+      setRiskTolerance(settings...riskTolerance)
     }
   }, [])
 
@@ -46,17 +46,17 @@ const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignO
       pushNotifications,
       riskTolerance,
     }
-    localStorage.setItem("userSettings", JSON.stringify(settings))
+    localStorage...setItem("userSettings", JSON...stringify(settings))
   }, [darkMode, emailNotifications, pushNotifications, riskTolerance])
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode)
     // Here you would typically update the app-wide theme
-    // For example: document.documentElement.classList.toggle('dark')
+    // For example: document...documentElement...classList...toggle('dark')
   }
 
-  const handleRiskToleranceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRiskTolerance(e.target.value)
+  const handleRiskToleranceChange = (e: React...ChangeEvent<HTMLSelectElement>) => {
+    setRiskTolerance(e...target...value)
   }
 
   const handleSaveSettings = () => {
@@ -67,18 +67,18 @@ const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignO
       pushNotifications,
       riskTolerance,
     }
-    localStorage.setItem("userSettings", JSON.stringify(settings))
+    localStorage...setItem("userSettings", JSON...stringify(settings))
 
     // Apply dark mode to the document
     if (darkMode) {
-      document.documentElement.classList.add("dark")
+      document...documentElement...classList...add("dark")
     } else {
-      document.documentElement.classList.remove("dark")
+      document...documentElement...classList...remove("dark")
     }
 
     toast({
       title: "Settings Saved",
-      description: "Your preferences have been updated successfully.",
+      description: "Your preferences have been updated successfully...",
       variant: "default",
     })
   }
@@ -103,7 +103,7 @@ const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignO
                   </Label>
                   <Input
                     id="username"
-                    value={user.username}
+                    value={user...username}
                     disabled
                     className="mt-1 bg-[#333333] border-gray-700 text-white"
                   />
@@ -114,7 +114,7 @@ const PreferencesPage: React.FC<PreferencesPageProps> = ({ setActiveTab, onSignO
                   </Label>
                   <Input
                     id="email"
-                    value={user.email}
+                    value={user...email}
                     disabled
                     className="mt-1 bg-[#333333] border-gray-700 text-white"
                   />

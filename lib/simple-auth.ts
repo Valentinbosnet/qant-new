@@ -9,12 +9,12 @@ export async function getSimpleSession(req: NextRequest) {
     user: {
       id: "mock-user-id",
       name: "Mock User",
-      email: "mock@example.com",
+      email: "mock@example...com",
     },
   }
 }
 
 export function unauthorized() {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  return NextResponse...json({ error: "Unauthorized" }, { status: 401 })
 }
 

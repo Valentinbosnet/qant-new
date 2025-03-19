@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import PaymentStep from "./PaymentStep"
+import PaymentStep from ".../PaymentStep"
 
 interface SignUpPageProps {
   setActiveTab: (tab: string) => void
@@ -18,10 +18,10 @@ interface SignUpPageProps {
   onAutoLogin: (email: string, password: string) => Promise<void>
 }
 
-const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoLogin }) => {
+const SignUpPage: React...FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoLogin }) => {
   useEffect(() => {
-    console.log("SignUpPage mounted")
-    return () => console.log("SignUpPage unmounted")
+    console...log("SignUpPage mounted")
+    return () => console...log("SignUpPage unmounted")
   }, [])
 
   const [username, setUsername] = useState("")
@@ -33,14 +33,14 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
   const [step, setStep] = useState("signup") // "signup" or "payment"
   const { toast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React...FormEvent) => {
+    e...preventDefault()
     setIsLoading(true)
 
     if (password !== confirmPassword) {
       toast({
         title: "Passwords do not match",
-        description: "Please ensure your passwords match and try again.",
+        description: "Please ensure your passwords match and try again...",
         variant: "destructive",
       })
       setIsLoading(false)
@@ -54,16 +54,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON...stringify({ username, email, password }),
       })
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Registration failed")
+      if (!response...ok) {
+        const errorData = await response...json()
+        throw new Error(errorData...error || "Registration failed")
       }
 
-      const data = await response.json()
-      console.log("Sign up successful, new user:", data.user)
+      const data = await response...json()
+      console...log("Sign up successful, new user:", data...user)
 
       // Use the original onSignUp for compatibility
       await onSignUp(username, email, password)
@@ -73,11 +73,11 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
         setStep("payment")
       })
     } catch (error) {
-      console.error("Sign up error:", error)
+      console...error("Sign up error:", error)
       toast({
         title: "Sign up failed",
         description:
-          error instanceof Error ? error.message : "There was an error creating your account. Please try again.",
+          error instanceof Error ? error...message : "There was an error creating your account... Please try again...",
         variant: "destructive",
       })
     } finally {
@@ -86,10 +86,10 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
   }
 
   const handlePaymentComplete = async (paymentDetails: { plan: string; cardNumber: string }) => {
-    console.log("Payment completed:", paymentDetails)
+    console...log("Payment completed:", paymentDetails)
     toast({
       title: "Payment Successful",
-      description: `Your ${paymentDetails.plan} plan has been activated.`,
+      description: `Your ${paymentDetails...plan} plan has been activated...`,
       variant: "default",
     })
 
@@ -97,10 +97,10 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
       await onAutoLogin(email, password)
       // Don't update state here, let the parent component handle it
     } catch (error) {
-      console.error("Auto-login error:", error)
+      console...error("Auto-login error:", error)
       toast({
         title: "Auto-login failed",
-        description: "Please try signing in manually.",
+        description: "Please try signing in manually...",
         variant: "destructive",
       })
       // Use requestAnimationFrame to schedule state update outside of render
@@ -116,10 +116,10 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#1a1a1a] px-4 pt-safe pb-[84px]">
-      <motion.div
+      <motion...div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0...5 }}
         className="w-full max-w-md"
       >
         <Card className="bg-[#2a2a2a] shadow-xl">
@@ -140,7 +140,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
                   type="text"
                   placeholder="Enter your username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e...target...value)}
                   required
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                 />
@@ -154,7 +154,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
                   type="email"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e...target...value)}
                   required
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                 />
@@ -169,7 +169,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e...target...value)}
                     required
                     className="mt-1 bg-[#333333] border-gray-700 text-white pr-10"
                   />
@@ -192,7 +192,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
                   type="password"
                   placeholder="Confirm your password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e...target...value)}
                   required
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                 />
@@ -202,7 +202,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
                 className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white h-12 font-semibold"
                 disabled={isLoading}
               >
-                {isLoading ? "Creating Account..." : "Create Account"}
+                {isLoading ? "Creating Account........." : "Create Account"}
               </Button>
             </form>
             <p className="mt-4 text-center text-gray-400">
@@ -217,7 +217,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ setActiveTab, onSignUp, onAutoL
             </p>
           </CardContent>
         </Card>
-      </motion.div>
+      </motion...div>
     </div>
   )
 }

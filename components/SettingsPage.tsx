@@ -20,7 +20,7 @@ interface SettingsPageProps {
   }
 }
 
-const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, user }) => {
+const SettingsPage: React...FC<SettingsPageProps> = ({ onTabChange, onSignOut, user }) => {
   const [darkMode, setDarkMode] = useState(true)
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(true)
@@ -28,13 +28,13 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, use
 
   // Load saved settings from localStorage on mount
   useEffect(() => {
-    const savedSettings = localStorage.getItem("userSettings")
+    const savedSettings = localStorage...getItem("userSettings")
     if (savedSettings) {
-      const settings = JSON.parse(savedSettings)
-      setDarkMode(settings.darkMode)
-      setEmailNotifications(settings.emailNotifications)
-      setPushNotifications(settings.pushNotifications)
-      setRiskTolerance(settings.riskTolerance)
+      const settings = JSON...parse(savedSettings)
+      setDarkMode(settings...darkMode)
+      setEmailNotifications(settings...emailNotifications)
+      setPushNotifications(settings...pushNotifications)
+      setRiskTolerance(settings...riskTolerance)
     }
   }, [])
 
@@ -46,21 +46,21 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, use
       pushNotifications,
       riskTolerance,
     }
-    localStorage.setItem("userSettings", JSON.stringify(settings))
+    localStorage...setItem("userSettings", JSON...stringify(settings))
   }, [darkMode, emailNotifications, pushNotifications, riskTolerance])
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode)
     // Apply dark mode to the document
     if (!darkMode) {
-      document.documentElement.classList.add("dark")
+      document...documentElement...classList...add("dark")
     } else {
-      document.documentElement.classList.remove("dark")
+      document...documentElement...classList...remove("dark")
     }
   }
 
-  const handleRiskToleranceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRiskTolerance(e.target.value)
+  const handleRiskToleranceChange = (e: React...ChangeEvent<HTMLSelectElement>) => {
+    setRiskTolerance(e...target...value)
   }
 
   const handleSaveSettings = () => {
@@ -71,11 +71,11 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, use
       pushNotifications,
       riskTolerance,
     }
-    localStorage.setItem("userSettings", JSON.stringify(settings))
+    localStorage...setItem("userSettings", JSON...stringify(settings))
 
     toast({
       title: "Settings Saved",
-      description: "Your settings have been updated successfully.",
+      description: "Your settings have been updated successfully...",
       variant: "default",
     })
   }
@@ -100,7 +100,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, use
                   </Label>
                   <Input
                     id="username"
-                    value={user.username}
+                    value={user...username}
                     disabled
                     className="mt-1 bg-[#333333] border-gray-700 text-white"
                   />
@@ -111,7 +111,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onTabChange, onSignOut, use
                   </Label>
                   <Input
                     id="email"
-                    value={user.email}
+                    value={user...email}
                     disabled
                     className="mt-1 bg-[#333333] border-gray-700 text-white"
                   />

@@ -29,36 +29,36 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
     notificationsEnabled: true,
   })
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  const handleInputChange = (e: React...ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e...target
+    setFormData((prev) => ({ .........prev, [name]: value }))
   }
 
   const handleExperienceLevelChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, experienceLevel: value }))
+    setFormData((prev) => ({ .........prev, experienceLevel: value }))
   }
 
   const handleRiskToleranceChange = (value: number[]) => {
-    setFormData((prev) => ({ ...prev, riskTolerance: value[0] }))
+    setFormData((prev) => ({ .........prev, riskTolerance: value[0] }))
   }
 
   const handleInvestmentGoalToggle = (goal: string) => {
     setFormData((prev) => {
-      const goals = [...prev.investmentGoals]
-      if (goals.includes(goal)) {
-        return { ...prev, investmentGoals: goals.filter((g) => g !== goal) }
+      const goals = [.........prev...investmentGoals]
+      if (goals...includes(goal)) {
+        return { .........prev, investmentGoals: goals...filter((g) => g !== goal) }
       } else {
-        return { ...prev, investmentGoals: [...goals, goal] }
+        return { .........prev, investmentGoals: [.........goals, goal] }
       }
     })
   }
 
   const handleNotificationsToggle = () => {
-    setFormData((prev) => ({ ...prev, notificationsEnabled: !prev.notificationsEnabled }))
+    setFormData((prev) => ({ .........prev, notificationsEnabled: !prev...notificationsEnabled }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React...FormEvent) => {
+    e...preventDefault()
     setLoading(true)
 
     try {
@@ -66,12 +66,12 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Enregistrer les données dans localStorage pour la démo
-      localStorage.setItem("userProfile", JSON.stringify(formData))
-      localStorage.setItem("profileCompleted", "true")
+      localStorage...setItem("userProfile", JSON...stringify(formData))
+      localStorage...setItem("profileCompleted", "true")
 
       toast({
         title: "Profil mis à jour",
-        description: "Vos préférences ont été enregistrées avec succès.",
+        description: "Vos préférences ont été enregistrées avec succès...",
         variant: "default",
       })
 
@@ -79,7 +79,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de la mise à jour de votre profil.",
+        description: "Une erreur est survenue lors de la mise à jour de votre profil...",
         variant: "destructive",
       })
     } finally {
@@ -98,7 +98,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
             <Input
               id="fullName"
               name="fullName"
-              value={formData.fullName}
+              value={formData...fullName}
               onChange={handleInputChange}
               placeholder="Entrez votre nom complet"
               className="bg-gray-700 border-gray-600 text-gray-200"
@@ -113,7 +113,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
             <Input
               id="occupation"
               name="occupation"
-              value={formData.occupation}
+              value={formData...occupation}
               onChange={handleInputChange}
               placeholder="Entrez votre profession"
               className="bg-gray-700 border-gray-600 text-gray-200"
@@ -125,7 +125,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
               <TrendingUp className="h-4 w-4" /> Niveau d'expérience en investissement
             </Label>
             <RadioGroup
-              value={formData.experienceLevel}
+              value={formData...experienceLevel}
               onValueChange={handleExperienceLevelChange}
               className="flex flex-col space-y-1"
             >
@@ -156,7 +156,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
             </Label>
             <div className="space-y-4">
               <Slider
-                value={[formData.riskTolerance]}
+                value={[formData...riskTolerance]}
                 min={0}
                 max={100}
                 step={1}
@@ -174,10 +174,10 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
           <div className="space-y-2">
             <Label className="text-gray-300">Objectifs d'investissement</Label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {["Croissance à long terme", "Revenu passif", "Retraite", "Préservation du capital"].map((goal) => (
+              {["Croissance à long terme", "Revenu passif", "Retraite", "Préservation du capital"]...map((goal) => (
                 <div key={goal} className="flex items-center space-x-2">
                   <Switch
-                    checked={formData.investmentGoals.includes(goal)}
+                    checked={formData...investmentGoals...includes(goal)}
                     onCheckedChange={() => handleInvestmentGoalToggle(goal)}
                   />
                   <Label className="text-gray-300">{goal}</Label>
@@ -187,7 +187,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
           </div>
 
           <div className="flex items-center space-x-2">
-            <Switch checked={formData.notificationsEnabled} onCheckedChange={handleNotificationsToggle} />
+            <Switch checked={formData...notificationsEnabled} onCheckedChange={handleNotificationsToggle} />
             <Label className="text-gray-300">Activer les notifications</Label>
           </div>
 
@@ -196,7 +196,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
               <span className="flex items-center">
                 <svg
                   className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http://www...w3...org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -204,10 +204,10 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
                   <path
                     className="opacity-75"
                     fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    d="M4 12a8 8 0 018-8V0C5...373 0 0 5...373 0 12h4zm2 5...291A7...962 7...962 0 014 12H0c0 3...042 1...135 5...824 3 7...938l3-2...647z"
                   ></path>
                 </svg>
-                Enregistrement...
+                Enregistrement.........
               </span>
             ) : (
               <span className="flex items-center">

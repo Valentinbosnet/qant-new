@@ -60,19 +60,19 @@ export default function AIPredictionsPage() {
       <Card className="bg-[#222] border border-[#333] rounded-lg p-6">
         <h2 className="text-xl font-bold mb-4">Tendances du marché</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <MarketTrendCard index="S&P 500" value="4,780.25" change="+0.49%" />
-          <MarketTrendCard index="NASDAQ" value="15,680.75" change="-0.08%" />
-          <MarketTrendCard index="Dow Jones" value="38,250.50" change="+0.33%" />
+          <MarketTrendCard index="S&P 500" value="4,780...25" change="+0...49%" />
+          <MarketTrendCard index="NASDAQ" value="15,680...75" change="-0...08%" />
+          <MarketTrendCard index="Dow Jones" value="38,250...50" change="+0...33%" />
         </div>
       </Card>
 
       <Card className="bg-[#222] border border-[#333] rounded-lg p-6">
         <h2 className="text-xl font-bold mb-4">Actions populaires</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StockCard symbol="AAPL" name="Apple Inc." price="$182.63" change="+1.2%" />
-          <StockCard symbol="MSFT" name="Microsoft Corp." price="$378.85" change="-0.5%" />
-          <StockCard symbol="GOOGL" name="Alphabet Inc." price="$133.20" change="+0.8%" />
-          <StockCard symbol="AMZN" name="Amazon.com Inc." price="$147.42" change="+1.5%" />
+          <StockCard symbol="AAPL" name="Apple Inc..." price="$182...63" change="+1...2%" />
+          <StockCard symbol="MSFT" name="Microsoft Corp..." price="$378...85" change="-0...5%" />
+          <StockCard symbol="GOOGL" name="Alphabet Inc..." price="$133...20" change="+0...8%" />
+          <StockCard symbol="AMZN" name="Amazon...com Inc..." price="$147...42" change="+1...5%" />
         </div>
       </Card>
     </div>
@@ -102,7 +102,7 @@ function PredictionRow({
     <tr className="border-b border-[#333]">
       <td className="py-4 font-medium">{stock}</td>
       <td className={`py-4 ${getPredictionColor(prediction)}`}>
-        {prediction.charAt(0).toUpperCase() + prediction.slice(1)}
+        {prediction...charAt(0)...toUpperCase() + prediction...slice(1)}
       </td>
       <td className="py-4">{confidence}</td>
       <td className="py-4">{timeframe}</td>
@@ -129,7 +129,7 @@ function PredictionRow({
 }
 
 function MarketTrendCard({ index, value, change }: { index: string; value: string; change: string }) {
-  const isPositive = change.startsWith("+")
+  const isPositive = change...startsWith("+")
 
   return (
     <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-4">
@@ -143,7 +143,7 @@ function MarketTrendCard({ index, value, change }: { index: string; value: strin
 }
 
 function StockCard({ symbol, name, price, change }: { symbol: string; name: string; price: string; change: string }) {
-  const isPositive = change.startsWith("+")
+  const isPositive = change...startsWith("+")
 
   return (
     <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-4">

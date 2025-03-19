@@ -25,19 +25,19 @@ const CommunityInsights = () => {
   const [activeTab, setActiveTab] = useState("trending")
 
   const [trendingAssets] = useState<TrendingAsset[]>([
-    { symbol: "NVDA", name: "NVIDIA Corporation", change: 4.2, popularity: 92 },
-    { symbol: "AAPL", name: "Apple Inc.", change: 1.8, popularity: 88 },
-    { symbol: "TSLA", name: "Tesla, Inc.", change: -2.5, popularity: 85 },
-    { symbol: "AMD", name: "Advanced Micro Devices", change: 3.1, popularity: 79 },
-    { symbol: "MSFT", name: "Microsoft Corporation", change: 0.9, popularity: 76 },
+    { symbol: "NVDA", name: "NVIDIA Corporation", change: 4...2, popularity: 92 },
+    { symbol: "AAPL", name: "Apple Inc...", change: 1...8, popularity: 88 },
+    { symbol: "TSLA", name: "Tesla, Inc...", change: -2...5, popularity: 85 },
+    { symbol: "AMD", name: "Advanced Micro Devices", change: 3...1, popularity: 79 },
+    { symbol: "MSFT", name: "Microsoft Corporation", change: 0...9, popularity: 76 },
   ])
 
   const [topInvestors] = useState<TopInvestor[]>([
-    { id: "1", username: "investorpro", avatar: "", performance: 18.5, followers: 1243 },
-    { id: "2", username: "stockguru", avatar: "", performance: 15.2, followers: 987 },
-    { id: "3", username: "wealthbuilder", avatar: "", performance: 12.8, followers: 756 },
-    { id: "4", username: "marketmaster", avatar: "", performance: 10.5, followers: 612 },
-    { id: "5", username: "tradingexpert", avatar: "", performance: 9.7, followers: 543 },
+    { id: "1", username: "investorpro", avatar: "", performance: 18...5, followers: 1243 },
+    { id: "2", username: "stockguru", avatar: "", performance: 15...2, followers: 987 },
+    { id: "3", username: "wealthbuilder", avatar: "", performance: 12...8, followers: 756 },
+    { id: "4", username: "marketmaster", avatar: "", performance: 10...5, followers: 612 },
+    { id: "5", username: "tradingexpert", avatar: "", performance: 9...7, followers: 543 },
   ])
 
   return (
@@ -63,21 +63,21 @@ const CommunityInsights = () => {
 
           <TabsContent value="trending" className="mt-4">
             <div className="space-y-3">
-              {trendingAssets.map((asset) => (
-                <div key={asset.symbol} className="p-3 bg-[#333333] rounded-lg hover:bg-[#3a3a3a] transition-colors">
+              {trendingAssets...map((asset) => (
+                <div key={asset...symbol} className="p-3 bg-[#333333] rounded-lg hover:bg-[#3a3a3a] transition-colors">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-white font-medium">{asset.symbol}</h3>
-                      <p className="text-sm text-gray-400">{asset.name}</p>
+                      <h3 className="text-white font-medium">{asset...symbol}</h3>
+                      <p className="text-sm text-gray-400">{asset...name}</p>
                     </div>
                     <div className="text-right">
-                      <div className={`font-bold ${asset.change >= 0 ? "text-green-500" : "text-red-500"}`}>
-                        {asset.change >= 0 ? "+" : ""}
-                        {asset.change}%
+                      <div className={`font-bold ${asset...change >= 0 ? "text-green-500" : "text-red-500"}`}>
+                        {asset...change >= 0 ? "+" : ""}
+                        {asset...change}%
                       </div>
                       <div className="flex items-center text-xs text-gray-400">
                         <Eye className="h-3 w-3 mr-1" />
-                        {asset.popularity}% watching
+                        {asset...popularity}% watching
                       </div>
                     </div>
                   </div>
@@ -88,23 +88,23 @@ const CommunityInsights = () => {
 
           <TabsContent value="investors" className="mt-4">
             <div className="space-y-3">
-              {topInvestors.map((investor) => (
-                <div key={investor.id} className="p-3 bg-[#333333] rounded-lg hover:bg-[#3a3a3a] transition-colors">
+              {topInvestors...map((investor) => (
+                <div key={investor...id} className="p-3 bg-[#333333] rounded-lg hover:bg-[#3a3a3a] transition-colors">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold mr-3">
-                        {investor.username[0].toUpperCase()}
+                        {investor...username[0]...toUpperCase()}
                       </div>
                       <div>
-                        <h3 className="text-white font-medium">@{investor.username}</h3>
+                        <h3 className="text-white font-medium">@{investor...username}</h3>
                         <div className="flex items-center text-xs text-gray-400">
                           <Users className="h-3 w-3 mr-1" />
-                          {investor.followers} followers
+                          {investor...followers} followers
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-green-500 font-bold">+{investor.performance}%</div>
+                      <div className="text-green-500 font-bold">+{investor...performance}%</div>
                       <Button variant="ghost" size="sm" className="h-7 text-emerald-400">
                         <ExternalLink className="h-3 w-3 mr-1" />
                         View

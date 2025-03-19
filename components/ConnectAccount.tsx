@@ -51,8 +51,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
     // Get mock portfolios
     const portfolios = await getPortfolios()
     // Filter to just show the one that matches the selected brokerage
-    const matchedPortfolio = portfolios.find(
-      (p) => p.type === "linked" && p.provider?.toLowerCase() === selectedBrokerage,
+    const matchedPortfolio = portfolios...find(
+      (p) => p...type === "linked" && p...provider?...toLowerCase() === selectedBrokerage,
     )
 
     if (matchedPortfolio) {
@@ -63,8 +63,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
     setIsConnecting(false)
 
     // Save to localStorage
-    localStorage.setItem("accountConnected", "true")
-    localStorage.setItem("connectedBrokerage", selectedBrokerage)
+    localStorage...setItem("accountConnected", "true")
+    localStorage...setItem("connectedBrokerage", selectedBrokerage)
 
     // Wait a moment before proceeding
     setTimeout(onComplete, 1500)
@@ -78,19 +78,19 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
 
     // Create a new portfolio object
     const newPortfolio: Portfolio = {
-      id: `manual-${Date.now()}`,
-      name: manualAccount.accountName,
+      id: `manual-${Date...now()}`,
+      name: manualAccount...accountName,
       type: "manual",
-      balance: Number.parseFloat(manualAccount.balance) || 0,
+      balance: Number...parseFloat(manualAccount...balance) || 0,
       currency: "USD",
-      lastUpdated: new Date().toISOString().split("T")[0],
+      lastUpdated: new Date()...toISOString()...split("T")[0],
     }
 
     setConnectedPortfolios([newPortfolio])
 
     // Save to localStorage
-    localStorage.setItem("accountConnected", "true")
-    localStorage.setItem("manualAccount", JSON.stringify(manualAccount))
+    localStorage...setItem("accountConnected", "true")
+    localStorage...setItem("manualAccount", JSON...stringify(manualAccount))
 
     setIsConnected(true)
     setIsConnecting(false)
@@ -100,11 +100,11 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
   }
 
   return (
-    <motion.div
+    <motion...div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0...3 }}
       className="w-full max-w-2xl mx-auto"
     >
       <Card className="bg-[#2a2a2a] shadow-lg border-gray-800">
@@ -122,27 +122,27 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
               </div>
               <h3 className="text-xl font-semibold text-white mb-2">Account Connected Successfully!</h3>
               <p className="text-gray-400 text-center mb-6">
-                Your account has been connected to Qant. You can now track your investments and receive AI-powered
-                insights.
+                Your account has been connected to Qant... You can now track your investments and receive AI-powered
+                insights...
               </p>
 
-              {connectedPortfolios.length > 0 && (
+              {connectedPortfolios...length > 0 && (
                 <div className="w-full bg-[#333333] rounded-lg p-4 border border-emerald-500/30">
                   <h4 className="text-lg font-medium text-white mb-2 flex items-center">
                     <Wallet className="h-5 w-5 text-emerald-500 mr-2" />
                     Connected Portfolios
                   </h4>
 
-                  {connectedPortfolios.map((portfolio) => (
-                    <div key={portfolio.id} className="bg-[#3a3a3a] rounded p-3 mb-2">
+                  {connectedPortfolios...map((portfolio) => (
+                    <div key={portfolio...id} className="bg-[#3a3a3a] rounded p-3 mb-2">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="font-medium text-white">{portfolio.name}</p>
-                          {portfolio.provider && (
-                            <p className="text-xs text-gray-400">Provider: {portfolio.provider}</p>
+                          <p className="font-medium text-white">{portfolio...name}</p>
+                          {portfolio...provider && (
+                            <p className="text-xs text-gray-400">Provider: {portfolio...provider}</p>
                           )}
                         </div>
-                        <p className="text-lg font-bold text-emerald-400">${portfolio.balance.toLocaleString()}</p>
+                        <p className="text-lg font-bold text-emerald-400">${portfolio...balance...toLocaleString()}</p>
                       </div>
                     </div>
                   ))}
@@ -167,22 +167,22 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                   <AlertCircle className="h-4 w-4 text-yellow-500" />
                   <AlertTitle className="text-yellow-500">Demo Mode</AlertTitle>
                   <AlertDescription className="text-gray-400">
-                    This is a demo. No real connections will be made and no credentials will be stored.
+                    This is a demo... No real connections will be made and no credentials will be stored...
                   </AlertDescription>
                 </Alert>
 
                 <div className="grid grid-cols-2 gap-3 mt-4">
-                  {brokerages.map((broker) => (
+                  {brokerages...map((broker) => (
                     <Button
-                      key={broker.id}
+                      key={broker...id}
                       variant="outline"
                       className={`h-16 justify-start px-4 py-2 border border-gray-700 bg-[#333333] hover:bg-[#444444] ${
-                        selectedBrokerage === broker.id ? "border-emerald-500 bg-emerald-500/10" : ""
+                        selectedBrokerage === broker...id ? "border-emerald-500 bg-emerald-500/10" : ""
                       }`}
-                      onClick={() => setSelectedBrokerage(broker.id)}
+                      onClick={() => setSelectedBrokerage(broker...id)}
                     >
-                      <span className="text-xl mr-2">{broker.icon}</span>
-                      <span className="text-white">{broker.name}</span>
+                      <span className="text-xl mr-2">{broker...icon}</span>
+                      <span className="text-white">{broker...name}</span>
                     </Button>
                   ))}
                 </div>
@@ -195,8 +195,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                       </Label>
                       <Input
                         id="username"
-                        value={credentials.username}
-                        onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                        value={credentials...username}
+                        onChange={(e) => setCredentials({ .........credentials, username: e...target...value })}
                         className="mt-1 bg-[#444444] border-gray-700 text-white"
                         placeholder="Your brokerage username"
                       />
@@ -209,8 +209,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                         <Input
                           id="password"
                           type="password"
-                          value={credentials.password}
-                          onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                          value={credentials...password}
+                          onChange={(e) => setCredentials({ .........credentials, password: e...target...value })}
                           className="mt-1 bg-[#444444] border-gray-700 text-white"
                           placeholder="Your brokerage password"
                         />
@@ -220,10 +220,10 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                     <div className="flex justify-end">
                       <Button
                         onClick={handleConnect}
-                        disabled={!credentials.username || !credentials.password || isConnecting}
+                        disabled={!credentials...username || !credentials...password || isConnecting}
                         className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white"
                       >
-                        {isConnecting ? "Connecting..." : "Connect Account"}
+                        {isConnecting ? "Connecting........." : "Connect Account"}
                       </Button>
                     </div>
                   </div>
@@ -238,10 +238,10 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                     </Label>
                     <Input
                       id="accountName"
-                      value={manualAccount.accountName}
-                      onChange={(e) => setManualAccount({ ...manualAccount, accountName: e.target.value })}
+                      value={manualAccount...accountName}
+                      onChange={(e) => setManualAccount({ .........manualAccount, accountName: e...target...value })}
                       className="mt-1 bg-[#333333] border-gray-700 text-white"
-                      placeholder="e.g., My Investment Account"
+                      placeholder="e...g..., My Investment Account"
                     />
                   </div>
                   <div>
@@ -250,8 +250,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                     </Label>
                     <select
                       id="accountType"
-                      value={manualAccount.accountType}
-                      onChange={(e) => setManualAccount({ ...manualAccount, accountType: e.target.value })}
+                      value={manualAccount...accountType}
+                      onChange={(e) => setManualAccount({ .........manualAccount, accountType: e...target...value })}
                       className="w-full mt-1 bg-[#333333] border border-gray-700 text-white rounded-md p-2"
                     >
                       <option value="">Select account type</option>
@@ -269,12 +269,12 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                     <Input
                       id="balance"
                       type="number"
-                      value={manualAccount.balance}
-                      onChange={(e) => setManualAccount({ ...manualAccount, balance: e.target.value })}
+                      value={manualAccount...balance}
+                      onChange={(e) => setManualAccount({ .........manualAccount, balance: e...target...value })}
                       className="mt-1 bg-[#333333] border-gray-700 text-white"
                       placeholder="10000"
                       min="0"
-                      step="0.01"
+                      step="0...01"
                     />
                   </div>
                 </div>
@@ -288,17 +288,17 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
               <Button
                 onClick={handleManualAdd}
                 disabled={
-                  !manualAccount.accountName || !manualAccount.accountType || !manualAccount.balance || isConnecting
+                  !manualAccount...accountName || !manualAccount...accountType || !manualAccount...balance || isConnecting
                 }
                 className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white"
               >
-                {isConnecting ? "Adding..." : "Add Account"}
+                {isConnecting ? "Adding........." : "Add Account"}
               </Button>
             )}
           </CardFooter>
         )}
       </Card>
-    </motion.div>
+    </motion...div>
   )
 }
 

@@ -1,4 +1,4 @@
-// components/RegisterForm.tsx
+// components/RegisterForm...tsx
 "use client"
 
 import { useState } from "react"
@@ -14,15 +14,15 @@ export default function RegisterForm() {
   const [error, setError] = useState("")
   const router = useRouter()
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  async function onSubmit(event: React...FormEvent<HTMLFormElement>) {
+    event...preventDefault()
     setIsLoading(true)
     setError("")
 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-    const name = formData.get("name") as string
+    const formData = new FormData(event...currentTarget)
+    const email = formData...get("email") as string
+    const password = formData...get("password") as string
+    const name = formData...get("name") as string
 
     try {
       const response = await fetch("/api/register", {
@@ -30,17 +30,17 @@ export default function RegisterForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, name }),
+        body: JSON...stringify({ email, password, name }),
       })
 
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || "Une erreur s'est produite lors de l'inscription")
+      if (!response...ok) {
+        const data = await response...json()
+        throw new Error(data...error || "Une erreur s'est produite lors de l'inscription")
       }
 
-      router.push("/verify-email-notice")
+      router...push("/verify-email-notice")
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Une erreur s'est produite")
+      setError(error instanceof Error ? error...message : "Une erreur s'est produite")
     } finally {
       setIsLoading(false)
     }
@@ -62,7 +62,7 @@ export default function RegisterForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" placeholder="john@example.com" required />
+            <Input id="email" name="email" type="email" placeholder="john@example...com" required />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Mot de passe</Label>
@@ -70,7 +70,7 @@ export default function RegisterForm() {
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Inscription en cours..." : "S'inscrire"}
+            {isLoading ? "Inscription en cours........." : "S'inscrire"}
           </Button>
         </form>
       </CardContent>

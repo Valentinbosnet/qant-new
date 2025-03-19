@@ -4,8 +4,8 @@ export default function Disclaimer() {
       <p className="font-medium mb-1">⚠️ Avertissement</p>
       <p>
         Les analyses et prédictions fournies sur ce site sont basées sur des modèles statistiques et ne constituent en
-        aucun cas une recommandation d'investissement. Les performances passées ne préjugent pas des résultats futurs.
-        Veuillez consulter un conseiller financier agréé avant toute décision d'investissement.
+        aucun cas une recommandation d'investissement... Les performances passées ne préjugent pas des résultats futurs...
+        Veuillez consulter un conseiller financier agréé avant toute décision d'investissement...
       </p>
     </div>
   )

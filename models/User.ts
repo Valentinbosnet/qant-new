@@ -16,9 +16,9 @@ const UserSchema = new Schema<IUser>({
   emailVerified: Date,
   image: String,
   password: String,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date...now },
+  updatedAt: { type: Date, default: Date...now },
 })
 
-export default mongoose.models.User || mongoose.model<IUser>("User", UserSchema)
+export default mongoose...models...User || mongoose...model<IUser>("User", UserSchema)
 

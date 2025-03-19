@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import('next')...NextConfig} */
 const nextConfig = {
   // Configuration pour le build statique
   output: 'standalone',
@@ -15,4 +15,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module...exports = nextConfig

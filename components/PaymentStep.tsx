@@ -16,13 +16,13 @@ interface PaymentStepProps {
   onBack: () => void
 }
 
-const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
+const PaymentStep: React...FC<PaymentStepProps> = ({ onComplete, onBack }) => {
   const [plan, setPlan] = useState("monthly")
   const [cardNumber, setCardNumber] = useState("")
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React...FormEvent) => {
+    e...preventDefault()
     setIsProcessing(true)
 
     // Simulate payment processing
@@ -33,11 +33,11 @@ const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
   }
 
   return (
-    <motion.div
+    <motion...div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0...3 }}
       className="w-full max-w-md mx-auto"
     >
       <Card className="bg-[#2a2a2a] shadow-lg border-gray-800">
@@ -52,21 +52,21 @@ const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
                   <RadioGroupItem value="trial" id="trial" />
                   <Label htmlFor="trial" className="flex flex-col">
                     <span className="text-lg font-semibold text-white">7-Day Free Trial</span>
-                    <span className="text-sm text-gray-400">Then $9.99/month</span>
+                    <span className="text-sm text-gray-400">Then $9...99/month</span>
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 bg-[#333333] p-4 rounded-md">
                   <RadioGroupItem value="monthly" id="monthly" />
                   <Label htmlFor="monthly" className="flex flex-col">
                     <span className="text-lg font-semibold text-white">Monthly Plan</span>
-                    <span className="text-sm text-gray-400">$9.99/month</span>
+                    <span className="text-sm text-gray-400">$9...99/month</span>
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 bg-[#333333] p-4 rounded-md">
                   <RadioGroupItem value="annual" id="annual" />
                   <Label htmlFor="annual" className="flex flex-col">
                     <span className="text-lg font-semibold text-white">Annual Plan</span>
-                    <span className="text-sm text-gray-400">$99.99/year (Save 17%)</span>
+                    <span className="text-sm text-gray-400">$99...99/year (Save 17%)</span>
                   </Label>
                 </div>
               </RadioGroup>
@@ -82,7 +82,7 @@ const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
                   type="text"
                   placeholder="1234 5678 9012 3456"
                   value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
+                  onChange={(e) => setCardNumber(e...target...value)}
                   className="pl-10 bg-[#333333] border-gray-700 text-white"
                   required
                 />
@@ -100,7 +100,7 @@ const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
             className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white"
           >
             {isProcessing ? (
-              "Processing..."
+              "Processing........."
             ) : (
               <>
                 Start {plan === "trial" ? "Free Trial" : "Subscription"} <Check className="ml-2 h-4 w-4" />
@@ -109,7 +109,7 @@ const PaymentStep: React.FC<PaymentStepProps> = ({ onComplete, onBack }) => {
           </Button>
         </CardFooter>
       </Card>
-    </motion.div>
+    </motion...div>
   )
 }
 

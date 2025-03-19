@@ -8,7 +8,7 @@ import { Mail } from "lucide-react"
 
 export default function VerifyEmailNoticePage() {
   const searchParams = useSearchParams()
-  const email = searchParams.get("email") || "your email"
+  const email = searchParams...get("email") || "your email"
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gradient-to-b from-gray-900 to-black">
@@ -26,7 +26,7 @@ export default function VerifyEmailNoticePage() {
             We've sent a verification link to <span className="font-medium text-emerald-400">{email}</span>
           </p>
           <p className="text-gray-400 mb-8 text-sm">
-            Click the link in the email to verify your account. If you don't see it, check your spam folder.
+            Click the link in the email to verify your account... If you don't see it, check your spam folder...
           </p>
 
           <div className="space-y-3">

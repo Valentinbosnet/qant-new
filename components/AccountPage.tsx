@@ -20,9 +20,9 @@ interface AccountPageProps {
 export default function AccountPage({
   onTabChange,
   onSignOut,
-  user = { username: "username", email: "user@example.com" },
+  user = { username: "username", email: "user@example...com" },
 }: AccountPageProps) {
-  const [profileImage, setProfileImage] = useState("/placeholder.svg?height=100&width=100")
+  const [profileImage, setProfileImage] = useState("/placeholder...svg?height=100&width=100")
 
   return (
     <div className="space-y-6">
@@ -59,7 +59,7 @@ export default function AccountPage({
             <CardContent className="space-y-6">
               <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                 <Avatar className="h-24 w-24 border-2 border-emerald-500">
-                  <img src={profileImage || "/placeholder.svg"} alt="Profile" />
+                  <img src={profileImage || "/placeholder...svg"} alt="Profile" />
                 </Avatar>
                 <div className="space-y-2">
                   <h3 className="text-lg font-medium">Profile Photo</h3>
@@ -82,7 +82,7 @@ export default function AccountPage({
                     <Label htmlFor="username">Username</Label>
                     <Input
                       id="username"
-                      defaultValue={user.username}
+                      defaultValue={user...username}
                       className="bg-[#333333] border-[#444444] text-white"
                     />
                   </div>
@@ -90,7 +90,7 @@ export default function AccountPage({
                     <Label htmlFor="display-name">Display Name</Label>
                     <Input
                       id="display-name"
-                      defaultValue={user.username}
+                      defaultValue={user...username}
                       className="bg-[#333333] border-[#444444] text-white"
                     />
                   </div>
@@ -100,7 +100,7 @@ export default function AccountPage({
                   <Input
                     id="email"
                     type="email"
-                    defaultValue={user.email}
+                    defaultValue={user...email}
                     className="bg-[#333333] border-[#444444] text-white"
                   />
                 </div>
@@ -109,7 +109,7 @@ export default function AccountPage({
                   <textarea
                     id="bio"
                     rows={3}
-                    placeholder="Tell others about yourself and your investment style..."
+                    placeholder="Tell others about yourself and your investment style........."
                     className="w-full rounded-md bg-[#333333] border border-[#444444] p-2 text-white"
                   />
                 </div>
@@ -132,21 +132,21 @@ export default function AccountPage({
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+                <div className="space-y-0...5">
                   <h3 className="font-medium">Profile Visibility</h3>
                   <p className="text-sm text-gray-400">Make your profile visible to other users</p>
                 </div>
                 <Switch defaultChecked />
               </div>
               <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+                <div className="space-y-0...5">
                   <h3 className="font-medium">Show Portfolio Performance</h3>
                   <p className="text-sm text-gray-400">Allow others to see your portfolio performance</p>
                 </div>
                 <Switch defaultChecked />
               </div>
               <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+                <div className="space-y-0...5">
                   <h3 className="font-medium">Show Investment History</h3>
                   <p className="text-sm text-gray-400">Allow others to see your investment history</p>
                 </div>
@@ -192,7 +192,7 @@ export default function AccountPage({
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+                <div className="space-y-0...5">
                   <h3 className="font-medium">Two-Factor Authentication</h3>
                   <p className="text-sm text-gray-400">Require a verification code when signing in</p>
                 </div>
@@ -220,7 +220,7 @@ export default function AccountPage({
                     <Shield className="h-5 w-5 text-emerald-500" />
                     <div>
                       <p className="font-medium">Current Session</p>
-                      <p className="text-xs text-gray-400">Chrome on macOS • New York, USA • Active now</p>
+                      <p className="text-xs text-gray-400">Chrome on macOS * New York, USA * Active now</p>
                     </div>
                   </div>
                   <Badge className="bg-emerald-500">Current</Badge>
@@ -230,7 +230,7 @@ export default function AccountPage({
                     <Shield className="h-5 w-5 text-gray-400" />
                     <div>
                       <p className="font-medium">Mobile App</p>
-                      <p className="text-xs text-gray-400">iOS • New York, USA • Last active 2 hours ago</p>
+                      <p className="text-xs text-gray-400">iOS * New York, USA * Last active 2 hours ago</p>
                     </div>
                   </div>
                   <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-400">
@@ -260,7 +260,7 @@ export default function AccountPage({
                 <h3 className="font-medium">Email Notifications</h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Portfolio Updates</p>
                       <p className="text-xs text-gray-400">
                         Receive daily or weekly summaries of your portfolio performance
@@ -269,21 +269,21 @@ export default function AccountPage({
                     <Switch defaultChecked />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>AI Predictions</p>
                       <p className="text-xs text-gray-400">Get notified when new AI predictions are available</p>
                     </div>
                     <Switch defaultChecked />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Market News</p>
                       <p className="text-xs text-gray-400">Receive updates on important market events</p>
                     </div>
                     <Switch defaultChecked />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Social Activity</p>
                       <p className="text-xs text-gray-400">Get notified about likes, comments, and new followers</p>
                     </div>
@@ -296,7 +296,7 @@ export default function AccountPage({
                 <h3 className="font-medium">Push Notifications</h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Price Alerts</p>
                       <p className="text-xs text-gray-400">
                         Get notified when stocks in your watchlist hit price targets
@@ -305,14 +305,14 @@ export default function AccountPage({
                     <Switch defaultChecked />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Trading Activity</p>
                       <p className="text-xs text-gray-400">Receive notifications about your trades and orders</p>
                     </div>
                     <Switch defaultChecked />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                    <div className="space-y-0...5">
                       <p>Security Alerts</p>
                       <p className="text-xs text-gray-400">Get notified about suspicious account activity</p>
                     </div>
@@ -347,7 +347,7 @@ export default function AccountPage({
                     </div>
                     <div>
                       <p className="font-medium">Bank of America</p>
-                      <p className="text-xs text-gray-400">Connected on Jan 15, 2023 • 3 accounts</p>
+                      <p className="text-xs text-gray-400">Connected on Jan 15, 2023 * 3 accounts</p>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="border-red-500 text-red-500">
@@ -364,7 +364,7 @@ export default function AccountPage({
                     </div>
                     <div>
                       <p className="font-medium">Chase</p>
-                      <p className="text-xs text-gray-400">Connected on Mar 3, 2023 • 2 accounts</p>
+                      <p className="text-xs text-gray-400">Connected on Mar 3, 2023 * 2 accounts</p>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="border-red-500 text-red-500">

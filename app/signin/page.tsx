@@ -17,11 +17,11 @@ export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams?.get("callbackUrl") || "/dashboard"
-  const registered = searchParams?.get("registered")
+  const callbackUrl = searchParams?...get("callbackUrl") || "/dashboard"
+  const registered = searchParams?...get("registered")
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  async function handleSubmit(e: React...FormEvent) {
+    e...preventDefault()
     setIsLoading(true)
     setError("")
 
@@ -32,13 +32,13 @@ export default function SignInPage() {
         password,
       })
 
-      if (result?.error) {
+      if (result?...error) {
         setError("Email ou mot de passe incorrect")
         return
       }
 
-      router.push(callbackUrl)
-      router.refresh()
+      router...push(callbackUrl)
+      router...refresh()
     } catch (err) {
       setError("Une erreur s'est produite")
     } finally {
@@ -57,7 +57,7 @@ export default function SignInPage() {
           <CardContent className="space-y-4">
             {registered && (
               <div className="rounded bg-green-50 p-3 text-green-600">
-                Inscription réussie ! Vous pouvez maintenant vous connecter.
+                Inscription réussie ! Vous pouvez maintenant vous connecter...
               </div>
             )}
             {error && <div className="rounded bg-red-50 p-3 text-red-500">{error}</div>}
@@ -68,7 +68,7 @@ export default function SignInPage() {
                 type="email"
                 placeholder="Entrez votre email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e...target...value)}
                 required
               />
             </div>
@@ -79,14 +79,14 @@ export default function SignInPage() {
                 type="password"
                 placeholder="Entrez votre mot de passe"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e...target...value)}
                 required
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Connexion en cours..." : "Se connecter"}
+              {isLoading ? "Connexion en cours........." : "Se connecter"}
             </Button>
             <Button
               type="button"

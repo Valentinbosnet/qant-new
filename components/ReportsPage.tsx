@@ -70,7 +70,7 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
               <CardContent>
                 <p className="text-sm text-gray-400">
                   Generate a detailed report of your portfolio performance over time, including gains, losses, and
-                  comparisons to market benchmarks.
+                  comparisons to market benchmarks...
                 </p>
                 <div className="mt-4 space-y-4">
                   <div className="space-y-2">
@@ -116,7 +116,7 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
               <CardContent>
                 <p className="text-sm text-gray-400">
                   Generate a report showing your current asset allocation across different investment types, sectors,
-                  and geographic regions.
+                  and geographic regions...
                 </p>
                 <div className="mt-4 space-y-4">
                   <div className="space-y-2">
@@ -160,7 +160,7 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
               <CardContent>
                 <p className="text-sm text-gray-400">
                   Generate a tax report for your investment activities, including realized gains and losses, dividends,
-                  and interest income.
+                  and interest income...
                 </p>
                 <div className="mt-4 space-y-4">
                   <div className="space-y-2">
@@ -204,7 +204,7 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
               <CardContent>
                 <p className="text-sm text-gray-400">
                   Generate a comprehensive risk analysis of your portfolio, including volatility metrics, drawdowns, and
-                  risk-adjusted returns.
+                  risk-adjusted returns...
                 </p>
                 <div className="mt-4 space-y-4">
                   <div className="space-y-2">
@@ -254,17 +254,17 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {reports.map((report) => (
-                  <div key={report.id} className="flex items-center justify-between rounded-lg bg-[#333333] p-4">
+                {reports...map((report) => (
+                  <div key={report...id} className="flex items-center justify-between rounded-lg bg-[#333333] p-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 rounded-full bg-[#444444] flex items-center justify-center">
                         <FileText className="h-5 w-5 text-emerald-500" />
                       </div>
                       <div>
-                        <p className="font-medium">{report.title}</p>
-                        <p className="text-xs text-gray-400">{report.description}</p>
+                        <p className="font-medium">{report...title}</p>
+                        <p className="text-xs text-gray-400">{report...description}</p>
                         <p className="text-xs text-gray-400">
-                          Generated on {report.date} • {report.type}
+                          Generated on {report...date} * {report...type}
                         </p>
                       </div>
                     </div>
@@ -295,7 +295,7 @@ export default function ReportsPage({ onTabChange }: ReportsPageProps) {
                     </div>
                     <div>
                       <p className="font-medium">Monthly Portfolio Summary</p>
-                      <p className="text-xs text-gray-400">Sent on the 1st of every month • PDF format</p>
+                      <p className="text-xs text-gray-400">Sent on the 1st of every month * PDF format</p>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="border-red-500 text-red-500">

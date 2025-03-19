@@ -16,15 +16,15 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
   useEffect(() => {
     // Trigger confetti animation
     const duration = 3 * 1000
-    const animationEnd = Date.now() + duration
+    const animationEnd = Date...now() + duration
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
 
     function randomInRange(min: number, max: number) {
-      return Math.random() * (max - min) + min
+      return Math...random() * (max - min) + min
     }
 
-    const interval: NodeJS.Timeout = setInterval(() => {
-      const timeLeft = animationEnd - Date.now()
+    const interval: NodeJS...Timeout = setInterval(() => {
+      const timeLeft = animationEnd - Date...now()
 
       if (timeLeft <= 0) {
         return clearInterval(interval)
@@ -34,14 +34,14 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
 
       // Since particles fall down, start a bit higher than random
       confetti({
-        ...defaults,
+        .........defaults,
         particleCount,
-        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        origin: { x: randomInRange(0...1, 0...3), y: Math...random() - 0...2 },
       })
       confetti({
-        ...defaults,
+        .........defaults,
         particleCount,
-        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        origin: { x: randomInRange(0...7, 0...9), y: Math...random() - 0...2 },
       })
     }, 250)
 
@@ -49,11 +49,11 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
   }, [])
 
   return (
-    <motion.div
+    <motion...div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0...3 }}
       className="w-full max-w-2xl mx-auto"
     >
       <Card className="bg-[#2a2a2a] shadow-lg border-gray-800">
@@ -65,7 +65,7 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-gray-400 mb-6">
-            You've successfully completed the onboarding process and your Qant account is ready to use.
+            You've successfully completed the onboarding process and your Qant account is ready to use...
           </p>
 
           <div className="bg-[#333333] rounded-lg p-4 mb-6">
@@ -73,33 +73,33 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
             <ul className="space-y-2 text-left">
               <li className="flex items-center text-gray-300">
                 <Check
-                  className={`mr-2 h-5 w-5 ${completedSteps.includes("profile") ? "text-emerald-500" : "text-gray-600"}`}
+                  className={`mr-2 h-5 w-5 ${completedSteps...includes("profile") ? "text-emerald-500" : "text-gray-600"}`}
                 />
-                <span className={completedSteps.includes("profile") ? "text-white" : "text-gray-500"}>
+                <span className={completedSteps...includes("profile") ? "text-white" : "text-gray-500"}>
                   Profile Setup
                 </span>
               </li>
               <li className="flex items-center text-gray-300">
                 <Check
-                  className={`mr-2 h-5 w-5 ${completedSteps.includes("account") ? "text-emerald-500" : "text-gray-600"}`}
+                  className={`mr-2 h-5 w-5 ${completedSteps...includes("account") ? "text-emerald-500" : "text-gray-600"}`}
                 />
-                <span className={completedSteps.includes("account") ? "text-white" : "text-gray-500"}>
+                <span className={completedSteps...includes("account") ? "text-white" : "text-gray-500"}>
                   Account Connection
                 </span>
               </li>
               <li className="flex items-center text-gray-300">
                 <Check
-                  className={`mr-2 h-5 w-5 ${completedSteps.includes("predictions") ? "text-emerald-500" : "text-gray-600"}`}
+                  className={`mr-2 h-5 w-5 ${completedSteps...includes("predictions") ? "text-emerald-500" : "text-gray-600"}`}
                 />
-                <span className={completedSteps.includes("predictions") ? "text-white" : "text-gray-500"}>
+                <span className={completedSteps...includes("predictions") ? "text-white" : "text-gray-500"}>
                   AI Predictions Exploration
                 </span>
               </li>
               <li className="flex items-center text-gray-300">
                 <Check
-                  className={`mr-2 h-5 w-5 ${completedSteps.includes("notifications") ? "text-emerald-500" : "text-gray-600"}`}
+                  className={`mr-2 h-5 w-5 ${completedSteps...includes("notifications") ? "text-emerald-500" : "text-gray-600"}`}
                 />
-                <span className={completedSteps.includes("notifications") ? "text-white" : "text-gray-500"}>
+                <span className={completedSteps...includes("notifications") ? "text-white" : "text-gray-500"}>
                   Notifications Setup
                 </span>
               </li>
@@ -119,7 +119,7 @@ export default function OnboardingComplete({ onFinish, completedSteps }: Onboard
           </Button>
         </CardFooter>
       </Card>
-    </motion.div>
+    </motion...div>
   )
 }
 

@@ -48,7 +48,7 @@ interface PortfolioPageProps {
 
 const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"]
 
-const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
+const PortfolioPage: React...FC<PortfolioPageProps> = ({ onTabChange }) => {
   const { portfolios, isLoading, refreshData, getPortfolioPerformance, lastUpdated } = usePortfolioData()
 
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>("")
@@ -71,15 +71,15 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
 
   // Set the first portfolio as selected when data loads
   useEffect(() => {
-    if (portfolios.length > 0 && !selectedPortfolio) {
-      setSelectedPortfolio(portfolios[0].id)
+    if (portfolios...length > 0 && !selectedPortfolio) {
+      setSelectedPortfolio(portfolios[0]...id)
     }
   }, [portfolios, selectedPortfolio])
 
   // Update current portfolio when selection changes
   useEffect(() => {
     if (selectedPortfolio) {
-      const portfolio = portfolios.find((p) => p.id === selectedPortfolio)
+      const portfolio = portfolios...find((p) => p...id === selectedPortfolio)
       setCurrentPortfolio(portfolio)
 
       // Load performance data for the selected portfolio
@@ -128,20 +128,20 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
     // Navigate to the connect account page
     onTabChange("getStarted")
     // In a real app, you would set a specific step in the onboarding process
-    localStorage.setItem("currentOnboardingStep", "account")
+    localStorage...setItem("currentOnboardingStep", "account")
   }
 
-  const totalValue = currentPortfolio?.balance || 0
-  const dailyChange = currentPortfolio ? (Math.random() * 6 - 3).toFixed(2) : "0.00" // Mock daily change
-  const monthlyReturn = currentPortfolio ? (Math.random() * 20 - 5).toFixed(2) : "0.00" // Mock monthly return
+  const totalValue = currentPortfolio?...balance || 0
+  const dailyChange = currentPortfolio ? (Math...random() * 6 - 3)...toFixed(2) : "0...00" // Mock daily change
+  const monthlyReturn = currentPortfolio ? (Math...random() * 20 - 5)...toFixed(2) : "0...00" // Mock monthly return
 
   // Format the last updated time
   const formatLastUpdated = () => {
     if (!currentPortfolio) return "N/A"
 
     const now = new Date()
-    const lastUpdatedDate = new Date(currentPortfolio.lastUpdated)
-    const diff = now.getTime() - lastUpdatedDate.getTime()
+    const lastUpdatedDate = new Date(currentPortfolio...lastUpdated)
+    const diff = now...getTime() - lastUpdatedDate...getTime()
 
     // If less than a minute ago, show "Just now"
     if (diff < 60000) {
@@ -150,18 +150,18 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
 
     // If less than an hour ago, show minutes
     if (diff < 3600000) {
-      const minutes = Math.floor(diff / 60000)
+      const minutes = Math...floor(diff / 60000)
       return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`
     }
 
     // Otherwise show the time
-    return lastUpdatedDate.toLocaleTimeString()
+    return lastUpdatedDate...toLocaleTimeString()
   }
 
   // Placeholder functions - replace with your actual data fetching logic
   const getSectorAllocation = async (portfolioId: string) => {
     // Fetch sector allocation data from your backend
-    // ... your code here ...
+    // ......... your code here .........
     return [
       { name: "Technology", value: 30 },
       { name: "Financials", value: 25 },
@@ -174,7 +174,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
 
   const getGeographicAllocation = async (portfolioId: string) => {
     // Fetch geographic allocation data from your backend
-    // ... your code here ...
+    // ......... your code here .........
     return [
       { name: "United States", value: 60 },
       { name: "China", value: 20 },
@@ -185,21 +185,21 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
 
   const getTransactionData = async (portfolioId: string) => {
     // Fetch transaction data from your backend
-    // ... your code here ...
+    // ......... your code here .........
     return [
-      { id: 1, date: "2024-03-08", type: "buy", symbol: "AAPL", price: 170.34, quantity: 10, total: 1703.4 },
-      { id: 2, date: "2024-03-07", type: "sell", symbol: "MSFT", price: 280.0, quantity: 5, total: 1400.0 },
-      { id: 3, date: "2024-03-06", type: "buy", symbol: "GOOG", price: 100.5, quantity: 20, total: 2010.0 },
+      { id: 1, date: "2024-03-08", type: "buy", symbol: "AAPL", price: 170...34, quantity: 10, total: 1703...4 },
+      { id: 2, date: "2024-03-07", type: "sell", symbol: "MSFT", price: 280...0, quantity: 5, total: 1400...0 },
+      { id: 3, date: "2024-03-06", type: "buy", symbol: "GOOG", price: 100...5, quantity: 20, total: 2010...0 },
     ]
   }
 
   const getRiskMetrics = async (portfolioId: string) => {
     // Fetch risk metrics data from your backend
-    // ... your code here ...
+    // ......... your code here .........
     return {
       volatility: 15,
-      sharpeRatio: 1.2,
-      beta: 1.1,
+      sharpeRatio: 1...2,
+      beta: 1...1,
       alpha: 5,
       maxDrawdown: 10,
       riskLevel: "Medium",
@@ -238,9 +238,9 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                   <SelectValue placeholder="Select portfolio" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#2a2a2a] border-gray-700 text-white">
-                  {portfolios.map((portfolio) => (
-                    <SelectItem key={portfolio.id} value={portfolio.id}>
-                      {portfolio.name} (${portfolio.balance.toLocaleString()})
+                  {portfolios...map((portfolio) => (
+                    <SelectItem key={portfolio...id} value={portfolio...id}>
+                      {portfolio...name} (${portfolio...balance...toLocaleString()})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -255,7 +255,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
             // Loading skeleton
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[1, 2, 3].map((i) => (
+                {[1, 2, 3]...map((i) => (
                   <Card key={i} className="bg-[#2a2a2a] text-white">
                     <CardContent className="p-4">
                       <div className="animate-pulse flex space-x-4">
@@ -279,10 +279,10 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                       <p className="text-gray-400 text-sm">Total Value</p>
                       <Wallet className="h-4 w-4 text-emerald-500" />
                     </div>
-                    <div className="text-2xl font-bold">${totalValue.toLocaleString()}</div>
-                    {currentPortfolio?.type === "linked" && (
+                    <div className="text-2xl font-bold">${totalValue...toLocaleString()}</div>
+                    {currentPortfolio?...type === "linked" && (
                       <p className="text-xs text-gray-400 mt-1">
-                        Via {currentPortfolio.provider} • Updated {formatLastUpdated()}
+                        Via {currentPortfolio...provider} * Updated {formatLastUpdated()}
                       </p>
                     )}
                   </CardContent>
@@ -292,20 +292,20 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                   <CardContent className="p-4">
                     <div className="flex justify-between items-center mb-1">
                       <p className="text-gray-400 text-sm">Daily Change</p>
-                      {Number.parseFloat(dailyChange) >= 0 ? (
+                      {Number...parseFloat(dailyChange) >= 0 ? (
                         <ArrowUpRight className="h-4 w-4 text-green-500" />
                       ) : (
                         <ArrowDownRight className="h-4 w-4 text-red-500" />
                       )}
                     </div>
                     <div
-                      className={`text-2xl font-bold ${Number.parseFloat(dailyChange) >= 0 ? "text-green-500" : "text-red-500"}`}
+                      className={`text-2xl font-bold ${Number...parseFloat(dailyChange) >= 0 ? "text-green-500" : "text-red-500"}`}
                     >
-                      {Number.parseFloat(dailyChange) >= 0 ? "+" : ""}
+                      {Number...parseFloat(dailyChange) >= 0 ? "+" : ""}
                       {dailyChange}%
                     </div>
                     <p className="text-xs text-gray-400 mt-1">
-                      ${Math.abs((totalValue * Number.parseFloat(dailyChange)) / 100).toLocaleString()} today
+                      ${Math...abs((totalValue * Number...parseFloat(dailyChange)) / 100)...toLocaleString()} today
                     </p>
                   </CardContent>
                 </Card>
@@ -317,13 +317,13 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                       <TrendingUp className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div
-                      className={`text-2xl font-bold ${Number.parseFloat(monthlyReturn) >= 0 ? "text-green-500" : "text-red-500"}`}
+                      className={`text-2xl font-bold ${Number...parseFloat(monthlyReturn) >= 0 ? "text-green-500" : "text-red-500"}`}
                     >
-                      {Number.parseFloat(monthlyReturn) >= 0 ? "+" : ""}
+                      {Number...parseFloat(monthlyReturn) >= 0 ? "+" : ""}
                       {monthlyReturn}%
                     </div>
                     <p className="text-xs text-gray-400 mt-1">
-                      ${Math.abs((totalValue * Number.parseFloat(monthlyReturn)) / 100).toLocaleString()} this month
+                      ${Math...abs((totalValue * Number...parseFloat(monthlyReturn)) / 100)...toLocaleString()} this month
                     </p>
                   </CardContent>
                 </Card>
@@ -332,7 +332,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
               {/* Time Period Selector */}
               <div className="flex justify-between items-center bg-[#2a2a2a] rounded-lg p-2">
                 <div className="flex space-x-2">
-                  {["1w", "1m", "3m", "6m", "1y", "All"].map((period) => (
+                  {["1w", "1m", "3m", "6m", "1y", "All"]...map((period) => (
                     <Button
                       key={period}
                       variant={timeframe === period ? "default" : "ghost"}
@@ -379,8 +379,8 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                           <AreaChart data={performanceData}>
                             <defs>
                               <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                                <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                                <stop offset="5%" stopColor="#10b981" stopOpacity={0...8} />
+                                <stop offset="95%" stopColor="#10b981" stopOpacity={0...1} />
                               </linearGradient>
                             </defs>
                             <XAxis dataKey="date" stroke="#6b7280" />
@@ -388,7 +388,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                             <Tooltip
                               contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
                               labelStyle={{ color: "#fff" }}
-                              formatter={(value: any) => [`$${value.toLocaleString()}`, "Value"]}
+                              formatter={(value: any) => [`$${value...toLocaleString()}`, "Value"]}
                             />
                             <Area
                               type="monotone"
@@ -414,7 +414,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                           <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                               <Pie
-                                data={currentPortfolio?.assets || []}
+                                data={currentPortfolio?...assets || []}
                                 cx="50%"
                                 cy="50%"
                                 labelLine={false}
@@ -422,34 +422,34 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                                 fill="#8884d8"
                                 dataKey="value"
                                 nameKey="symbol"
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                label={({ name, percent }) => `${name} ${(percent * 100)...toFixed(0)}%`}
                               >
-                                {(currentPortfolio?.assets || []).map((entry, index) => (
-                                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                {(currentPortfolio?...assets || [])...map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS...length]} />
                                 ))}
                               </Pie>
                               <Tooltip
-                                formatter={(value: any) => [`$${value.toLocaleString()}`, "Value"]}
+                                formatter={(value: any) => [`$${value...toLocaleString()}`, "Value"]}
                                 contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
                               />
                             </PieChart>
                           </ResponsiveContainer>
                         </div>
                         <div className="space-y-3">
-                          {(currentPortfolio?.assets || []).map((asset, index) => (
-                            <div key={asset.symbol} className="flex justify-between items-center">
+                          {(currentPortfolio?...assets || [])...map((asset, index) => (
+                            <div key={asset...symbol} className="flex justify-between items-center">
                               <div className="flex items-center">
                                 <div
                                   className="w-3 h-3 rounded-full mr-2"
-                                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                                  style={{ backgroundColor: COLORS[index % COLORS...length] }}
                                 />
                                 <span className="text-white">
-                                  {asset.symbol} - {asset.name}
+                                  {asset...symbol} - {asset...name}
                                 </span>
                               </div>
                               <div className="text-right">
-                                <div className="text-white font-medium">${asset.value.toLocaleString()}</div>
-                                <div className="text-gray-400 text-xs">{asset.allocation}%</div>
+                                <div className="text-white font-medium">${asset...value...toLocaleString()}</div>
+                                <div className="text-gray-400 text-xs">{asset...allocation}%</div>
                               </div>
                             </div>
                           ))}
@@ -498,10 +498,10 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                                 fill="#8884d8"
                                 dataKey="value"
                                 nameKey="name"
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                label={({ name, percent }) => `${name} ${(percent * 100)...toFixed(0)}%`}
                               >
-                                {geographicAllocation.map((entry, index) => (
-                                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                {geographicAllocation...map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS...length]} />
                                 ))}
                               </Pie>
                               <Tooltip
@@ -523,7 +523,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                       <CardTitle className="text-white text-lg">Your Holdings</CardTitle>
                     </CardHeader>
                     <CardContent className="p-4">
-                      {(currentPortfolio?.assets || []).length > 0 ? (
+                      {(currentPortfolio?...assets || [])...length > 0 ? (
                         <div className="space-y-4">
                           {/* Table Header */}
                           <div className="grid grid-cols-5 text-sm text-gray-400 pb-2 border-b border-gray-700">
@@ -535,23 +535,23 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                           </div>
 
                           {/* Table Rows */}
-                          {(currentPortfolio?.assets || []).map((asset) => (
+                          {(currentPortfolio?...assets || [])...map((asset) => (
                             <div
-                              key={asset.symbol}
+                              key={asset...symbol}
                               className="grid grid-cols-5 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors"
                             >
-                              <div className="font-medium text-white">{asset.symbol}</div>
-                              <div className="text-gray-300">{asset.name}</div>
-                              <div className="text-right text-gray-300">{asset.quantity}</div>
-                              <div className="text-right text-white">${asset.value.toLocaleString()}</div>
-                              <div className="text-right text-emerald-400">{asset.allocation}%</div>
+                              <div className="font-medium text-white">{asset...symbol}</div>
+                              <div className="text-gray-300">{asset...name}</div>
+                              <div className="text-right text-gray-300">{asset...quantity}</div>
+                              <div className="text-right text-white">${asset...value...toLocaleString()}</div>
+                              <div className="text-right text-emerald-400">{asset...allocation}%</div>
                             </div>
                           ))}
                         </div>
                       ) : (
                         <div className="text-center py-8 text-gray-400">
                           <AlertTriangle className="h-12 w-12 mx-auto mb-3 text-yellow-500/70" />
-                          <p>No holdings found for this portfolio.</p>
+                          <p>No holdings found for this portfolio...</p>
                           <Button
                             variant="outline"
                             className="mt-4 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10"
@@ -584,37 +584,37 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                         </div>
 
                         {/* Table Rows */}
-                        {transactionData.map((transaction) => (
+                        {transactionData...map((transaction) => (
                           <div
-                            key={transaction.id}
+                            key={transaction...id}
                             className="grid grid-cols-6 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors"
                           >
-                            <div className="text-gray-300">{transaction.date}</div>
+                            <div className="text-gray-300">{transaction...date}</div>
                             <div>
                               <Badge
                                 className={
-                                  transaction.type === "buy"
+                                  transaction...type === "buy"
                                     ? "bg-green-500"
-                                    : transaction.type === "sell"
+                                    : transaction...type === "sell"
                                       ? "bg-red-500"
                                       : "bg-blue-500"
                                 }
                               >
-                                {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
+                                {transaction...type...charAt(0)...toUpperCase() + transaction...type...slice(1)}
                               </Badge>
                             </div>
-                            <div className="font-medium text-white">{transaction.symbol}</div>
+                            <div className="font-medium text-white">{transaction...symbol}</div>
                             <div className="text-right text-gray-300">
                               $
-                              {transaction.price.toLocaleString(undefined, {
+                              {transaction...price...toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })}
                             </div>
-                            <div className="text-right text-gray-300">{transaction.quantity}</div>
+                            <div className="text-right text-gray-300">{transaction...quantity}</div>
                             <div className="text-right text-white">
                               $
-                              {transaction.total.toLocaleString(undefined, {
+                              {transaction...total...toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })}
@@ -637,26 +637,26 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                         <div className="bg-[#333333] p-4 rounded-lg">
                           <p className="text-gray-400 text-sm mb-1">Volatility (Annualized)</p>
-                          <p className="text-xl font-bold text-white">{riskMetrics.volatility}%</p>
+                          <p className="text-xl font-bold text-white">{riskMetrics...volatility}%</p>
                         </div>
                         <div className="bg-[#333333] p-4 rounded-lg">
                           <p className="text-gray-400 text-sm mb-1">Sharpe Ratio</p>
-                          <p className="text-xl font-bold text-white">{riskMetrics.sharpeRatio}</p>
+                          <p className="text-xl font-bold text-white">{riskMetrics...sharpeRatio}</p>
                         </div>
                         <div className="bg-[#333333] p-4 rounded-lg">
                           <p className="text-gray-400 text-sm mb-1">Beta (vs S&P 500)</p>
-                          <p className="text-xl font-bold text-white">{riskMetrics.beta}</p>
+                          <p className="text-xl font-bold text-white">{riskMetrics...beta}</p>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-[#333333] p-4 rounded-lg">
                           <p className="text-gray-400 text-sm mb-1">Alpha (Annualized)</p>
-                          <p className="text-xl font-bold text-emerald-400">+{riskMetrics.alpha}%</p>
+                          <p className="text-xl font-bold text-emerald-400">+{riskMetrics...alpha}%</p>
                         </div>
                         <div className="bg-[#333333] p-4 rounded-lg">
                           <p className="text-gray-400 text-sm mb-1">Maximum Drawdown</p>
-                          <p className="text-xl font-bold text-red-400">{riskMetrics.maxDrawdown}%</p>
+                          <p className="text-xl font-bold text-red-400">{riskMetrics...maxDrawdown}%</p>
                         </div>
                       </div>
 
@@ -664,7 +664,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                         <p className="text-gray-400 text-sm mb-2">Risk Level</p>
                         <div className="flex items-center space-x-2">
                           <Progress value={60} className="h-2" />
-                          <span className="text-white font-medium">{riskMetrics.riskLevel}</span>
+                          <span className="text-white font-medium">{riskMetrics...riskLevel}</span>
                         </div>
                       </div>
                     </CardContent>
@@ -696,7 +696,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ onTabChange }) => {
                             />
                             <Line
                               type="monotone"
-                              data={performanceData.map((d) => ({ ...d, value: d.value * 0.9 }))}
+                              data={performanceData...map((d) => ({ .........d, value: d...value * 0...9 }))}
                               dataKey="value"
                               name="S&P 500"
                               stroke="#3b82f6"

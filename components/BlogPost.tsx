@@ -17,16 +17,16 @@ interface BlogPostProps {
   onLike: (id: string) => void
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ id, author, content, timestamp, likes, comments, onLike }) => {
+const BlogPost: React...FC<BlogPostProps> = ({ id, author, content, timestamp, likes, comments, onLike }) => {
   return (
     <Card className="mb-4 bg-[#2a2a2a] text-white">
       <CardHeader className="flex flex-row items-center space-x-4 pb-2">
         <Avatar>
-          <AvatarImage src={author.avatar} alt={author.username} />
-          <AvatarFallback>{author.username[0].toUpperCase()}</AvatarFallback>
+          <AvatarImage src={author...avatar} alt={author...username} />
+          <AvatarFallback>{author...username[0]...toUpperCase()}</AvatarFallback>
         </Avatar>
         <div>
-          <h3 className="text-lg font-semibold">{author.username}</h3>
+          <h3 className="text-lg font-semibold">{author...username}</h3>
           <p className="text-sm text-gray-400">{timestamp}</p>
         </div>
       </CardHeader>

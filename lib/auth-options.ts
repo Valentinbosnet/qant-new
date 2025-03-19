@@ -12,13 +12,13 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?...email || !credentials?...password) {
           return null
         }
 
-        const user = await db.user.findUnique({
+        const user = await db...user...findUnique({
           where: {
-            email: credentials.email,
+            email: credentials...email,
           },
         })
 
@@ -26,16 +26,16 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const isPasswordValid = await compare(credentials.password, user.password)
+        const isPasswordValid = await compare(credentials...password, user...password)
 
         if (!isPasswordValid) {
           return null
         }
 
         return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
+          id: user...id,
+          email: user...email,
+          name: user...name,
         }
       },
     }),
@@ -43,13 +43,13 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id
+        token...id = user...id
       }
       return token
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id as string
+        session...user...id = token...id as string
       }
       return session
     },
@@ -62,6 +62,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process...env...NEXTAUTH_SECRET,
 }
 

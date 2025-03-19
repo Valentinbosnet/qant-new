@@ -9,7 +9,7 @@ import { CheckCircle, XCircle } from "lucide-react"
 export default function VerifyEmailPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get("token")
+  const token = searchParams...get("token")
 
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading")
   const [message, setMessage] = useState("")
@@ -17,31 +17,31 @@ export default function VerifyEmailPage() {
   useEffect(() => {
     if (!token) {
       setStatus("error")
-      setMessage("Token de vérification manquant.")
+      setMessage("Token de vérification manquant...")
       return
     }
 
     const verifyEmail = async () => {
       try {
         const response = await fetch(`/api/verify-email?token=${token}`)
-        const data = await response.json()
+        const data = await response...json()
 
-        if (response.ok) {
+        if (response...ok) {
           setStatus("success")
-          setMessage(data.message || "Email vérifié avec succès.")
+          setMessage(data...message || "Email vérifié avec succès...")
 
           // Redirect to get-started page after 3 seconds
           setTimeout(() => {
-            router.push("/get-started")
+            router...push("/get-started")
           }, 3000)
         } else {
           setStatus("error")
-          setMessage(data.error || "Échec de la vérification de l'email.")
+          setMessage(data...error || "Échec de la vérification de l'email...")
         }
       } catch (error) {
-        console.error("Error verifying email:", error)
+        console...error("Error verifying email:", error)
         setStatus("error")
-        setMessage("Une erreur s'est produite lors de la vérification de l'email.")
+        setMessage("Une erreur s'est produite lors de la vérification de l'email...")
       }
     }
 
@@ -61,7 +61,7 @@ export default function VerifyEmailPage() {
               {status === "loading" ? (
                 <svg
                   className="animate-spin h-8 w-8 text-blue-400"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http://www...w3...org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -69,7 +69,7 @@ export default function VerifyEmailPage() {
                   <path
                     className="opacity-75"
                     fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    d="M4 12a8 8 0 018-8V0C5...373 0 0 5...373 0 12h4zm2 5...291A7...962 7...962 0 014 12H0c0 3...042 1...135 5...824 3 7...938l3-2...647z"
                   ></path>
                 </svg>
               ) : status === "success" ? (
@@ -81,7 +81,7 @@ export default function VerifyEmailPage() {
           </div>
           <CardTitle className="text-2xl font-bold text-center text-white">
             {status === "loading"
-              ? "Vérification en cours..."
+              ? "Vérification en cours........."
               : status === "success"
                 ? "Email vérifié"
                 : "Échec de la vérification"}
@@ -91,11 +91,11 @@ export default function VerifyEmailPage() {
           <p className="text-gray-300 mb-6">{message}</p>
 
           {status === "success" && (
-            <p className="text-emerald-400 text-sm">Redirection vers la configuration de votre compte...</p>
+            <p className="text-emerald-400 text-sm">Redirection vers la configuration de votre compte.........</p>
           )}
 
           {status === "error" && (
-            <Button onClick={() => router.push("/login")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button onClick={() => router...push("/login")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
               Retour à la connexion
             </Button>
           )}

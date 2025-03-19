@@ -40,17 +40,17 @@ export default function PortfolioPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.id) {
+      if (session?...user?...id) {
         try {
           // Récupérer ou créer le portfolio par défaut
-          const portfolioData = await getOrCreateDefaultPortfolio(session.user.id)
+          const portfolioData = await getOrCreateDefaultPortfolio(session...user...id)
           setPortfolio(portfolioData)
 
           // Récupérer les données historiques
           const data = await getHistoricalData("AAPL", period)
           setHistoricalData(data)
         } catch (error) {
-          console.error("Error fetching portfolio data:", error)
+          console...error("Error fetching portfolio data:", error)
         } finally {
           setLoading(false)
         }
@@ -95,10 +95,10 @@ export default function PortfolioPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-gray-400 mb-1">Valeur totale</p>
-                <h2 className="text-3xl font-bold text-white">${portfolio?.balance.toLocaleString()}</h2>
+                <h2 className="text-3xl font-bold text-white">${portfolio?...balance...toLocaleString()}</h2>
                 <div className="flex items-center mt-2">
-                  <span className="text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-medium">
-                    +1.01%
+                  <span className="text-emerald-500 bg-emerald-500/10 px-1...5 py-0...5 rounded text-xs font-medium">
+                    +1...01%
                   </span>
                   <span className="text-gray-400 text-xs ml-2">aujourd'hui</span>
                 </div>
@@ -113,10 +113,10 @@ export default function PortfolioPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-gray-400 mb-1">Rendement annuel</p>
-                <h2 className="text-3xl font-bold text-emerald-500">+8.5%</h2>
+                <h2 className="text-3xl font-bold text-emerald-500">+8...5%</h2>
                 <div className="flex items-center mt-2">
-                  <span className="text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-medium">
-                    +2.3%
+                  <span className="text-emerald-500 bg-emerald-500/10 px-1...5 py-0...5 rounded text-xs font-medium">
+                    +2...3%
                   </span>
                   <span className="text-gray-400 text-xs ml-2">vs marché</span>
                 </div>
@@ -150,7 +150,7 @@ export default function PortfolioPage() {
               <div className="flex justify-between items-center">
                 <CardTitle className="text-white">Évolution du portfolio</CardTitle>
                 <div className="flex space-x-1">
-                  {["1d", "1w", "1m", "3m", "1y", "5y"].map((p) => (
+                  {["1d", "1w", "1m", "3m", "1y", "5y"]...map((p) => (
                     <Button
                       key={p}
                       variant={period === p ? "default" : "outline"}
@@ -158,7 +158,7 @@ export default function PortfolioPage() {
                       className={`text-xs ${period === p ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""}`}
                       onClick={() => setPeriod(p as any)}
                     >
-                      {p.toUpperCase()}
+                      {p...toUpperCase()}
                     </Button>
                   ))}
                 </div>
@@ -265,14 +265,14 @@ export default function PortfolioPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {portfolio?.assets.map((asset) => (
-                      <tr key={asset.id} className="border-b border-gray-700 hover:bg-gray-700/50">
-                        <td className="py-3 px-4 text-white">{asset.name}</td>
-                        <td className="py-3 px-4 text-white">{asset.symbol}</td>
-                        <td className="py-3 px-4 text-white text-right">{asset.quantity || "-"}</td>
-                        <td className="py-3 px-4 text-white text-right">${asset.value.toLocaleString()}</td>
-                        <td className="py-3 px-4 text-white text-right">{asset.allocation}%</td>
-                        <td className="py-3 px-4 text-white text-right capitalize">{asset.assetType}</td>
+                    {portfolio?...assets...map((asset) => (
+                      <tr key={asset...id} className="border-b border-gray-700 hover:bg-gray-700/50">
+                        <td className="py-3 px-4 text-white">{asset...name}</td>
+                        <td className="py-3 px-4 text-white">{asset...symbol}</td>
+                        <td className="py-3 px-4 text-white text-right">{asset...quantity || "-"}</td>
+                        <td className="py-3 px-4 text-white text-right">${asset...value...toLocaleString()}</td>
+                        <td className="py-3 px-4 text-white text-right">{asset...allocation}%</td>
+                        <td className="py-3 px-4 text-white text-right capitalize">{asset...assetType}</td>
                       </tr>
                     ))}
                   </tbody>

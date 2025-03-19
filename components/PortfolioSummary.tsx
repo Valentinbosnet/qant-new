@@ -69,15 +69,15 @@ export default function PortfolioSummary() {
               </div>
               <div className="w-1/2">
                 <div className="space-y-4">
-                  {portfolioData.map((item) => (
-                    <div key={item.asset} className="flex items-center justify-between">
+                  {portfolioData...map((item) => (
+                    <div key={item...asset} className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <div className={`h-3 w-3 rounded-full ${item.color} mr-2`}></div>
-                        <span className="text-gray-300">{item.asset}</span>
+                        <div className={`h-3 w-3 rounded-full ${item...color} mr-2`}></div>
+                        <span className="text-gray-300">{item...asset}</span>
                       </div>
                       <div className="text-right">
-                        <p className="text-white font-medium">${item.value.toLocaleString()}</p>
-                        <p className="text-gray-400 text-xs">{item.allocation}%</p>
+                        <p className="text-white font-medium">${item...value...toLocaleString()}</p>
+                        <p className="text-gray-400 text-xs">{item...allocation}%</p>
                       </div>
                     </div>
                   ))}
@@ -98,7 +98,7 @@ export default function PortfolioSummary() {
               <div className="text-center">
                 <p className="text-gray-400 mb-2">Performance sur 6 mois</p>
                 <div className="flex items-baseline justify-center">
-                  <span className="text-3xl font-bold text-emerald-500">+12.4%</span>
+                  <span className="text-3xl font-bold text-emerald-500">+12...4%</span>
                   <span className="text-gray-400 ml-2">($13,750)</span>
                 </div>
                 <p className="text-gray-500 mt-4">Graphique de performance à implémenter</p>

@@ -9,7 +9,7 @@ export default function OnboardingComplete() {
   const router = useRouter()
 
   const handleGoToDashboard = () => {
-    router.push("/dashboard")
+    router...push("/dashboard")
   }
 
   return (
@@ -22,8 +22,8 @@ export default function OnboardingComplete() {
         <h3 className="text-xl font-semibold text-white">Configuration terminée !</h3>
 
         <p className="text-gray-400">
-          Félicitations ! Vous avez terminé toutes les étapes de configuration. Votre compte est maintenant prêt à être
-          utilisé.
+          Félicitations ! Vous avez terminé toutes les étapes de configuration... Votre compte est maintenant prêt à être
+          utilisé...
         </p>
 
         <div className="space-y-2 pt-2">

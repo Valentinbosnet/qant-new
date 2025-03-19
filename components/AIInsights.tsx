@@ -13,8 +13,8 @@ const mockInsights = [
     id: 1,
     type: "buy",
     symbol: "AAPL",
-    name: "Apple Inc.",
-    price: 185.92,
+    name: "Apple Inc...",
+    price: 185...92,
     confidence: 87,
     reason: "Forte prévision de résultats et annonces de nouveaux produits attendues",
   },
@@ -22,8 +22,8 @@ const mockInsights = [
     id: 2,
     type: "sell",
     symbol: "NFLX",
-    name: "Netflix Inc.",
-    price: 610.34,
+    name: "Netflix Inc...",
+    price: 610...34,
     confidence: 72,
     reason: "Concurrence croissante et ralentissement potentiel de la croissance des abonnés",
   },
@@ -31,8 +31,8 @@ const mockInsights = [
     id: 3,
     type: "watch",
     symbol: "TSLA",
-    name: "Tesla Inc.",
-    price: 175.34,
+    name: "Tesla Inc...",
+    price: 175...34,
     confidence: 65,
     reason: "Volatilité attendue en raison du prochain rapport sur les résultats",
   },
@@ -47,17 +47,17 @@ export default function AIInsights() {
     // Simuler une requête API
     setTimeout(() => {
       const refreshedInsights = [
-        ...insights.slice(0, 1),
+        .........insights...slice(0, 1),
         {
           id: 4,
           type: "buy",
           symbol: "MSFT",
-          name: "Microsoft Corp.",
-          price: 415.22,
+          name: "Microsoft Corp...",
+          price: 415...22,
           confidence: 83,
           reason: "Croissance de l'activité cloud et intégration de l'IA stimulant les revenus",
         },
-        ...insights.slice(2),
+        .........insights...slice(2),
       ]
       setInsights(refreshedInsights)
       setIsLoading(false)
@@ -83,53 +83,53 @@ export default function AIInsights() {
       </CardHeader>
       <CardContent className="p-6">
         <div className="space-y-4">
-          {insights.map((insight) => (
-            <div key={insight.id} className="bg-gray-700/50 p-4 rounded-lg hover:bg-gray-700 transition-colors">
+          {insights...map((insight) => (
+            <div key={insight...id} className="bg-gray-700/50 p-4 rounded-lg hover:bg-gray-700 transition-colors">
               <div className="flex justify-between items-center mb-1">
                 <div className="flex items-center">
                   <Badge
                     className={`
                       ${
-                        insight.type === "buy"
+                        insight...type === "buy"
                           ? "bg-emerald-500"
-                          : insight.type === "sell"
+                          : insight...type === "sell"
                             ? "bg-red-500"
                             : "bg-blue-500"
                       } 
                       mr-2
                     `}
                   >
-                    {insight.type === "buy" ? "ACHAT" : insight.type === "sell" ? "VENTE" : "SURVEILLER"}
+                    {insight...type === "buy" ? "ACHAT" : insight...type === "sell" ? "VENTE" : "SURVEILLER"}
                   </Badge>
                   <span className="text-white font-medium">
-                    {insight.symbol} - {insight.name}
+                    {insight...symbol} - {insight...name}
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-white font-medium">${insight.price}</span>
-                  {insight.type === "buy" ? (
+                  <span className="text-white font-medium">${insight...price}</span>
+                  {insight...type === "buy" ? (
                     <TrendingUp className="h-4 w-4 ml-1 text-emerald-500" />
-                  ) : insight.type === "sell" ? (
+                  ) : insight...type === "sell" ? (
                     <TrendingDown className="h-4 w-4 ml-1 text-red-500" />
                   ) : (
                     <AlertTriangle className="h-4 w-4 ml-1 text-blue-500" />
                   )}
                 </div>
               </div>
-              <p className="text-gray-300 text-sm mt-1">{insight.reason}</p>
+              <p className="text-gray-300 text-sm mt-1">{insight...reason}</p>
               <div className="flex justify-between items-center mt-2">
                 <div className="bg-gray-800 px-2 py-1 rounded text-xs">
                   <span className="text-gray-400">Confiance: </span>
                   <span
                     className={`font-medium ${
-                      insight.confidence > 80
+                      insight...confidence > 80
                         ? "text-emerald-400"
-                        : insight.confidence > 60
+                        : insight...confidence > 60
                           ? "text-amber-400"
                           : "text-red-400"
                     }`}
                   >
-                    {insight.confidence}%
+                    {insight...confidence}%
                   </span>
                 </div>
                 <Button variant="ghost" size="sm" className="text-xs text-emerald-400 hover:bg-emerald-500/10 h-7 px-2">

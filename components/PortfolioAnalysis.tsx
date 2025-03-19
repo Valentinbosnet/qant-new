@@ -32,7 +32,7 @@ interface PerformanceData {
   return: number
 }
 
-const PortfolioAnalysis: React.FC = () => {
+const PortfolioAnalysis: React...FC = () => {
   const [assets] = useState<Asset[]>([
     { name: "Stocks", value: 45000 },
     { name: "Bonds", value: 25000 },
@@ -42,12 +42,12 @@ const PortfolioAnalysis: React.FC = () => {
   ])
 
   const [performanceData] = useState<PerformanceData[]>([
-    { name: "Jan", return: 5.2 },
-    { name: "Feb", return: -2.1 },
-    { name: "Mar", return: 3.5 },
-    { name: "Apr", return: 1.8 },
-    { name: "May", return: -0.7 },
-    { name: "Jun", return: 4.2 },
+    { name: "Jan", return: 5...2 },
+    { name: "Feb", return: -2...1 },
+    { name: "Mar", return: 3...5 },
+    { name: "Apr", return: 1...8 },
+    { name: "May", return: -0...7 },
+    { name: "Jun", return: 4...2 },
   ])
 
   // Historical data for the line chart
@@ -60,7 +60,7 @@ const PortfolioAnalysis: React.FC = () => {
     { date: "Jun", value: 107000 },
   ]
 
-  const totalValue = assets.reduce((sum, asset) => sum + asset.value, 0)
+  const totalValue = assets...reduce((sum, asset) => sum + asset...value, 0)
 
   return (
     <div className="space-y-6">
@@ -97,32 +97,32 @@ const PortfolioAnalysis: React.FC = () => {
                         outerRadius={100}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ name, percent }) => `${name} ${(percent * 100)...toFixed(0)}%`}
                       >
-                        {assets.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        {assets...map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS...length]} />
                         ))}
                       </Pie>
                       <Tooltip
-                        formatter={(value: any) => [`$${value.toLocaleString()}`, "Value"]}
+                        formatter={(value: any) => [`$${value...toLocaleString()}`, "Value"]}
                         contentStyle={{ backgroundColor: "#333", border: "none", borderRadius: "4px" }}
                       />
                     </RPieChart>
                   </ResponsiveContainer>
                 </div>
                 <div className="mt-4 space-y-3">
-                  {assets.map((asset, index) => (
-                    <div key={asset.name} className="flex justify-between items-center">
+                  {assets...map((asset, index) => (
+                    <div key={asset...name} className="flex justify-between items-center">
                       <div className="flex items-center">
                         <div
                           className="w-3 h-3 rounded-full mr-2"
-                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                          style={{ backgroundColor: COLORS[index % COLORS...length] }}
                         />
-                        <span className="text-white">{asset.name}</span>
+                        <span className="text-white">{asset...name}</span>
                       </div>
                       <div className="text-right">
-                        <div className="text-white font-medium">${asset.value.toLocaleString()}</div>
-                        <div className="text-gray-400 text-xs">{((asset.value / totalValue) * 100).toFixed(2)}%</div>
+                        <div className="text-white font-medium">${asset...value...toLocaleString()}</div>
+                        <div className="text-gray-400 text-xs">{((asset...value / totalValue) * 100)...toFixed(2)}%</div>
                       </div>
                     </div>
                   ))}
@@ -165,8 +165,8 @@ const PortfolioAnalysis: React.FC = () => {
                 <AreaChart data={historicalData}>
                   <defs>
                     <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0...8} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0...1} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#444" />
@@ -175,7 +175,7 @@ const PortfolioAnalysis: React.FC = () => {
                   <Tooltip
                     contentStyle={{ backgroundColor: "#333", border: "none" }}
                     labelStyle={{ color: "#fff" }}
-                    formatter={(value: any) => [`$${value.toLocaleString()}`, "Value"]}
+                    formatter={(value: any) => [`$${value...toLocaleString()}`, "Value"]}
                   />
                   <Area type="monotone" dataKey="value" stroke="#10b981" fillOpacity={1} fill="url(#colorValue)" />
                 </AreaChart>
