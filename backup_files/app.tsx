@@ -14,11 +14,6 @@ import { Toaster } from "@/components/ui/toaster"
 import { ErrorBoundary } from "react-error-boundary"
 import { useToast } from "@/components/ui/use-toast"
 
-interface User {
-  username: string
-  email: string
-}
-
 function ErrorFallback({ error }: { error: Error }) {
   return (
     <div className="text-red-500 p-4">
@@ -30,7 +25,7 @@ function ErrorFallback({ error }: { error: Error }) {
 
 export default function App() {
   console.log("App component rendered")
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState(null)
   const [activeTab, setActiveTab] = useState("landing")
   const [followedUsers, setFollowedUsers] = useState([])
   const [users, setUsers] = useState([{ email: "demo@example.com", password: "password" }])
@@ -74,6 +69,7 @@ export default function App() {
       toast({
         title: "Auto-login failed",
         description: "Please try signing in manually.",
+        variant: "destructive",
       })
       setActiveTab("signin")
     }
@@ -88,7 +84,7 @@ export default function App() {
     console.log("Rendering content for activeTab:", activeTab)
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard user={user} setActiveTab={setActiveTab} followedUsers={followedUsers} as any} /> 
+        return <Dashboard user={user} setActiveTab={setActiveTab} followedUsers={followedUsers} />
       case "aiPredictions":
         return <AIPredictionsPage setActiveTab={setActiveTab} />
       case "preferences":

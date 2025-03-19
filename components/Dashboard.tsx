@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Dispatch, SetStateAction } from "react"
 import { useSession } from "next-auth/react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, BarChart3, LineChart, PieChart, Plus, RefreshCw, Search, Zap } from "lucide-react"
+import { ArrowUpRight, BarChart3, LineChart, PieChart, Plus, RefreshCw, Search, Zap } from 'lucide-react'
 import Link from "next/link"
 import { getOrCreateDefaultPortfolio } from "@/lib/portfolio-service"
 import { getMarketIndices } from "@/lib/market-service"
@@ -31,7 +31,17 @@ interface MarketIndex {
   changePercent: number
 }
 
-export default function Dashboard() {
+// Définir l'interface pour les props
+interface DashboardProps {
+  user?: {
+    username: string;
+    email: string;
+  } | null;
+  setActiveTab?: Dispatch<SetStateAction<string>>;
+  followedUsers?: any[]; // Remplacez 'any' par le type correct si nécessaire
+}
+
+export default function Dashboard({ user: propUser, setActiveTab, followedUsers }: DashboardProps) {
   const { data: session } = useSession()
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const [marketIndex, setMarketIndex] = useState<MarketIndex | null>(null)
@@ -61,6 +71,13 @@ export default function Dashboard() {
     fetchData()
   }, [session])
 
+  // Fonction pour naviguer vers une autre page si setActiveTab est fourni
+  const navigateTo = (tab: string) => {
+    if (setActiveTab) {
+      setActiveTab(tab)
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -74,13 +91,18 @@ export default function Dashboard() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Tableau de bord</h1>
-          <p className="text-gray-400">Bienvenue, {session?.user?.name || "Utilisateur"}</p>
+          <p className="text-gray-400">Bienvenue, {propUser?.username || session?.user?.name || "Utilisateur"}</p>
         </div>
         <div className="flex space-x-4 mt-4 md:mt-0">
           <Button variant="outline" size="sm" className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4" /> Actualiser
           </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Voir le portfolio</Button>
+          <Button 
+            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            onClick={() => navigateTo("portfolio")}
+          >
+            Voir le portfolio
+          </Button>
         </div>
       </div>
 
@@ -148,7 +170,14 @@ export default function Dashboard() {
                 <p className="text-gray-400 mb-1">Niveau de risque</p>
                 <h2 className="text-3xl font-bold text-yellow-500">Moderate</h2>
                 <div className="flex items-center mt-2">
-                  <Link href="/risk-analysis" className="text-emerald-500 text-sm flex items-center">
+                  <Link 
+                    href="#" 
+                    className="text-emerald-500 text-sm flex items-center"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo("riskAnalysis");
+                    }}
+                  >
                     Voir l'analyse de risque <ArrowUpRight className="ml-1 h-3 w-3" />
                   </Link>
                 </div>
@@ -304,7 +333,14 @@ export default function Dashboard() {
               </div>
 
               <div className="mt-6 text-right">
-                <Link href="/portfolio" className="text-emerald-500 text-sm flex items-center justify-end">
+                <Link 
+                  href="#" 
+                  className="text-emerald-500 text-sm flex items-center justify-end"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("portfolio");
+                  }}
+                >
                   Voir les détails <ArrowUpRight className="ml-1 h-3 w-3" />
                 </Link>
               </div>
@@ -318,22 +354,41 @@ export default function Dashboard() {
               <h3 className="text-xl font-bold text-white mb-6">Actions rapides</h3>
 
               <div className="space-y-3">
-                <Button variant="outline" className="w-full justify-start text-left" size="lg">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  size="lg"
+                  onClick={() => navigateTo("portfolio")}
+                >
                   <Plus className="mr-2 h-4 w-4 text-emerald-500" />
                   <span>Ajouter un actif</span>
                 </Button>
 
-                <Button variant="outline" className="w-full justify-start text-left" size="lg">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  size="lg"
+                >
                   <Search className="mr-2 h-4 w-4 text-emerald-500" />
                   <span>Rechercher un titre</span>
                 </Button>
 
-                <Button variant="outline" className="w-full justify-start text-left" size="lg">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  size="lg"
+                  onClick={() => navigateTo("riskAnalysis")}
+                >
                   <BarChart3 className="mr-2 h-4 w-4 text-emerald-500" />
                   <span>Analyser mon risque</span>
                 </Button>
 
-                <Button variant="outline" className="w-full justify-start text-left" size="lg">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  size="lg"
+                  onClick={() => navigateTo("aiPredictions")}
+                >
                   <Zap className="mr-2 h-4 w-4 text-emerald-500" />
                   <span>Nouvelle prédiction IA</span>
                 </Button>
@@ -345,4 +400,3 @@ export default function Dashboard() {
     </div>
   )
 }
-

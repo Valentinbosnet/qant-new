@@ -89,3 +89,24 @@ export function generateVerificationEmail(email: string, token: string) {
 }
 
 
+export async function sendVerificationEmail(email: string, token: string) {
+  const emailContent = generateVerificationEmail(email, token);
+  return sendEmail(emailContent);
+}
+
+export async function sendWelcomeEmail(email: string, name: string) {
+  return sendEmail({
+    to: email,
+    subject: "Bienvenue sur TradeAssist",
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #10b981;">Bienvenue sur TradeAssist</h2>
+        <p>Bonjour ${name},</p>
+        <p>Nous sommes ravis de vous accueillir sur TradeAssist. Votre compte est maintenant vérifié et prêt à être utilisé.</p>
+        <p>Cordialement,<br>L'équipe TradeAssist</p>
+      </div>
+    `,
+  });
+}
+
+

@@ -6,7 +6,7 @@ export async function runMigrations() {
     console.log("Running migrations...")
 
     // Vérifier si la colonne onboarding_completed existe déjà
-    const checkColumn = await db.execute(sql`
+    const checkColumn = await c.db.$executeRaw(sql`
       SELECT column_name 
       FROM information_schema.columns 
       WHERE table_name = 'users' AND column_name = 'onboarding_completed'
@@ -14,7 +14,7 @@ export async function runMigrations() {
 
     // Si la colonne n'existe pas, l'ajouter
     if (checkColumn.rows.length === 0) {
-      await db.execute(sql`
+      await c.db.$executeRaw(sql`
         ALTER TABLE users 
         ADD COLUMN IF NOT EXISTS onboarding_completed BOOLEAN DEFAULT false
       `)
@@ -30,7 +30,7 @@ export async function runMigrations() {
 
     // Si la table n'existe pas, la créer
     if (checkPortfoliosTable.rows.length === 0) {
-      await db.execute(sql`
+      await c.db.$executeRaw(sql`
         CREATE TABLE IF NOT EXISTS portfolios (
           id TEXT PRIMARY KEY,
           name TEXT NOT NULL,
@@ -47,7 +47,7 @@ export async function runMigrations() {
     }
 
     // Vérifier si la table assets existe
-    const checkAssetsTable = await db.execute(sql`
+    const checkAssetsTable = await c.db.$executeRaw(sql`
       SELECT table_name 
       FROM information_schema.tables 
       WHERE table_name = 'assets'
@@ -55,7 +55,7 @@ export async function runMigrations() {
 
     // Si la table n'existe pas, la créer
     if (checkAssetsTable.rows.length === 0) {
-      await db.execute(sql`
+      await c.db.$executeRaw(sql`
         CREATE TABLE IF NOT EXISTS assets (
           id TEXT PRIMARY KEY,
           symbol TEXT NOT NULL,
@@ -73,7 +73,7 @@ export async function runMigrations() {
     }
 
     // Vérifier si la table predictions existe
-    const checkPredictionsTable = await db.execute(sql`
+    const checkPredictionsTable = await c.db.$executeRaw(sql`
       SELECT table_name 
       FROM information_schema.tables 
       WHERE table_name = 'predictions'
@@ -81,7 +81,7 @@ export async function runMigrations() {
 
     // Si la table n'existe pas, la créer
     if (checkPredictionsTable.rows.length === 0) {
-      await db.execute(sql`
+      await c.db.$executeRaw(sql`
         CREATE TABLE IF NOT EXISTS predictions (
           id TEXT PRIMARY KEY,
           stock TEXT NOT NULL,
