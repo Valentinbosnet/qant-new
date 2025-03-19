@@ -1,3 +1,37 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    // Règles de formatage
+    "semi": ["error", "always"],
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "comma-dangle": ["error", "always-multiline"],
+    
+    // Règles de qualité du code
+    "no-unused-vars": ["warn", { 
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_" 
+    }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    
+    // Règles React
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
+    
+    // Règles d'accessibilité
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/aria-props": "warn",
+    
+    // Règles d'importation
+    "import/no-anonymous-default-export": "warn",
+    
+    // Règles TypeScript (si vous utilisez TypeScript)
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
+  }
 }
