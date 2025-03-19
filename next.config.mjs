@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Désactiver ESLint pendant le build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // Ignorer les erreurs de type
   typescript: {
     ignoreBuildErrors: true,
-  },
-  
-  // Ignorer les erreurs ESLint
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   
   // Configuration pour les routes API
@@ -18,23 +18,22 @@ const nextConfig = {
   // Forcer le mode de sortie standalone
   output: 'standalone',
   
+  // Ignorer les erreurs d'image
+  images: {
+    unoptimized: true,
+  },
+  
   // Webpack config pour résoudre les problèmes de modules
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // Résoudre les problèmes avec certains modules côté serveur
-      config.externals = [...config.externals, 'nodemailer'];
-    }
+  webpack: (config) => {
+    // Résoudre les problèmes avec certains modules côté serveur
+    config.resolve.fallback = { 
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
     return config;
   },
 }
-// Désactiver ESLint pendant le build
-eslint: {
-  ignoreDuringBuilds: true,
-},
-
-// Ignorer les erreurs de type
-typescript: {
-  ignoreBuildErrors: true,
-},
 
 export default nextConfig;
