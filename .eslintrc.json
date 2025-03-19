@@ -1,11 +1,11 @@
-module.exports = {
-  extends: ['next/core-web-vitals'],
-  rules: {
-    'react/no-unescaped-entities': 'off',
-    'semi': 'off',
-    'quotes': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'no-unused-vars': 'off',
-    '@next/next/no-img-element': 'off'
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "semi": "off",
+    "quotes": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-unused-vars": "off",
+    "@next/next/no-img-element": "off"
   }
-};
+}
