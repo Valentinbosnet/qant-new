@@ -1,39 +1,62 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth-options"
-import { PrismaClient } from "@prisma/client"
+import { db } from "@/lib/db"
 
-const prisma = new PrismaClient()
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
-    // Vérifier si l'environnement est en développement
-    if (process.env.NODE_ENV !== "development") {
-      return NextResponse.json(
-        { error: "Cette route n'est disponible qu'en environnement de développement" },
-        { status: 403 },
-      )
-    }
-
+    // Vérifier l'authentification
     const session = await getServerSession(authOptions)
 
     if (!session || !session.user?.email) {
-      return NextResponse.json({ error: "Vous devez être connecté pour effectuer cette action" }, { status: 401 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    // Mettre à jour l'utilisateur pour le rendre administrateur
-    await prisma.user.update({
-      where: { email: session.user.email },
-      data: { role: "ADMIN" },
+    // Récupérer les données de la requête
+    const data = await request.json()
+    const { email } = data
+
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 })
+    }
+
+    // Vérifier si l'utilisateur existe
+    const user = await db.user.findUnique({
+      where: { email },
+    })
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+
+    // Mettre à jour le rôle de l'utilisateur
+    const updatedUser = await db.user.update({
+      where: { email },
+      data: { role: "admin" },
+      select: {
+        id: true,
+        email: true,
+        role: true,
+      },
     })
 
     return NextResponse.json({
-      message: "Votre compte a été promu administrateur",
-      email: session.user.email,
+      message: "User promoted to admin successfully",
+      user: updatedUser,
     })
   } catch (error) {
-    console.error("Erreur lors de la promotion du compte:", error)
-    return NextResponse.json({ error: "Erreur lors de la promotion du compte" }, { status: 500 })
+    console.error("Error promoting user to admin:", error)
+    return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
+}
+
+// Ajouter une méthode GET pour éviter les erreurs de build
+export async function GET() {
+  return NextResponse.json({
+    message: "This endpoint requires a POST request to promote a user to admin",
+  })
 }
 
