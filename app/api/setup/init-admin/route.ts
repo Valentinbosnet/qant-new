@@ -1,68 +1,88 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcrypt"
-import { PrismaClient } from "@prisma/client"
+import { db } from "@/lib/db"
 
-const prisma = new PrismaClient()
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
 
-// Cette route ne devrait être accessible qu'en développement
-// En production, elle devrait être désactivée ou protégée par un secret
 export async function POST(request: Request) {
-  // Vérifier si l'environnement est en développement
-  if (process.env.NODE_ENV !== "development") {
-    return NextResponse.json(
-      { error: "Cette route n'est disponible qu'en environnement de développement" },
-      { status: 403 },
-    )
-  }
-
   try {
-    const { email, password, name } = await request.json()
+    // Vérifier si l'environnement est de production et si la clé secrète est fournie
+    const { SETUP_SECRET } = process.env
 
-    if (!email || !password || !name) {
-      return NextResponse.json({ error: "Email, mot de passe et nom sont requis" }, { status: 400 })
+    if (process.env.NODE_ENV === "production" && !SETUP_SECRET) {
+      return NextResponse.json({ error: "Setup is not allowed in production without a secret key" }, { status: 403 })
     }
 
-    // Vérifier si un utilisateur avec cet email existe déjà
-    const existingUser = await prisma.user.findUnique({
+    // Récupérer les données de la requête
+    const data = await request.json()
+    const { name, email, password, secretKey } = data
+
+    // Vérifier la clé secrète en production
+    if (process.env.NODE_ENV === "production" && secretKey !== SETUP_SECRET) {
+      return NextResponse.json({ error: "Invalid secret key" }, { status: 403 })
+    }
+
+    // Vérifier si les champs requis sont présents
+    if (!name || !email || !password) {
+      return NextResponse.json({ error: "Name, email and password are required" }, { status: 400 })
+    }
+
+    // Vérifier si un utilisateur admin existe déjà
+    const existingAdmin = await db.user.findFirst({
+      where: { role: "admin" },
+    })
+
+    if (existingAdmin) {
+      return NextResponse.json({ error: "An admin user already exists" }, { status: 409 })
+    }
+
+    // Vérifier si l'email est déjà utilisé
+    const existingUser = await db.user.findUnique({
       where: { email },
     })
 
     if (existingUser) {
-      // Mettre à jour l'utilisateur existant pour le rendre administrateur
-      await prisma.user.update({
-        where: { email },
-        data: {
-          role: "ADMIN",
-          emailVerified: new Date(),
-        },
-      })
-
-      return NextResponse.json({
-        message: "L'utilisateur existant a été promu administrateur",
-        email,
-      })
+      return NextResponse.json({ error: "User with this email already exists" }, { status: 409 })
     }
 
-    // Créer un nouvel utilisateur administrateur
+    // Hacher le mot de passe
     const hashedPassword = await hash(password, 10)
 
-    await prisma.user.create({
+    // Créer l'utilisateur admin
+    const admin = await db.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role: "ADMIN",
-        emailVerified: new Date(), // Marquer l'email comme vérifié
+        role: "admin",
+        emailVerified: new Date(),
+        onboardingCompleted: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
       },
     })
 
     return NextResponse.json({
-      message: "Compte administrateur créé avec succès",
-      email,
+      success: true,
+      message: "Admin user created successfully",
+      admin,
     })
   } catch (error) {
-    console.error("Erreur lors de la création du compte administrateur:", error)
-    return NextResponse.json({ error: "Erreur lors de la création du compte administrateur" }, { status: 500 })
+    console.error("Error creating admin user:", error)
+    return NextResponse.json({ error: "An error occurred while creating the admin user" }, { status: 500 })
   }
+}
+
+// Ajouter une méthode GET pour éviter les erreurs de build
+export async function GET() {
+  return NextResponse.json({
+    message: "This endpoint requires a POST request to initialize an admin user",
+  })
 }
 
