@@ -2,18 +2,20 @@ import { NextResponse } from "next/server"
 import { hash } from "bcrypt"
 import { db } from "@/lib/db"
 import crypto from "crypto"
-import { sendVerificationEmail } from "@/lib/email-service"
 
-export async function POST(req: Request) {
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
+
+export async function POST(request: Request) {
   try {
-    const { name, email, password } = await req.json()
+    const { name, email, password } = await request.json()
 
-    // Validation
+    // Validation des champs
     if (!name || !email || !password) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      return NextResponse.json({ error: "Name, email and password are required" }, { status: 400 })
     }
 
-    // Check if user already exists
+    // Vérifier si l'utilisateur existe déjà
     const existingUser = await db.user.findUnique({
       where: { email },
     })
@@ -22,71 +24,55 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User with this email already exists" }, { status: 409 })
     }
 
-    // Hash password
+    // Hacher le mot de passe
     const hashedPassword = await hash(password, 10)
 
-    // Create verification token
-    const token = crypto.randomBytes(32).toString("hex")
-    const expires = new Date()
-    expires.setHours(expires.getHours() + 24) // Token expires in 24 hours
-
-    // Create user and verification token in a transaction
-    const result = await db.$transaction(async (tx) => {
-      // Create user
-      const user = await tx.user.create({
-        data: {
-          name,
-          email,
-          password: hashedPassword,
-        },
-      })
-
-      // Create verification token
-      await tx.verificationToken.create({
-        data: {
-          email,
-          token,
-          expires,
-        },
-      })
-
-      // Create subscription
-      await tx.subscription.create({
-        data: {
-          userId: user.id,
-          plan: "free",
-          status: "active",
-        },
-      })
-
-      return user
+    // Créer l'utilisateur
+    const user = await db.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        onboardingCompleted: false,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+      },
     })
 
-    // Send verification email
-    try {
-      await sendVerificationEmail(email, token)
-      console.log(`Verification email sent to ${email}`)
-    } catch (emailError) {
-      console.error("Failed to send verification email:", emailError)
-      // Continue even if email sending fails, but log the error
-      // In development, we'll simulate email sending
-      if (process.env.NODE_ENV === "development") {
-        console.log(
-          `DEVELOPMENT MODE: Verification URL would be: ${process.env.NEXTAUTH_URL}/verify-email?token=${token}`,
-        )
-      }
-    }
+    // Générer un token de vérification d'email
+    const token = crypto.randomBytes(32).toString("hex")
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 heures
 
-    return NextResponse.json(
-      {
-        message: "User registered successfully",
-        userId: result.id,
+    await db.verificationToken.create({
+      data: {
+        email,
+        token,
+        expires,
       },
-      { status: 201 },
-    )
+    })
+
+    // Ici, vous enverriez normalement un email avec le lien de vérification
+    // Pour cet exemple, nous simulons simplement l'envoi d'un email
+    console.log(`Verification link: ${process.env.NEXTAUTH_URL}/verify-email?token=${token}`)
+
+    return NextResponse.json({
+      user,
+      message: "User registered successfully. Please verify your email.",
+    })
   } catch (error) {
-    console.error("Registration error:", error)
-    return NextResponse.json({ error: "Internal server error", details: error.message }, { status: 500 })
+    console.error("Error registering user:", error)
+    return NextResponse.json({ error: "An error occurred while registering the user" }, { status: 500 })
   }
+}
+
+// Ajouter une méthode GET pour éviter les erreurs de build
+export async function GET() {
+  return NextResponse.json({
+    message: "This endpoint requires a POST request to register a user",
+  })
 }
 
