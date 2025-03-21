@@ -3,10 +3,10 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth-options"
 import { db } from "@/lib/db"
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions)
 
@@ -41,11 +41,7 @@ export async function GET(
   }
 }
 
-// Ajoutez également les méthodes PUT et DELETE si nécessaire
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions)
 
@@ -75,10 +71,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions)
 
@@ -98,3 +91,4 @@ export async function DELETE(
     return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
 }
+
