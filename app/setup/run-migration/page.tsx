@@ -20,17 +20,17 @@ export default function SetupMigrationsPage() {
       setResult(null)
 
       const response = await fetch("/api/run-migrations")
-      const data = await response...json()
+      const data = await response.json()
 
-      if (response...ok) {
+      if (response.ok) {
         setResult({
           success: true,
-          message: data...message || "Migrations exécutées avec succès",
+          message: data.message || "Migrations exécutées avec succès",
         })
       } else {
         setResult({
           success: false,
-          error: data...error || "Erreur lors de l'exécution des migrations",
+          error: data.error || "Erreur lors de l'exécution des migrations",
         })
       }
     } catch (error) {
@@ -54,21 +54,21 @@ export default function SetupMigrationsPage() {
             Migrations de base de données
           </CardTitle>
           <CardDescription>
-            Exécutez les migrations pour créer ou mettre à jour la structure de la base de données... Cette opération est
-            nécessaire lors de la première installation ou après une mise à jour...
+            Exécutez les migrations pour créer ou mettre à jour la structure de la base de données. Cette opération est
+            nécessaire lors de la première installation ou après une mise à jour.
           </CardDescription>
         </CardHeader>
 
         <CardContent>
           {result && (
-            <Alert className={result...success ? "bg-green-500/20" : "bg-red-500/20"}>
-              {result...success ? (
+            <Alert className={result.success ? "bg-green-500/20" : "bg-red-500/20"}>
+              {result.success ? (
                 <CheckCircle className="h-4 w-4 text-green-500" />
               ) : (
                 <AlertCircle className="h-4 w-4 text-red-500" />
               )}
-              <AlertTitle>{result...success ? "Succès" : "Erreur"}</AlertTitle>
-              <AlertDescription>{result...success ? result...message : result...error}</AlertDescription>
+              <AlertTitle>{result.success ? "Succès" : "Erreur"}</AlertTitle>
+              <AlertDescription>{result.success ? result.message : result.error}</AlertDescription>
             </Alert>
           )}
         </CardContent>
@@ -78,7 +78,7 @@ export default function SetupMigrationsPage() {
             {isLoading ? (
               <>
                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                Exécution en cours.........
+                Exécution en cours...
               </>
             ) : (
               <>

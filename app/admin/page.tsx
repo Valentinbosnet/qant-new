@@ -17,12 +17,12 @@ export default function AdminPage() {
               <Database className="h-5 w-5" />
               Base de données
             </CardTitle>
-            <CardDescription>Gérez la structure de la base de données et exécutez les migrations...</CardDescription>
+            <CardDescription>Gérez la structure de la base de données et exécutez les migrations.</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm">
               Exécutez les migrations pour mettre à jour la structure de la base de données ou initialiser une nouvelle
-              installation...
+              installation.
             </p>
           </CardContent>
           <CardFooter>
@@ -41,11 +41,11 @@ export default function AdminPage() {
               <Users className="h-5 w-5" />
               Utilisateurs
             </CardTitle>
-            <CardDescription>Gérez les comptes utilisateurs et leurs permissions...</CardDescription>
+            <CardDescription>Gérez les comptes utilisateurs et leurs permissions.</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm">
-              Consultez, modifiez ou supprimez les comptes utilisateurs... Gérez les rôles et les permissions...
+              Consultez, modifiez ou supprimez les comptes utilisateurs. Gérez les rôles et les permissions.
             </p>
           </CardContent>
           <CardFooter>
@@ -64,11 +64,11 @@ export default function AdminPage() {
               <Settings className="h-5 w-5" />
               Configuration
             </CardTitle>
-            <CardDescription>Configurez les paramètres globaux de l'application...</CardDescription>
+            <CardDescription>Configurez les paramètres globaux de l'application.</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm">
-              Modifiez les paramètres de l'application, les intégrations API et autres configurations...
+              Modifiez les paramètres de l'application, les intégrations API et autres configurations.
             </p>
           </CardContent>
           <CardFooter>

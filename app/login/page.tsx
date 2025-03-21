@@ -18,8 +18,8 @@ export default function LoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleLogin = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true)
     setError("")
 
@@ -30,7 +30,7 @@ export default function LoginPage() {
         redirect: false,
       })
 
-      if (result?...error) {
+      if (result?.error) {
         setError("Invalid email or password")
         setIsLoading(false)
         return
@@ -38,23 +38,23 @@ export default function LoginPage() {
 
       // Fetch user details to check verification status
       const userResponse = await fetch("/api/user/me")
-      const userData = await userResponse...json()
+      const userData = await userResponse.json()
 
-      if (userData...user && !userData...user...emailVerified) {
+      if (userData.user && !userData.user.emailVerified) {
         // User is not verified, redirect to verification notice
-        router...push("/verify-email-notice")
-      } else if (userData...user && userData...user...emailVerified && !userData...user...onboardingCompleted) {
+        router.push("/verify-email-notice")
+      } else if (userData.user && userData.user.emailVerified && !userData.user.onboardingCompleted) {
         // User is verified but hasn't completed onboarding
-        router...push("/get-started")
+        router.push("/get-started")
       } else {
         // User is verified and completed onboarding
-        router...push("/dashboard")
+        router.push("/dashboard")
       }
 
-      router...refresh()
+      router.refresh()
     } catch (error) {
-      console...error("Login error:", error)
-      setError("An error occurred... Please try again...")
+      console.error("Login error:", error)
+      setError("An error occurred. Please try again.")
       setIsLoading(false)
     }
   }
@@ -79,7 +79,7 @@ export default function LoginPage() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e...target...value)}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
                 className="bg-gray-700 border-gray-600 text-white"
@@ -94,7 +94,7 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e...target...value)}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
                 className="bg-gray-700 border-gray-600 text-white"
@@ -103,7 +103,7 @@ export default function LoginPage() {
           </div>
 
           <Button type="submit" disabled={isLoading} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
-            {isLoading ? "Logging in........." : "Login"}
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
 
           <div className="text-center mt-4">

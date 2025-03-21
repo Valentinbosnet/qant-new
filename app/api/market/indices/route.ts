@@ -9,18 +9,18 @@ export async function GET(req: NextRequest) {
     // Liste des principaux indices
     const indices = ["SPY", "QQQ", "DIA", "IWM", "VIX"]
 
-    const promises = indices...map(async (symbol) => {
+    const promises = indices.map(async (symbol) => {
       try {
         const quote = await getStockQuote(symbol)
         return {
           symbol,
           name: getIndexName(symbol),
-          price: quote...price,
-          change: quote...change,
-          changePercent: quote...changePercent,
+          price: quote.price,
+          change: quote.change,
+          changePercent: quote.changePercent,
         }
       } catch (error) {
-        console...error(`Error fetching quote for ${symbol}:`, error)
+        console.error(`Error fetching quote for ${symbol}:`, error)
         return {
           symbol,
           name: getIndexName(symbol),
@@ -32,12 +32,12 @@ export async function GET(req: NextRequest) {
       }
     })
 
-    const results = await Promise...all(promises)
+    const results = await Promise.all(promises)
 
-    return NextResponse...json(results)
+    return NextResponse.json(results)
   } catch (error) {
-    console...error("Error fetching market indices:", error)
-    return NextResponse...json({ error: "Failed to fetch market indices" }, { status: 500 })
+    console.error("Error fetching market indices:", error)
+    return NextResponse.json({ error: "Failed to fetch market indices" }, { status: 500 })
   }
 }
 

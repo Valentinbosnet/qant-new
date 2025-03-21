@@ -8,12 +8,12 @@ export async function GET() {
     // Attendre un peu pour simuler le travail
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    return NextResponse...json({
+    return NextResponse.json({
       message: "Migrations exécutées avec succès (simulation)",
     })
   } catch (error) {
-    console...error("Erreur lors de l'exécution des migrations:", error)
-    return NextResponse...json(
+    console.error("Erreur lors de l'exécution des migrations:", error)
+    return NextResponse.json(
       {
         error: "Erreur lors de l'exécution des migrations",
       },

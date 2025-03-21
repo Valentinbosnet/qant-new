@@ -21,29 +21,29 @@ interface UserSearchProps {
   followedUsers: User[]
 }
 
-const UserSearch: React...FC<UserSearchProps> = ({ onFollow, onUnfollow, currentUser, followedUsers }) => {
+const UserSearch: React.FC<UserSearchProps> = ({ onFollow, onUnfollow, currentUser, followedUsers }) => {
   const [searchTerm, setSearchTerm] = useState("")
   const [searchResults, setSearchResults] = useState<User[]>([])
 
-  // This is a mock function... In a real app, you'd call your API here...
+  // This is a mock function. In a real app, you'd call your API here.
   const searchUsers = async (term: string) => {
     // Simulating an API call
     await new Promise((resolve) => setTimeout(resolve, 500))
 
     // Mock data
     const allUsers: User[] = [
-      { id: "1", username: "john_doe", email: "john@example...com", avatar: "" },
-      { id: "2", username: "jane_smith", email: "jane@example...com", avatar: "" },
-      { id: "3", username: "bob_johnson", email: "bob@example...com", avatar: "" },
+      { id: "1", username: "john_doe", email: "john@example.com", avatar: "" },
+      { id: "2", username: "jane_smith", email: "jane@example.com", avatar: "" },
+      { id: "3", username: "bob_johnson", email: "bob@example.com", avatar: "" },
     ]
 
-    return allUsers...filter(
-      (user) => user...username...toLowerCase()...includes(term...toLowerCase()) && user...email !== currentUser...email,
+    return allUsers.filter(
+      (user) => user.username.toLowerCase().includes(term.toLowerCase()) && user.email !== currentUser.email,
     )
   }
 
   const handleSearch = async () => {
-    if (searchTerm...trim() === "") {
+    if (searchTerm.trim() === "") {
       setSearchResults([])
       return
     }
@@ -53,7 +53,7 @@ const UserSearch: React...FC<UserSearchProps> = ({ onFollow, onUnfollow, current
   }
 
   const isFollowing = (userId: string) => {
-    return followedUsers...some((user) => user...id === userId)
+    return followedUsers.some((user) => user.id === userId)
   }
 
   return (
@@ -63,22 +63,22 @@ const UserSearch: React...FC<UserSearchProps> = ({ onFollow, onUnfollow, current
         <div className="flex space-x-2 mb-4">
           <Input
             type="text"
-            placeholder="Search users........."
+            placeholder="Search users..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e...target...value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-[#333333] border-gray-700 text-white"
           />
           <Button onClick={handleSearch} className="bg-emerald-500 hover:bg-emerald-600">
             <Search className="h-4 w-4" />
           </Button>
         </div>
-        {searchResults...length > 0 ? (
+        {searchResults.length > 0 ? (
           <ul className="space-y-2">
-            {searchResults...map((user) => (
-              <li key={user...id} className="flex justify-between items-center bg-[#333333] p-2 rounded">
-                <span className="text-white">{user...username}</span>
-                {isFollowing(user...id) ? (
-                  <Button onClick={() => onUnfollow(user...id)} className="bg-red-500 hover:bg-red-600">
+            {searchResults.map((user) => (
+              <li key={user.id} className="flex justify-between items-center bg-[#333333] p-2 rounded">
+                <span className="text-white">{user.username}</span>
+                {isFollowing(user.id) ? (
+                  <Button onClick={() => onUnfollow(user.id)} className="bg-red-500 hover:bg-red-600">
                     <UserMinus className="h-4 w-4" />
                   </Button>
                 ) : (

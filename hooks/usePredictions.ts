@@ -18,11 +18,11 @@ export function usePredictions(userId?: string) {
     const fetchPredictions = async () => {
       try {
         setIsLoading(true)
-        const response = await axios...get("/api/predictions")
-        setPredictions(response...data)
+        const response = await axios.get("/api/predictions")
+        setPredictions(response.data)
         setError(null)
       } catch (err) {
-        console...error("Error fetching predictions:", err)
+        console.error("Error fetching predictions:", err)
         setError(err instanceof Error ? err : new Error("Failed to fetch predictions"))
       } finally {
         setIsLoading(false)
@@ -35,11 +35,11 @@ export function usePredictions(userId?: string) {
   const refreshPredictions = async () => {
     try {
       setIsLoading(true)
-      const response = await axios...get("/api/predictions")
-      setPredictions(response...data)
+      const response = await axios.get("/api/predictions")
+      setPredictions(response.data)
       setError(null)
     } catch (err) {
-      console...error("Error refreshing predictions:", err)
+      console.error("Error refreshing predictions:", err)
       setError(err instanceof Error ? err : new Error("Failed to refresh predictions"))
     } finally {
       setIsLoading(false)
@@ -48,32 +48,32 @@ export function usePredictions(userId?: string) {
 
   const createPrediction = async (predictionData: Partial<Prediction>) => {
     try {
-      const response = await axios...post("/api/predictions", predictionData)
-      setPredictions((prev) => [.........prev, response...data])
-      return response...data
+      const response = await axios.post("/api/predictions", predictionData)
+      setPredictions((prev) => [...prev, response.data])
+      return response.data
     } catch (err) {
-      console...error("Error creating prediction:", err)
+      console.error("Error creating prediction:", err)
       throw err
     }
   }
 
   const updatePrediction = async (id: string, predictionData: Partial<Prediction>) => {
     try {
-      const response = await axios...put(`/api/predictions/${id}`, predictionData)
-      setPredictions((prev) => prev...map((prediction) => (prediction...id === id ? response...data : prediction)))
-      return response...data
+      const response = await axios.put(`/api/predictions/${id}`, predictionData)
+      setPredictions((prev) => prev.map((prediction) => (prediction.id === id ? response.data : prediction)))
+      return response.data
     } catch (err) {
-      console...error("Error updating prediction:", err)
+      console.error("Error updating prediction:", err)
       throw err
     }
   }
 
   const deletePrediction = async (id: string) => {
     try {
-      await axios...delete(`/api/predictions/${id}`)
-      setPredictions((prev) => prev...filter((prediction) => prediction...id !== id))
+      await axios.delete(`/api/predictions/${id}`)
+      setPredictions((prev) => prev.filter((prediction) => prediction.id !== id))
     } catch (err) {
-      console...error("Error deleting prediction:", err)
+      console.error("Error deleting prediction:", err)
       throw err
     }
   }

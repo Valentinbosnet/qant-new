@@ -38,11 +38,11 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
   const { toast } = useToast()
 
   const handleChange = (field: keyof ProfileData, value: string) => {
-    setFormData((prev) => ({ .........prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsSubmitting(true)
 
     try {
@@ -51,11 +51,11 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Save to localStorage for persistence
-      localStorage...setItem("userProfile", JSON...stringify(formData))
+      localStorage.setItem("userProfile", JSON.stringify(formData))
 
       toast({
         title: "Profile Updated",
-        description: "Your profile has been successfully updated...",
+        description: "Your profile has been successfully updated.",
         variant: "default",
       })
 
@@ -63,7 +63,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
     } catch (error) {
       toast({
         title: "Error",
-        description: "There was an error updating your profile... Please try again...",
+        description: "There was an error updating your profile. Please try again.",
         variant: "destructive",
       })
     } finally {
@@ -73,20 +73,20 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
 
   const isFormValid = () => {
     return (
-      formData...fullName...trim() !== "" &&
-      formData...age...trim() !== "" &&
-      formData...investmentExperience !== "" &&
-      formData...riskTolerance !== "" &&
-      formData...investmentGoal !== ""
+      formData.fullName.trim() !== "" &&
+      formData.age.trim() !== "" &&
+      formData.investmentExperience !== "" &&
+      formData.riskTolerance !== "" &&
+      formData.investmentGoal !== ""
     )
   }
 
   return (
-    <motion...div
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0...3 }}
+      transition={{ duration: 0.3 }}
       className="w-full max-w-2xl mx-auto"
     >
       <Card className="bg-[#2a2a2a] shadow-lg border-gray-800">
@@ -102,8 +102,8 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
                 </Label>
                 <Input
                   id="fullName"
-                  value={formData...fullName}
-                  onChange={(e) => handleChange("fullName", e...target...value)}
+                  value={formData.fullName}
+                  onChange={(e) => handleChange("fullName", e.target.value)}
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                   placeholder="John Doe"
                   required
@@ -117,8 +117,8 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
                 <Input
                   id="age"
                   type="number"
-                  value={formData...age}
-                  onChange={(e) => handleChange("age", e...target...value)}
+                  value={formData.age}
+                  onChange={(e) => handleChange("age", e.target.value)}
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                   placeholder="30"
                   min="18"
@@ -130,7 +130,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
               <div>
                 <Label className="text-gray-300">Investment Experience</Label>
                 <Select
-                  value={formData...investmentExperience}
+                  value={formData.investmentExperience}
                   onValueChange={(value) => handleChange("investmentExperience", value)}
                   required
                 >
@@ -149,7 +149,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
               <div>
                 <Label className="text-gray-300">Risk Tolerance</Label>
                 <RadioGroup
-                  value={formData...riskTolerance}
+                  value={formData.riskTolerance}
                   onValueChange={(value) => handleChange("riskTolerance", value)}
                   className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3"
                   required
@@ -178,7 +178,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
               <div>
                 <Label className="text-gray-300">Primary Investment Goal</Label>
                 <Select
-                  value={formData...investmentGoal}
+                  value={formData.investmentGoal}
                   onValueChange={(value) => handleChange("investmentGoal", value)}
                   required
                 >
@@ -207,7 +207,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
             className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white"
           >
             {isSubmitting ? (
-              "Saving........."
+              "Saving..."
             ) : (
               <>
                 Continue <ArrowRight className="ml-2 h-4 w-4" />
@@ -216,7 +216,7 @@ export default function ProfileSetup({ onComplete, onSkip }: ProfileSetupProps) 
           </Button>
         </CardFooter>
       </Card>
-    </motion...div>
+    </motion.div>
   )
 }
 

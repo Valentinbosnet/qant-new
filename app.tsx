@@ -23,26 +23,26 @@ function ErrorFallback({ error }: { error: Error }) {
   return (
     <div className="text-red-500 p-4">
       <h2>Something went wrong:</h2>
-      <pre>{error...message}</pre>
+      <pre>{error.message}</pre>
     </div>
   )
 }
 
 export default function App() {
-  console...log("App component rendered")
+  console.log("App component rendered")
   const [user, setUser] = useState<User | null>(null)
   const [activeTab, setActiveTab] = useState("landing")
   const [followedUsers, setFollowedUsers] = useState([])
-  const [users, setUsers] = useState([{ email: "demo@example...com", password: "password" }])
+  const [users, setUsers] = useState([{ email: "demo@example.com", password: "password" }])
   const { toast } = useToast()
 
   const handleSignIn = async (email: string, password: string) => {
-    console...log("handleSignIn called with:", email, password)
+    console.log("handleSignIn called with:", email, password)
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
-        const foundUser = users...find((u) => u...email === email && u...password === password)
+        const foundUser = users.find((u) => u.email === email && u.password === password)
         if (foundUser) {
-          setUser({ username: email...split("@")[0], email })
+          setUser({ username: email.split("@")[0], email })
           setActiveTab("dashboard")
           resolve()
         } else {
@@ -55,11 +55,11 @@ export default function App() {
   const handleSignUp = async (username: string, email: string, password: string) => {
     return new Promise<{ email: string; password: string }>((resolve, reject) => {
       setTimeout(() => {
-        if (users...some((u) => u...email === email)) {
+        if (users.some((u) => u.email === email)) {
           reject(new Error("User already exists"))
         } else {
           const newUser = { email, password }
-          setUsers((prevUsers) => [.........prevUsers, newUser])
+          setUsers((prevUsers) => [...prevUsers, newUser])
           resolve(newUser)
         }
       }, 1500)
@@ -73,7 +73,7 @@ export default function App() {
     } catch (error) {
       toast({
         title: "Auto-login failed",
-        description: "Please try signing in manually...",
+        description: "Please try signing in manually.",
       })
       setActiveTab("signin")
     }
@@ -85,7 +85,7 @@ export default function App() {
   }
 
   const renderContent = () => {
-    console...log("Rendering content for activeTab:", activeTab)
+    console.log("Rendering content for activeTab:", activeTab)
     switch (activeTab) {
       case "dashboard":
         return <Dashboard user={user} setActiveTab={setActiveTab} followedUsers={followedUsers} as any} /> 
@@ -96,7 +96,7 @@ export default function App() {
       case "getStarted":
         return <GetStartedGuide setActiveTab={setActiveTab} />
       case "signin":
-        console...log("Rendering SignInPage")
+        console.log("Rendering SignInPage")
         return <SignInPage setActiveTab={setActiveTab} onSignIn={handleSignIn} />
       case "signup":
         return <SignUpPage setActiveTab={setActiveTab} onSignUp={handleSignUp} onAutoLogin={handleAutoLogin} />
@@ -113,8 +113,8 @@ export default function App() {
             title={activeTab === "dashboard" ? "Qant Dashboard" : activeTab}
             showBackButton={activeTab !== "dashboard"}
             onBackClick={() => setActiveTab("dashboard")}
-            username={user...username}
-            followersCount={followedUsers...length}
+            username={user.username}
+            followersCount={followedUsers.length}
           />
         )}
         <main className="flex-1 overflow-hidden pb-[72px]">{renderContent()}</main>

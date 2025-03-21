@@ -14,7 +14,7 @@ interface RiskAnalysisPageProps {
   onTabChange: (tab: string) => void
 }
 
-const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) => {
+const RiskAnalysisPage: React.FC<RiskAnalysisPageProps> = ({ onTabChange }) => {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([])
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>("")
   const [isLoading, setIsLoading] = useState(true)
@@ -22,24 +22,24 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
 
   // Mock risk metrics
   const riskMetrics = {
-    volatility: 12...5,
-    sharpeRatio: 1...8,
-    beta: 0...92,
-    alpha: 2...4,
-    maxDrawdown: -15...3,
+    volatility: 12.5,
+    sharpeRatio: 1.8,
+    beta: 0.92,
+    alpha: 2.4,
+    maxDrawdown: -15.3,
     riskLevel: "Moderate",
-    varDaily: 2...1,
-    varWeekly: 4...8,
-    stressTestResults: -8...7,
+    varDaily: 2.1,
+    varWeekly: 4.8,
+    stressTestResults: -8.7,
   }
 
   // Mock stress test scenarios
   const stressTestScenarios = [
-    { scenario: "Market Crash (-20%)", impact: -12...5 },
-    { scenario: "Interest Rate Hike (+2%)", impact: -5...8 },
-    { scenario: "Economic Recession", impact: -15...2 },
-    { scenario: "Inflation Spike (+5%)", impact: -8...7 },
-    { scenario: "Currency Crisis", impact: -7...3 },
+    { scenario: "Market Crash (-20%)", impact: -12.5 },
+    { scenario: "Interest Rate Hike (+2%)", impact: -5.8 },
+    { scenario: "Economic Recession", impact: -15.2 },
+    { scenario: "Inflation Spike (+5%)", impact: -8.7 },
+    { scenario: "Currency Crisis", impact: -7.3 },
   ]
 
   useEffect(() => {
@@ -47,11 +47,11 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
       try {
         const data = await getPortfolios()
         setPortfolios(data)
-        if (data...length > 0) {
-          setSelectedPortfolio(data[0]...id)
+        if (data.length > 0) {
+          setSelectedPortfolio(data[0].id)
         }
       } catch (error) {
-        console...error("Failed to load portfolios:", error)
+        console.error("Failed to load portfolios:", error)
       } finally {
         setIsLoading(false)
       }
@@ -60,7 +60,7 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
     loadPortfolios()
   }, [])
 
-  const currentPortfolio = portfolios...find((p) => p...id === selectedPortfolio)
+  const currentPortfolio = portfolios.find((p) => p.id === selectedPortfolio)
 
   const riskData = [
     { name: "AAPL", risk: 35 },
@@ -130,8 +130,8 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
               <p className="text-yellow-500 font-semibold">Demo Version</p>
             </div>
             <p className="text-yellow-400 mt-2">
-              This is a demo version with simulated risk analysis data... In a production environment, this would use real
-              portfolio data and advanced risk models...
+              This is a demo version with simulated risk analysis data. In a production environment, this would use real
+              portfolio data and advanced risk models.
             </p>
           </div>
 
@@ -143,9 +143,9 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                   <SelectValue placeholder="Select portfolio" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#2a2a2a] border-gray-700 text-white">
-                  {portfolios...map((portfolio) => (
-                    <SelectItem key={portfolio...id} value={portfolio...id}>
-                      {portfolio...name} (${portfolio...balance...toLocaleString()})
+                  {portfolios.map((portfolio) => (
+                    <SelectItem key={portfolio.id} value={portfolio.id}>
+                      {portfolio.name} (${portfolio.balance.toLocaleString()})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -156,7 +156,7 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
           {/* Risk Overview Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <RiskCard title="Risque global" value="Modéré" color="bg-yellow-500" />
-            <RiskCard title="Volatilité" value="15...3%" color="bg-emerald-500" />
+            <RiskCard title="Volatilité" value="15.3%" color="bg-emerald-500" />
             <RiskCard title="Diversification" value="Bonne" color="bg-emerald-500" />
           </div>
 
@@ -185,17 +185,17 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="bg-[#333333] p-4 rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">Sharpe Ratio</p>
-                      <p className="text-xl font-bold text-white">{riskMetrics...sharpeRatio}</p>
+                      <p className="text-xl font-bold text-white">{riskMetrics.sharpeRatio}</p>
                       <p className="text-xs text-gray-400 mt-1">Return per unit of risk</p>
                     </div>
                     <div className="bg-[#333333] p-4 rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">Beta (vs S&P 500)</p>
-                      <p className="text-xl font-bold text-white">{riskMetrics...beta}</p>
+                      <p className="text-xl font-bold text-white">{riskMetrics.beta}</p>
                       <p className="text-xs text-gray-400 mt-1">Market sensitivity</p>
                     </div>
                     <div className="bg-[#333333] p-4 rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">Alpha (Annualized)</p>
-                      <p className="text-xl font-bold text-emerald-400">+{riskMetrics...alpha}%</p>
+                      <p className="text-xl font-bold text-emerald-400">+{riskMetrics.alpha}%</p>
                       <p className="text-xs text-gray-400 mt-1">Excess return</p>
                     </div>
                   </div>
@@ -203,12 +203,12 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-[#333333] p-4 rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">Value at Risk (Daily, 95%)</p>
-                      <p className="text-xl font-bold text-red-400">-{riskMetrics...varDaily}%</p>
+                      <p className="text-xl font-bold text-red-400">-{riskMetrics.varDaily}%</p>
                       <p className="text-xs text-gray-400 mt-1">Potential daily loss</p>
                     </div>
                     <div className="bg-[#333333] p-4 rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">Value at Risk (Weekly, 95%)</p>
-                      <p className="text-xl font-bold text-red-400">-{riskMetrics...varWeekly}%</p>
+                      <p className="text-xl font-bold text-red-400">-{riskMetrics.varWeekly}%</p>
                       <p className="text-xs text-gray-400 mt-1">Potential weekly loss</p>
                     </div>
                   </div>
@@ -270,27 +270,27 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                     {/* Table Rows */}
                     <div className="grid grid-cols-4 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors bg-emerald-500/10">
                       <div className="font-medium text-white">Your Portfolio</div>
-                      <div className="text-right text-white">12...5%</div>
-                      <div className="text-right text-emerald-400">15...2%</div>
-                      <div className="text-right text-white">1...8</div>
+                      <div className="text-right text-white">12.5%</div>
+                      <div className="text-right text-emerald-400">15.2%</div>
+                      <div className="text-right text-white">1.8</div>
                     </div>
                     <div className="grid grid-cols-4 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors">
                       <div className="font-medium text-white">S&P 500</div>
-                      <div className="text-right text-white">14...2%</div>
-                      <div className="text-right text-emerald-400">12...8%</div>
-                      <div className="text-right text-white">1...2</div>
+                      <div className="text-right text-white">14.2%</div>
+                      <div className="text-right text-emerald-400">12.8%</div>
+                      <div className="text-right text-white">1.2</div>
                     </div>
                     <div className="grid grid-cols-4 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors">
                       <div className="font-medium text-white">Bonds</div>
-                      <div className="text-right text-white">5...3%</div>
-                      <div className="text-right text-emerald-400">4...1%</div>
-                      <div className="text-right text-white">0...9</div>
+                      <div className="text-right text-white">5.3%</div>
+                      <div className="text-right text-emerald-400">4.1%</div>
+                      <div className="text-right text-white">0.9</div>
                     </div>
                     <div className="grid grid-cols-4 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors">
                       <div className="font-medium text-white">60/40 Portfolio</div>
-                      <div className="text-right text-white">9...8%</div>
-                      <div className="text-right text-emerald-400">9...5%</div>
-                      <div className="text-right text-white">1...4</div>
+                      <div className="text-right text-white">9.8%</div>
+                      <div className="text-right text-emerald-400">9.5%</div>
+                      <div className="text-right text-white">1.4</div>
                     </div>
                   </div>
                 </CardContent>
@@ -312,13 +312,13 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                     </div>
 
                     {/* Table Rows */}
-                    {stressTestScenarios...map((scenario) => (
+                    {stressTestScenarios.map((scenario) => (
                       <div
-                        key={scenario...scenario}
+                        key={scenario.scenario}
                         className="grid grid-cols-2 py-3 border-b border-gray-700/50 hover:bg-[#333333] transition-colors"
                       >
-                        <div className="font-medium text-white">{scenario...scenario}</div>
-                        <div className="text-right text-red-400">{scenario...impact}%</div>
+                        <div className="font-medium text-white">{scenario.scenario}</div>
+                        <div className="text-right text-red-400">{scenario.impact}%</div>
                       </div>
                     ))}
                   </div>
@@ -348,7 +348,7 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                         Diversification
                       </h3>
                       <p className="text-gray-300 text-sm mt-1">
-                        Consider adding more non-correlated assets to reduce overall portfolio volatility...
+                        Consider adding more non-correlated assets to reduce overall portfolio volatility.
                       </p>
                     </div>
                     <div className="bg-[#333333] p-4 rounded-lg">
@@ -357,7 +357,7 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                         Hedging Strategies
                       </h3>
                       <p className="text-gray-300 text-sm mt-1">
-                        Implement strategic hedges to protect against market downturns and reduce maximum drawdown...
+                        Implement strategic hedges to protect against market downturns and reduce maximum drawdown.
                       </p>
                     </div>
                     <div className="bg-[#333333] p-4 rounded-lg">
@@ -367,7 +367,7 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                       </h3>
                       <p className="text-gray-300 text-sm mt-1">
                         Regular portfolio rebalancing can help maintain your target risk level and potentially improve
-                        returns...
+                        returns.
                       </p>
                     </div>
                   </div>
@@ -390,17 +390,17 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
                 <RiskFactor
                   name="Concentration sectorielle"
                   value={65}
-                  description="Votre portefeuille est fortement concentré dans le secteur technologique..."
+                  description="Votre portefeuille est fortement concentré dans le secteur technologique."
                 />
                 <RiskFactor
                   name="Volatilité du marché"
                   value={42}
-                  description="La volatilité actuelle du marché est modérée..."
+                  description="La volatilité actuelle du marché est modérée."
                 />
                 <RiskFactor
                   name="Corrélation des actifs"
                   value={78}
-                  description="Vos actifs sont fortement corrélés, ce qui augmente le risque global..."
+                  description="Vos actifs sont fortement corrélés, ce qui augmente le risque global."
                 />
               </div>
             </Card>
@@ -410,15 +410,15 @@ const RiskAnalysisPage: React...FC<RiskAnalysisPageProps> = ({ onTabChange }) =>
               <div className="space-y-4">
                 <Recommendation
                   title="Diversifier les secteurs"
-                  description="Envisagez d'ajouter des actifs dans d'autres secteurs que la technologie..."
+                  description="Envisagez d'ajouter des actifs dans d'autres secteurs que la technologie."
                 />
                 <Recommendation
                   title="Ajouter des actifs défensifs"
-                  description="Ajoutez des actifs moins volatils pour réduire le risque global..."
+                  description="Ajoutez des actifs moins volatils pour réduire le risque global."
                 />
                 <Recommendation
                   title="Rééquilibrer le portefeuille"
-                  description="Rééquilibrez votre portefeuille pour maintenir votre allocation cible..."
+                  description="Rééquilibrez votre portefeuille pour maintenir votre allocation cible."
                 />
               </div>
             </Card>

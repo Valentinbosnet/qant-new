@@ -23,8 +23,8 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
   const router = useRouter()
   const { toast } = useToast()
 
-  const handleSubmit = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true)
 
     try {
@@ -34,19 +34,19 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
         password,
       })
 
-      if (result?...error) {
+      if (result?.error) {
         toast({
           title: "Authentication failed",
-          description: "Please check your credentials and try again...",
+          description: "Please check your credentials and try again.",
           variant: "destructive",
         })
       } else {
-        router...push("/dashboard")
+        router.push("/dashboard")
       }
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again later...",
+        description: "Please try again later.",
         variant: "destructive",
       })
     } finally {
@@ -61,7 +61,7 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again later...",
+        description: "Please try again later.",
         variant: "destructive",
       })
     } finally {
@@ -85,9 +85,9 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
               <Input
                 id="email"
                 type="email"
-                placeholder="name@example...com"
+                placeholder="name@example.com"
                 value={email}
-                onChange={(e) => setEmail(e...target...value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="bg-[#333333] border-gray-700 text-white"
               />
@@ -110,7 +110,7 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
                 type="password"
                 placeholder="********"
                 value={password}
-                onChange={(e) => setPassword(e...target...value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="bg-[#333333] border-gray-700 text-white"
               />
@@ -120,7 +120,7 @@ export default function SignInPage({ setActiveTab }: SignInPageProps) {
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"
               disabled={isLoading}
             >
-              {isLoading ? "Signing in........." : "Sign in"}
+              {isLoading ? "Signing in..." : "Sign in"}
             </Button>
           </form>
           <div className="relative">

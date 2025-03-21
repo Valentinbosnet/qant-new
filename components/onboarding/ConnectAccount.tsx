@@ -20,13 +20,10 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
   const [loading, setLoading] = useState(false)
   const [plaidLinkToken, setPlaidLinkToken] = useState<string | null>(null)
   const [manualFormData, setManualFormData] = useState({
-    accountName: '',
-    accountType: '',\
-    balance:  setManualFormData] = useState({
-    accountName: '',
-    accountType: '',
-    balance: '',
-    institution: '',
+    accountName: "",
+    accountType: "",
+    balance: "",
+    institution: "",
   })
 
   useEffect(() => {
@@ -35,22 +32,22 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
       try {
         // En production, vous feriez un appel à votre API pour obtenir un token
         // const response = await fetch('/api/create-link-token')
-        // const data = await response...json()
-        // setPlaidLinkToken(data...link_token)
+        // const data = await response.json()
+        // setPlaidLinkToken(data.link_token)
 
         // Pour la démo, on simule un token
         setPlaidLinkToken("mock-plaid-link-token")
       } catch (error) {
-        console...error("Erreur lors de la récupération du token Plaid:", error)
+        console.error("Erreur lors de la récupération du token Plaid:", error)
       }
     }
 
     getPlaidLinkToken()
   }, [])
 
-  const handleManualInputChange = (e: React...ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e...target
-    setManualFormData((prev) => ({ .........prev, [name]: value }))
+  const handleManualInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setManualFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handlePlaidConnect = async () => {
@@ -62,16 +59,16 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
 
       toast({
         title: "Compte connecté",
-        description: "Votre compte bancaire a été connecté avec succès...",
+        description: "Votre compte bancaire a été connecté avec succès.",
         variant: "default",
       })
 
-      localStorage...setItem("accountConnected", "true")
+      localStorage.setItem("accountConnected", "true")
       onComplete()
     } catch (error) {
       toast({
         title: "Erreur de connexion",
-        description: "Une erreur est survenue lors de la connexion à votre compte...",
+        description: "Une erreur est survenue lors de la connexion à votre compte.",
         variant: "destructive",
       })
     } finally {
@@ -79,8 +76,8 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
     }
   }
 
-  const handleManualSubmit = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleManualSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setLoading(true)
 
     try {
@@ -88,12 +85,12 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Enregistrer les données dans localStorage pour la démo
-      localStorage...setItem("manualAccount", JSON...stringify(manualFormData))
-      localStorage...setItem("accountConnected", "true")
+      localStorage.setItem("manualAccount", JSON.stringify(manualFormData))
+      localStorage.setItem("accountConnected", "true")
 
       toast({
         title: "Compte ajouté",
-        description: "Votre compte a été ajouté manuellement avec succès...",
+        description: "Votre compte a été ajouté manuellement avec succès.",
         variant: "default",
       })
 
@@ -101,7 +98,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de l'ajout de votre compte...",
+        description: "Une erreur est survenue lors de l'ajout de votre compte.",
         variant: "destructive",
       })
     } finally {
@@ -127,7 +124,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
               <Building className="h-12 w-12 mx-auto mb-2 text-emerald-500" />
               <h3 className="text-lg font-medium text-white">Connectez votre compte bancaire</h3>
               <p className="text-gray-400 text-sm">
-                Connectez-vous en toute sécurité à votre banque pour importer automatiquement vos investissements...
+                Connectez-vous en toute sécurité à votre banque pour importer automatiquement vos investissements.
               </p>
             </div>
 
@@ -154,7 +151,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
               {loading ? (
                 <span className="flex items-center">
                   <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                  Connexion en cours.........
+                  Connexion en cours...
                 </span>
               ) : (
                 <span className="flex items-center">
@@ -178,7 +175,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                 <Input
                   id="institution"
                   name="institution"
-                  value={manualFormData...institution}
+                  value={manualFormData.institution}
                   onChange={handleManualInputChange}
                   placeholder="Nom de votre banque ou courtier"
                   className="bg-gray-700 border-gray-600 text-gray-200"
@@ -193,7 +190,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                 <Input
                   id="accountName"
                   name="accountName"
-                  value={manualFormData...accountName}
+                  value={manualFormData.accountName}
                   onChange={handleManualInputChange}
                   placeholder="Ex: Compte d'investissement principal"
                   className="bg-gray-700 border-gray-600 text-gray-200"
@@ -208,7 +205,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                 <Input
                   id="accountType"
                   name="accountType"
-                  value={manualFormData...accountType}
+                  value={manualFormData.accountType}
                   onChange={handleManualInputChange}
                   placeholder="Ex: PEA, Assurance-vie, CTO"
                   className="bg-gray-700 border-gray-600 text-gray-200"
@@ -224,7 +221,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                   id="balance"
                   name="balance"
                   type="number"
-                  value={manualFormData...balance}
+                  value={manualFormData.balance}
                   onChange={handleManualInputChange}
                   placeholder="Ex: 10000"
                   className="bg-gray-700 border-gray-600 text-gray-200"
@@ -240,7 +237,7 @@ export default function ConnectAccount({ onComplete }: ConnectAccountProps) {
                 {loading ? (
                   <span className="flex items-center">
                     <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                    Enregistrement.........
+                    Enregistrement...
                   </span>
                 ) : (
                   <span className="flex items-center">

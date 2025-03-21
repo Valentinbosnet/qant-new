@@ -63,7 +63,7 @@ export default function SecurityPage({ onTabChange }: SecurityPageProps) {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-400">
-              Your password was last changed 45 days ago... We recommend changing your password regularly...
+              Your password was last changed 45 days ago. We recommend changing your password regularly.
             </p>
             <div className="mt-4 space-y-2">
               <div className="space-y-1">
@@ -96,7 +96,7 @@ export default function SecurityPage({ onTabChange }: SecurityPageProps) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <div className="space-y-0...5">
+            <div className="space-y-0.5">
               <h3 className="font-medium">Two-Factor Authentication</h3>
               <p className="text-sm text-gray-400">Require a verification code when signing in</p>
             </div>

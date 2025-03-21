@@ -29,20 +29,20 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
 
   const handleSwitchChange = (setting: keyof typeof notificationSettings) => {
     setNotificationSettings((prev) => ({
-      .........prev,
+      ...prev,
       [setting]: !prev[setting],
     }))
   }
 
   const handleSliderChange = (value: number[]) => {
     setNotificationSettings((prev) => ({
-      .........prev,
+      ...prev,
       priceChangeThreshold: value[0],
     }))
   }
 
-  const handleSubmit = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setLoading(true)
 
     try {
@@ -50,12 +50,12 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Enregistrer les données dans localStorage pour la démo
-      localStorage...setItem("notificationSettings", JSON...stringify(notificationSettings))
-      localStorage...setItem("notificationsSetup", "true")
+      localStorage.setItem("notificationSettings", JSON.stringify(notificationSettings))
+      localStorage.setItem("notificationsSetup", "true")
 
       toast({
         title: "Notifications configurées",
-        description: "Vos préférences de notification ont été enregistrées avec succès...",
+        description: "Vos préférences de notification ont été enregistrées avec succès.",
         variant: "default",
       })
 
@@ -63,7 +63,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de la configuration des notifications...",
+        description: "Une erreur est survenue lors de la configuration des notifications.",
         variant: "destructive",
       })
     } finally {
@@ -79,7 +79,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
             <Bell className="h-12 w-12 mx-auto mb-2 text-emerald-500" />
             <h3 className="text-lg font-medium text-white">Configurez vos notifications</h3>
             <p className="text-gray-400 text-sm">
-              Personnalisez les alertes que vous souhaitez recevoir pour rester informé des mouvements du marché...
+              Personnalisez les alertes que vous souhaitez recevoir pour rester informé des mouvements du marché.
             </p>
           </div>
 
@@ -93,30 +93,30 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
               </div>
               <Switch
                 id="priceAlerts"
-                checked={notificationSettings...priceAlerts}
+                checked={notificationSettings.priceAlerts}
                 onCheckedChange={() => handleSwitchChange("priceAlerts")}
               />
             </div>
 
-            {notificationSettings...priceAlerts && (
+            {notificationSettings.priceAlerts && (
               <div className="ml-6 space-y-2">
                 <div className="flex justify-between items-center">
                   <Label htmlFor="priceChangeThreshold" className="text-sm text-gray-400">
                     Seuil de variation de prix
                   </Label>
-                  <span className="text-sm text-emerald-500">{notificationSettings...priceChangeThreshold}%</span>
+                  <span className="text-sm text-emerald-500">{notificationSettings.priceChangeThreshold}%</span>
                 </div>
                 <Slider
                   id="priceChangeThreshold"
-                  value={[notificationSettings...priceChangeThreshold]}
+                  value={[notificationSettings.priceChangeThreshold]}
                   min={1}
                   max={10}
-                  step={0...5}
+                  step={0.5}
                   onValueChange={handleSliderChange}
                 />
                 <p className="text-xs text-gray-500">
                   Vous recevrez une alerte lorsqu'un titre de votre portfolio varie de plus de{" "}
-                  {notificationSettings...priceChangeThreshold}%...
+                  {notificationSettings.priceChangeThreshold}%.
                 </p>
               </div>
             )}
@@ -130,7 +130,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
               </div>
               <Switch
                 id="newPredictions"
-                checked={notificationSettings...newPredictions}
+                checked={notificationSettings.newPredictions}
                 onCheckedChange={() => handleSwitchChange("newPredictions")}
               />
             </div>
@@ -144,7 +144,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
               </div>
               <Switch
                 id="marketSummaries"
-                checked={notificationSettings...marketSummaries}
+                checked={notificationSettings.marketSummaries}
                 onCheckedChange={() => handleSwitchChange("marketSummaries")}
               />
             </div>
@@ -158,7 +158,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
               </div>
               <Switch
                 id="portfolioUpdates"
-                checked={notificationSettings...portfolioUpdates}
+                checked={notificationSettings.portfolioUpdates}
                 onCheckedChange={() => handleSwitchChange("portfolioUpdates")}
               />
             </div>
@@ -172,7 +172,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
               </div>
               <Switch
                 id="newsAlerts"
-                checked={notificationSettings...newsAlerts}
+                checked={notificationSettings.newsAlerts}
                 onCheckedChange={() => handleSwitchChange("newsAlerts")}
               />
             </div>
@@ -182,7 +182,7 @@ export default function SetupNotifications({ onComplete }: SetupNotificationsPro
             {loading ? (
               <span className="flex items-center">
                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                Enregistrement.........
+                Enregistrement...
               </span>
             ) : (
               <span className="flex items-center">

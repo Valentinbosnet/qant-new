@@ -37,18 +37,18 @@ export const MobileNav = ({ activeTab, setActiveTab }: MobileNavProps) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#333333] bg-[#1a1a1a] md:hidden">
       <div className="flex h-16 items-center justify-around">
-        {navItems...map((item) => (
+        {navItems.map((item) => (
           <Button
-            key={item...href}
+            key={item.href}
             variant="ghost"
             className={cn(
               "flex h-full flex-1 flex-col items-center justify-center rounded-none px-0 py-0",
-              activeTab === item...href ? "text-emerald-500" : "text-gray-400 hover:text-white",
+              activeTab === item.href ? "text-emerald-500" : "text-gray-400 hover:text-white",
             )}
-            onClick={() => setActiveTab(item...href)}
+            onClick={() => setActiveTab(item.href)}
           >
-            <item...icon className="h-5 w-5" />
-            <span className="mt-1 text-xs">{item...title}</span>
+            <item.icon className="h-5 w-5" />
+            <span className="mt-1 text-xs">{item.title}</span>
           </Button>
         ))}
       </div>

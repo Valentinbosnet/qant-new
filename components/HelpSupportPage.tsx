@@ -16,27 +16,27 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
     {
       question: "How do I connect my bank account?",
       answer:
-        "To connect your bank account, go to the 'Connect Account' section in your profile settings... We use Plaid to securely connect to your financial institutions... Follow the prompts to select your bank and provide your credentials... Your banking information is encrypted and never stored on our servers...",
+        "To connect your bank account, go to the 'Connect Account' section in your profile settings. We use Plaid to securely connect to your financial institutions. Follow the prompts to select your bank and provide your credentials. Your banking information is encrypted and never stored on our servers.",
     },
     {
       question: "What are AI predictions based on?",
       answer:
-        "Our AI predictions are based on historical market data, current trends, and advanced machine learning algorithms... We analyze thousands of data points including company financials, market sentiment, economic indicators, and more to generate insights... Remember that all predictions involve risk and past performance is not indicative of future results...",
+        "Our AI predictions are based on historical market data, current trends, and advanced machine learning algorithms. We analyze thousands of data points including company financials, market sentiment, economic indicators, and more to generate insights. Remember that all predictions involve risk and past performance is not indicative of future results.",
     },
     {
       question: "How do I customize my risk profile?",
       answer:
-        "You can customize your risk profile in the 'Preferences' section... We offer a risk assessment questionnaire that helps determine your risk tolerance... Based on your answers, we'll suggest an appropriate risk level, which you can adjust manually if needed... Your risk profile affects the types of investments and strategies we recommend...",
+        "You can customize your risk profile in the 'Preferences' section. We offer a risk assessment questionnaire that helps determine your risk tolerance. Based on your answers, we'll suggest an appropriate risk level, which you can adjust manually if needed. Your risk profile affects the types of investments and strategies we recommend.",
     },
     {
       question: "Can I export my portfolio data?",
       answer:
-        "Yes, you can export your portfolio data in CSV or PDF format... Go to the Portfolio page, click on the 'Export' button in the top right corner, and select your preferred format... The export includes your holdings, performance metrics, transaction history, and allocation breakdowns...",
+        "Yes, you can export your portfolio data in CSV or PDF format. Go to the Portfolio page, click on the 'Export' button in the top right corner, and select your preferred format. The export includes your holdings, performance metrics, transaction history, and allocation breakdowns.",
     },
     {
       question: "How do I cancel my subscription?",
       answer:
-        "To cancel your subscription, go to the 'Billing' section in your account settings... Click on 'Manage Subscription' and then 'Cancel Subscription'... You'll be asked to provide feedback on why you're canceling... Your subscription will remain active until the end of your current billing period...",
+        "To cancel your subscription, go to the 'Billing' section in your account settings. Click on 'Manage Subscription' and then 'Cancel Subscription'. You'll be asked to provide feedback on why you're canceling. Your subscription will remain active until the end of your current billing period.",
     },
   ]
 
@@ -55,7 +55,7 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-        <Input placeholder="Search for help topics........." className="bg-[#2a2a2a] border-[#333333] pl-10 text-white" />
+        <Input placeholder="Search for help topics..." className="bg-[#2a2a2a] border-[#333333] pl-10 text-white" />
       </div>
 
       <Tabs defaultValue="faq" className="w-full">
@@ -81,10 +81,10 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible className="w-full">
-                {faqs...map((faq, index) => (
+                {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`} className="border-[#333333]">
-                    <AccordionTrigger className="text-left hover:text-emerald-500">{faq...question}</AccordionTrigger>
-                    <AccordionContent className="text-gray-400">{faq...answer}</AccordionContent>
+                    <AccordionTrigger className="text-left hover:text-emerald-500">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-gray-400">{faq.answer}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -102,19 +102,19 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2">
-                {guides...map((guide, index) => (
+                {guides.map((guide, index) => (
                   <Card
                     key={index}
                     className="bg-[#333333] border-[#444444] cursor-pointer hover:bg-[#3a3a3a] transition-colors"
                   >
                     <CardContent className="p-4 flex items-center gap-3">
                       <div className="bg-[#444444] p-2 rounded-md">
-                        <guide...icon className="h-5 w-5 text-emerald-500" />
+                        <guide.icon className="h-5 w-5 text-emerald-500" />
                       </div>
                       <div>
-                        <p className="font-medium">{guide...title}</p>
+                        <p className="font-medium">{guide.title}</p>
                         <p className="text-xs text-gray-400">
-                          {guide...icon === Video ? "Video Tutorial" : "Documentation"}
+                          {guide.icon === Video ? "Video Tutorial" : "Documentation"}
                         </p>
                       </div>
                     </CardContent>
@@ -136,7 +136,7 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
                 <CardDescription className="text-gray-400">Chat with our support team in real-time</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p>Our support team is available Monday to Friday, 9am to 5pm EST...</p>
+                <p>Our support team is available Monday to Friday, 9am to 5pm EST.</p>
                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700">Start Chat</Button>
               </CardContent>
             </Card>
@@ -152,7 +152,7 @@ export default function HelpSupportPage({ onTabChange }: HelpSupportPageProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p>For non-urgent issues, email us at support@qant...ai</p>
+                <p>For non-urgent issues, email us at support@qant.ai</p>
                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700">Send Email</Button>
               </CardContent>
             </Card>

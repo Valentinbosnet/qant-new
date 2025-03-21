@@ -20,11 +20,14 @@ model User {
   role                  String         @default("user")
   createdAt             DateTime       @default(now())
   updatedAt             DateTime       @updatedAt
+  onboardingCompleted   Boolean        @default(false)  // Ajout du champ manquant
   accounts              Account[]
   sessions              Session[]
   subscription          Subscription?
   portfolios            Portfolio[]
 }
+
+
 
 model Account {
   id                String   @id @default(cuid())

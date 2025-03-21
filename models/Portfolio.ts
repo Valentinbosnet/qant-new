@@ -1,5 +1,5 @@
 import mongoose, { Schema, type Document } from "mongoose"
-import type { IUser } from ".../User"
+import type { IUser } from "./User"
 
 export interface IAsset extends Document {
   symbol: string
@@ -44,8 +44,8 @@ const AssetSchema = new Schema<IAsset>({
   value: { type: Number, required: true },
   allocation: { type: Number, required: true },
   portfolioId: { type: String, required: true },
-  createdAt: { type: Date, default: Date...now },
-  updatedAt: { type: Date, default: Date...now },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 })
 
 const TransactionSchema = new Schema<ITransaction>({
@@ -56,8 +56,8 @@ const TransactionSchema = new Schema<ITransaction>({
   total: { type: Number, required: true },
   date: { type: Date, required: true },
   portfolioId: { type: String, required: true },
-  createdAt: { type: Date, default: Date...now },
-  updatedAt: { type: Date, default: Date...now },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 })
 
 const PortfolioSchema = new Schema<IPortfolio>({
@@ -65,15 +65,15 @@ const PortfolioSchema = new Schema<IPortfolio>({
   balance: { type: Number, required: true },
   type: { type: String, required: true },
   provider: String,
-  userId: { type: Schema...Types...ObjectId, ref: "User", required: true },
-  lastUpdated: { type: Date, default: Date...now },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  lastUpdated: { type: Date, default: Date.now },
   assets: [AssetSchema],
   transactions: [TransactionSchema],
-  createdAt: { type: Date, default: Date...now },
-  updatedAt: { type: Date, default: Date...now },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 })
 
-export const Asset = mongoose...models...Asset || mongoose...model<IAsset>("Asset", AssetSchema)
-export const Transaction = mongoose...models...Transaction || mongoose...model<ITransaction>("Transaction", TransactionSchema)
-export const Portfolio = mongoose...models...Portfolio || mongoose...model<IPortfolio>("Portfolio", PortfolioSchema)
+export const Asset = mongoose.models.Asset || mongoose.model<IAsset>("Asset", AssetSchema)
+export const Transaction = mongoose.models.Transaction || mongoose.model<ITransaction>("Transaction", TransactionSchema)
+export const Portfolio = mongoose.models.Portfolio || mongoose.model<IPortfolio>("Portfolio", PortfolioSchema)
 

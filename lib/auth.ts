@@ -20,13 +20,13 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?...email || !credentials?...password) {
+        if (!credentials?.email || !credentials?.password) {
           return null
         }
 
-        const user = await db...user...findUnique({
+        const user = await db.user.findUnique({
           where: {
-            email: credentials...email,
+            email: credentials.email,
           },
         })
 
@@ -34,8 +34,8 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        if (user...password) {
-          const isPasswordValid = await compare(credentials...password, user...password)
+        if (user.password) {
+          const isPasswordValid = await compare(credentials.password, user.password)
 
           if (!isPasswordValid) {
             return null
@@ -43,10 +43,10 @@ export const authOptions: NextAuthOptions = {
         }
 
         return {
-          id: user...id,
-          email: user...email,
-          name: user...name,
-          role: user...role,
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
         }
       },
     }),
@@ -54,17 +54,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (token) {
-        session...user...id = token...id
-        session...user...name = token...name
-        session...user...email = token...email
-        session...user...role = token...role
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.role = token.role
       }
       return session
     },
     async jwt({ token, user }) {
       if (user) {
-        token...id = user...id
-        token...role = user...role
+        token.id = user.id
+        token.role = user.role
       }
       return token
     },

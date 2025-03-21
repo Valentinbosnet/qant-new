@@ -1,13 +1,13 @@
-const { seedDatabase } = require("....../lib/seed")
+const { seedDatabase } = require("../lib/seed")
 
 async function runSeed() {
   try {
     await seedDatabase()
-    console...log("Database seeded successfully")
-    process...exit(0)
+    console.log("Database seeded successfully")
+    process.exit(0)
   } catch (error) {
-    console...error("Error seeding database:", error)
-    process...exit(1)
+    console.error("Error seeding database:", error)
+    process.exit(1)
   }
 }
 

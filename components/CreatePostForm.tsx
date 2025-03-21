@@ -10,12 +10,12 @@ interface CreatePostFormProps {
   onCreatePost: (content: string) => void
 }
 
-const CreatePostForm: React...FC<CreatePostFormProps> = ({ onCreatePost }) => {
+const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
   const [content, setContent] = useState("")
 
-  const handleSubmit = (e: React...FormEvent) => {
-    e...preventDefault()
-    if (content...trim()) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (content.trim()) {
       onCreatePost(content)
       setContent("")
     }
@@ -28,7 +28,7 @@ const CreatePostForm: React...FC<CreatePostFormProps> = ({ onCreatePost }) => {
           <Textarea
             placeholder="What's on your mind?"
             value={content}
-            onChange={(e) => setContent(e...target...value)}
+            onChange={(e) => setContent(e.target.value)}
             className="min-h-[100px] bg-[#333333] border-gray-700 text-white"
           />
         </CardContent>

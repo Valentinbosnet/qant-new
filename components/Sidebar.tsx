@@ -98,20 +98,20 @@ const Sidebar = ({ activeTab, setActiveTab, isMobile = false, onClose }: Sidebar
         <div className="px-3 py-2">
           <h3 className="mb-2 text-xs font-semibold uppercase text-gray-400">Main</h3>
           <ul className="space-y-1">
-            {navItems...map((item) => (
-              <li key={item...href}>
+            {navItems.map((item) => (
+              <li key={item.href}>
                 <Button
                   variant="ghost"
                   className={cn(
                     "flex w-full items-center justify-start gap-3 px-3 py-2",
-                    activeTab === item...href
+                    activeTab === item.href
                       ? "bg-[#2a2a2a] text-emerald-500"
                       : "text-gray-300 hover:bg-[#2a2a2a] hover:text-white",
                   )}
-                  onClick={() => handleNavigation(item...href)}
+                  onClick={() => handleNavigation(item.href)}
                 >
-                  <item...icon className="h-5 w-5" />
-                  <span>{item...title}</span>
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.title}</span>
                 </Button>
               </li>
             ))}
@@ -121,20 +121,20 @@ const Sidebar = ({ activeTab, setActiveTab, isMobile = false, onClose }: Sidebar
         <div className="px-3 py-2">
           <h3 className="mb-2 text-xs font-semibold uppercase text-gray-400">Other</h3>
           <ul className="space-y-1">
-            {secondaryNavItems...map((item) => (
-              <li key={item...href}>
+            {secondaryNavItems.map((item) => (
+              <li key={item.href}>
                 <Button
                   variant="ghost"
                   className={cn(
                     "flex w-full items-center justify-start gap-3 px-3 py-2",
-                    activeTab === item...href
+                    activeTab === item.href
                       ? "bg-[#2a2a2a] text-emerald-500"
                       : "text-gray-300 hover:bg-[#2a2a2a] hover:text-white",
                   )}
-                  onClick={() => handleNavigation(item...href)}
+                  onClick={() => handleNavigation(item.href)}
                 >
-                  <item...icon className="h-5 w-5" />
-                  <span>{item...title}</span>
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.title}</span>
                 </Button>
               </li>
             ))}

@@ -7,7 +7,7 @@ interface LandingPageProps {
   setActiveTab: (tab: string) => void
 }
 
-const LandingPage: React...FC<LandingPageProps> = ({ setActiveTab }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setActiveTab }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#1a1a1a] text-white p-4">
       <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Qant</h1>

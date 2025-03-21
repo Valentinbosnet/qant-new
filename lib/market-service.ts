@@ -31,30 +31,30 @@ export interface MarketQuote {
     {
       name: "S&P 500",
       symbol: "SPX",
-      value: 4892...37,
-      change: 41...73,
-      changePercent: 0...87,
+      value: 4892.37,
+      change: 41.73,
+      changePercent: 0.87,
     },
     {
       name: "Dow Jones",
       symbol: "DJI",
-      value: 38239...98,
-      change: 125...45,
-      changePercent: 0...33,
+      value: 38239.98,
+      change: 125.45,
+      changePercent: 0.33,
     },
     {
       name: "Nasdaq",
       symbol: "IXIC",
-      value: 15927...9,
-      change: 167...87,
-      changePercent: 1...07,
+      value: 15927.9,
+      change: 167.87,
+      changePercent: 1.07,
     },
     {
       name: "CAC 40",
       symbol: "CAC",
-      value: 7592...26,
-      change: 42...18,
-      changePercent: 0...56,
+      value: 7592.26,
+      change: 42.18,
+      changePercent: 0.56,
     },
   ]
   
@@ -62,53 +62,53 @@ export interface MarketQuote {
   const stockData: Record<string, MarketQuote> = {
     AAPL: {
       symbol: "AAPL",
-      price: 175...25,
-      change: 2...35,
-      changePercent: 1...36,
+      price: 175.25,
+      change: 2.35,
+      changePercent: 1.36,
       volume: 58762145,
       marketCap: 2750000000000,
-      high: 176...82,
-      low: 173...45,
+      high: 176.82,
+      low: 173.45,
     },
     MSFT: {
       symbol: "MSFT",
-      price: 417...88,
-      change: 5...23,
-      changePercent: 1...27,
+      price: 417.88,
+      change: 5.23,
+      changePercent: 1.27,
       volume: 25631478,
       marketCap: 3100000000000,
-      high: 419...45,
-      low: 414...12,
+      high: 419.45,
+      low: 414.12,
     },
     GOOGL: {
       symbol: "GOOGL",
-      price: 152...23,
-      change: 1...87,
-      changePercent: 1...24,
+      price: 152.23,
+      change: 1.87,
+      changePercent: 1.24,
       volume: 18745632,
       marketCap: 1920000000000,
-      high: 153...45,
-      low: 150...78,
+      high: 153.45,
+      low: 150.78,
     },
     AMZN: {
       symbol: "AMZN",
-      price: 178...75,
-      change: 2...15,
-      changePercent: 1...22,
+      price: 178.75,
+      change: 2.15,
+      changePercent: 1.22,
       volume: 32145698,
       marketCap: 1850000000000,
-      high: 179...85,
-      low: 177...25,
+      high: 179.85,
+      low: 177.25,
     },
     TSLA: {
       symbol: "TSLA",
-      price: 175...34,
-      change: -3...25,
-      changePercent: -1...82,
+      price: 175.34,
+      change: -3.25,
+      changePercent: -1.82,
       volume: 87654321,
       marketCap: 556000000000,
-      high: 178...95,
-      low: 174...12,
+      high: 178.95,
+      low: 174.12,
     },
   }
   
@@ -120,7 +120,7 @@ export interface MarketQuote {
     const results: SearchResult[] = [
       {
         symbol: "AAPL",
-        name: "Apple Inc...",
+        name: "Apple Inc.",
         type: "stock",
         exchange: "NASDAQ",
       },
@@ -132,29 +132,29 @@ export interface MarketQuote {
       },
       {
         symbol: "GOOGL",
-        name: "Alphabet Inc...",
+        name: "Alphabet Inc.",
         type: "stock",
         exchange: "NASDAQ",
       },
       {
         symbol: "AMZN",
-        name: "Amazon...com, Inc...",
+        name: "Amazon.com, Inc.",
         type: "stock",
         exchange: "NASDAQ",
       },
       {
         symbol: "TSLA",
-        name: "Tesla, Inc...",
+        name: "Tesla, Inc.",
         type: "stock",
         exchange: "NASDAQ",
       },
     ]
   
     // Filtrer les résultats en fonction de la requête
-    return results...filter(
+    return results.filter(
       (result) =>
-        result...symbol...toLowerCase()...includes(query...toLowerCase()) ||
-        result...name...toLowerCase()...includes(query...toLowerCase()),
+        result.symbol.toLowerCase().includes(query.toLowerCase()) ||
+        result.name.toLowerCase().includes(query.toLowerCase()),
     )
   }
   
@@ -182,8 +182,8 @@ export interface MarketQuote {
     // Simuler un délai de réseau
     await new Promise((resolve) => setTimeout(resolve, 500))
   
-    const basePrice = stockData[symbol]?...price || 100
-    const volatility = 0...02
+    const basePrice = stockData[symbol]?.price || 100
+    const volatility = 0.02
     const data: { date: string; value: number }[] = []
   
     let points = 30
@@ -212,15 +212,15 @@ export interface MarketQuote {
     const now = new Date()
   
     for (let i = points; i >= 0; i--) {
-      const change = currentPrice * volatility * (Math...random() - 0...5)
+      const change = currentPrice * volatility * (Math.random() - 0.5)
       currentPrice += change
   
       const date = new Date(now)
-      date...setDate(now...getDate() - i)
+      date.setDate(now.getDate() - i)
   
-      data...push({
-        date: date...toISOString()...split("T")[0],
-        value: Number...parseFloat(currentPrice...toFixed(2)),
+      data.push({
+        date: date.toISOString().split("T")[0],
+        value: Number.parseFloat(currentPrice.toFixed(2)),
       })
     }
   

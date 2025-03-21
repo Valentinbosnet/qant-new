@@ -23,13 +23,13 @@ export default function InitAdminPage() {
     error?: string
   } | null>(null)
 
-  const handleChange = (e: React...ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e...target
-    setFormData((prev) => ({ .........prev, [name]: value }))
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const createAdminAccount = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const createAdminAccount = async (e: React.FormEvent) => {
+    e.preventDefault()
 
     try {
       setIsLoading(true)
@@ -40,15 +40,15 @@ export default function InitAdminPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON...stringify(formData),
+        body: JSON.stringify(formData),
       })
 
-      const data = await response...json()
+      const data = await response.json()
 
-      if (response...ok) {
+      if (response.ok) {
         setResult({
           success: true,
-          message: data...message || "Compte administrateur créé avec succès",
+          message: data.message || "Compte administrateur créé avec succès",
         })
         // Réinitialiser le formulaire après succès
         setFormData({
@@ -59,7 +59,7 @@ export default function InitAdminPage() {
       } else {
         setResult({
           success: false,
-          error: data...error || "Erreur lors de la création du compte administrateur",
+          error: data.error || "Erreur lors de la création du compte administrateur",
         })
       }
     } catch (error) {
@@ -83,22 +83,22 @@ export default function InitAdminPage() {
             Créer un compte administrateur
           </CardTitle>
           <CardDescription>
-            Créez un compte administrateur pour accéder au panneau d'administration... Cette page ne devrait être utilisée
-            que lors de la configuration initiale...
+            Créez un compte administrateur pour accéder au panneau d'administration. Cette page ne devrait être utilisée
+            que lors de la configuration initiale.
           </CardDescription>
         </CardHeader>
 
         <form onSubmit={createAdminAccount}>
           <CardContent className="space-y-4">
             {result && (
-              <Alert className={result...success ? "bg-green-500/20" : "bg-red-500/20"}>
-                {result...success ? (
+              <Alert className={result.success ? "bg-green-500/20" : "bg-red-500/20"}>
+                {result.success ? (
                   <CheckCircle className="h-4 w-4 text-green-500" />
                 ) : (
                   <AlertCircle className="h-4 w-4 text-red-500" />
                 )}
-                <AlertTitle>{result...success ? "Succès" : "Erreur"}</AlertTitle>
-                <AlertDescription>{result...success ? result...message : result...error}</AlertDescription>
+                <AlertTitle>{result.success ? "Succès" : "Erreur"}</AlertTitle>
+                <AlertDescription>{result.success ? result.message : result.error}</AlertDescription>
               </Alert>
             )}
 
@@ -110,7 +110,7 @@ export default function InitAdminPage() {
               <Input
                 id="name"
                 name="name"
-                value={formData...name}
+                value={formData.name}
                 onChange={handleChange}
                 placeholder="Entrez votre nom"
                 required
@@ -126,7 +126,7 @@ export default function InitAdminPage() {
                 id="email"
                 name="email"
                 type="email"
-                value={formData...email}
+                value={formData.email}
                 onChange={handleChange}
                 placeholder="Entrez votre email"
                 required
@@ -142,7 +142,7 @@ export default function InitAdminPage() {
                 id="password"
                 name="password"
                 type="password"
-                value={formData...password}
+                value={formData.password}
                 onChange={handleChange}
                 placeholder="Créez un mot de passe sécurisé"
                 required
@@ -156,7 +156,7 @@ export default function InitAdminPage() {
               {isLoading ? (
                 <>
                   <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                  Création en cours.........
+                  Création en cours...
                 </>
               ) : (
                 <>

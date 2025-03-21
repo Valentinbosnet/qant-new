@@ -20,7 +20,7 @@ export default function SetupPage() {
           <CardContent>
             <p className="text-sm mb-4">
               Cette étape crée les tables nécessaires dans la base de données pour que l'application fonctionne
-              correctement...
+              correctement.
             </p>
           </CardContent>
           <CardFooter>
@@ -43,7 +43,7 @@ export default function SetupPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm mb-4">
-              Créez un compte avec des privilèges d'administrateur pour accéder à toutes les fonctionnalités...
+              Créez un compte avec des privilèges d'administrateur pour accéder à toutes les fonctionnalités.
             </p>
           </CardContent>
           <CardFooter>

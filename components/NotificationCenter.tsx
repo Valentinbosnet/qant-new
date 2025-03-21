@@ -9,13 +9,13 @@ interface NotificationCenterProps {
   onClose: () => void
 }
 
-const NotificationCenter: React...FC<NotificationCenterProps> = ({ onClose }) => {
+const NotificationCenter: React.FC<NotificationCenterProps> = ({ onClose }) => {
   const notifications = [
     {
       id: 1,
       type: "alert",
       title: "Market Alert",
-      message: "S&P 500 dropped by 2% today... Check your portfolio...",
+      message: "S&P 500 dropped by 2% today. Check your portfolio.",
       time: "10 minutes ago",
       icon: AlertTriangle,
       iconColor: "text-yellow-500",
@@ -25,7 +25,7 @@ const NotificationCenter: React...FC<NotificationCenterProps> = ({ onClose }) =>
       id: 2,
       type: "insight",
       title: "AI Insight",
-      message: "New investment opportunities detected in tech sector...",
+      message: "New investment opportunities detected in tech sector.",
       time: "1 hour ago",
       icon: TrendingUp,
       iconColor: "text-emerald-500",
@@ -35,7 +35,7 @@ const NotificationCenter: React...FC<NotificationCenterProps> = ({ onClose }) =>
       id: 3,
       type: "info",
       title: "Portfolio Update",
-      message: "Your portfolio has been updated with latest market data...",
+      message: "Your portfolio has been updated with latest market data.",
       time: "3 hours ago",
       icon: Info,
       iconColor: "text-blue-500",
@@ -56,26 +56,26 @@ const NotificationCenter: React...FC<NotificationCenterProps> = ({ onClose }) =>
       </div>
       <ScrollArea className="flex-1 max-h-[400px]">
         <div className="p-2">
-          {notifications...map((notification) => (
-            <div key={notification...id} className="mb-2">
+          {notifications.map((notification) => (
+            <div key={notification.id} className="mb-2">
               <div
                 className={`flex p-3 rounded-lg ${
-                  notification...read ? "bg-[#2a2a2a]" : "bg-[#333333]"
+                  notification.read ? "bg-[#2a2a2a]" : "bg-[#333333]"
                 } hover:bg-[#3a3a3a] transition-colors duration-200`}
               >
                 <div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-                    notification...read ? "bg-[#333333]" : "bg-[#444444]"
+                    notification.read ? "bg-[#333333]" : "bg-[#444444]"
                   } mr-3`}
                 >
-                  <notification...icon className={`h-5 w-5 ${notification...iconColor}`} />
+                  <notification.icon className={`h-5 w-5 ${notification.iconColor}`} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-white">{notification...title}</p>
-                    <span className="text-xs text-gray-400">{notification...time}</span>
+                    <p className="font-medium text-white">{notification.title}</p>
+                    <span className="text-xs text-gray-400">{notification.time}</span>
                   </div>
-                  <p className="text-sm text-gray-300 mt-1">{notification...message}</p>
+                  <p className="text-sm text-gray-300 mt-1">{notification.message}</p>
                 </div>
               </div>
             </div>

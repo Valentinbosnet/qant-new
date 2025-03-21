@@ -14,7 +14,7 @@ interface AuthPageProps {
   onSignIn: (email: string, password: string) => Promise<any>
 }
 
-const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
+const AuthPage: React.FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
   const [isSignIn, setIsSignIn] = useState(true)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -23,8 +23,8 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
-  const handleSubmit = async (e: React...FormEvent) => {
-    e...preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setError("")
     setIsLoading(true)
 
@@ -40,16 +40,16 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
         setActiveTab("dashboard")
       } else {
         // Here you would typically call an API to create a new user
-        console...log("Sign up with", email, password)
+        console.log("Sign up with", email, password)
         // For demo purposes, let's just switch to sign in mode
         setIsSignIn(true)
-        setError("Account created! Please sign in...")
+        setError("Account created! Please sign in.")
       }
     } catch (error) {
-      setError(error instanceof Error ? error...message : "An error occurred")
+      setError(error instanceof Error ? error.message : "An error occurred")
       toast({
         title: "Authentication Error",
-        description: error instanceof Error ? error...message : "An error occurred during authentication",
+        description: error instanceof Error ? error.message : "An error occurred during authentication",
         variant: "destructive",
       })
     } finally {
@@ -77,7 +77,7 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e) => setEmail(e...target...value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="mt-1 bg-[#333333] border-gray-700 text-white"
               />
@@ -91,7 +91,7 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
                 type="password"
                 placeholder="Enter your password"
                 value={password}
-                onChange={(e) => setPassword(e...target...value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="mt-1 bg-[#333333] border-gray-700 text-white"
               />
@@ -106,7 +106,7 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
                   type="password"
                   placeholder="Confirm your password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e...target...value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   className="mt-1 bg-[#333333] border-gray-700 text-white"
                 />
@@ -118,7 +118,7 @@ const AuthPage: React...FC<AuthPageProps> = ({ setActiveTab, onSignIn }) => {
               className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white h-12 font-semibold"
               disabled={isLoading}
             >
-              {isLoading ? "Processing........." : isSignIn ? "Sign In" : "Sign Up"}
+              {isLoading ? "Processing..." : isSignIn ? "Sign In" : "Sign Up"}
             </Button>
           </form>
           <p className="mt-4 text-center text-gray-400">

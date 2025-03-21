@@ -14,10 +14,10 @@ export default function PortfolioStats() {
   const [isRefreshing, setIsRefreshing] = useState(false)
 
   // Calculer la valeur totale du portefeuille
-  const totalValue = portfolios...reduce((sum, portfolio) => sum + portfolio...balance, 0)
+  const totalValue = portfolios.reduce((sum, portfolio) => sum + portfolio.balance, 0)
 
   // Calculer le changement quotidien (simulé pour l'instant)
-  const dailyChange = portfolios...length > 0 ? (Math...random() * 2 - 1) * (totalValue * 0...02) : 0
+  const dailyChange = portfolios.length > 0 ? (Math.random() * 2 - 1) * (totalValue * 0.02) : 0
   const dailyChangePercent = totalValue > 0 ? (dailyChange / totalValue) * 100 : 0
 
   // Charger les indices de marché
@@ -44,7 +44,7 @@ export default function PortfolioStats() {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <motion...div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0...3 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <Card className="bg-[#2a2a2a] border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-gray-400">Portfolio Value</CardTitle>
@@ -55,7 +55,7 @@ export default function PortfolioStats() {
               {isLoadingPortfolios ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-gray-700"></div>
               ) : (
-                `$${totalValue...toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+                `$${totalValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
               )}
             </div>
             <div className="flex items-center pt-1">
@@ -65,18 +65,18 @@ export default function PortfolioStats() {
                 <ArrowDown className="mr-1 h-4 w-4 text-red-500" />
               )}
               <span className={`text-sm ${dailyChange >= 0 ? "text-green-500" : "text-red-500"}`}>
-                {Math...abs(dailyChange)...toLocaleString(undefined, { maximumFractionDigits: 2 })} (
-                {Math...abs(dailyChangePercent)...toFixed(2)}%)
+                {Math.abs(dailyChange).toLocaleString(undefined, { maximumFractionDigits: 2 })} (
+                {Math.abs(dailyChangePercent).toFixed(2)}%)
               </span>
             </div>
           </CardContent>
         </Card>
-      </motion...div>
+      </motion.div>
 
-      <motion...div
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0...3, delay: 0...1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
         <Card className="bg-[#2a2a2a] border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -85,31 +85,31 @@ export default function PortfolioStats() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-white">
-              {isLoadingMarket || marketIndices...length === 0 ? (
+              {isLoadingMarket || marketIndices.length === 0 ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-gray-700"></div>
               ) : (
-                `$${marketIndices[0]?...price...toLocaleString(undefined, { maximumFractionDigits: 2 }) || "N/A"}`
+                `$${marketIndices[0]?.price.toLocaleString(undefined, { maximumFractionDigits: 2 }) || "N/A"}`
               )}
             </div>
             <div className="flex items-center pt-1">
-              {marketIndices[0]?...change >= 0 ? (
+              {marketIndices[0]?.change >= 0 ? (
                 <ArrowUp className="mr-1 h-4 w-4 text-green-500" />
               ) : (
                 <ArrowDown className="mr-1 h-4 w-4 text-red-500" />
               )}
-              <span className={`text-sm ${(marketIndices[0]?...change || 0) >= 0 ? "text-green-500" : "text-red-500"}`}>
-                {Math...abs(marketIndices[0]?...change || 0)...toLocaleString(undefined, { maximumFractionDigits: 2 })} (
-                {Math...abs(marketIndices[0]?...changePercent || 0)...toFixed(2)}%)
+              <span className={`text-sm ${(marketIndices[0]?.change || 0) >= 0 ? "text-green-500" : "text-red-500"}`}>
+                {Math.abs(marketIndices[0]?.change || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })} (
+                {Math.abs(marketIndices[0]?.changePercent || 0).toFixed(2)}%)
               </span>
             </div>
           </CardContent>
         </Card>
-      </motion...div>
+      </motion.div>
 
-      <motion...div
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0...3, delay: 0...2 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
       >
         <Card className="bg-[#2a2a2a] border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -118,31 +118,31 @@ export default function PortfolioStats() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-white">
-              {isLoadingMarket || marketIndices...length < 2 ? (
+              {isLoadingMarket || marketIndices.length < 2 ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-gray-700"></div>
               ) : (
-                `$${marketIndices[1]?...price...toLocaleString(undefined, { maximumFractionDigits: 2 }) || "N/A"}`
+                `$${marketIndices[1]?.price.toLocaleString(undefined, { maximumFractionDigits: 2 }) || "N/A"}`
               )}
             </div>
             <div className="flex items-center pt-1">
-              {(marketIndices[1]?...change || 0) >= 0 ? (
+              {(marketIndices[1]?.change || 0) >= 0 ? (
                 <ArrowUp className="mr-1 h-4 w-4 text-green-500" />
               ) : (
                 <ArrowDown className="mr-1 h-4 w-4 text-red-500" />
               )}
-              <span className={`text-sm ${(marketIndices[1]?...change || 0) >= 0 ? "text-green-500" : "text-red-500"}`}>
-                {Math...abs(marketIndices[1]?...change || 0)...toLocaleString(undefined, { maximumFractionDigits: 2 })} (
-                {Math...abs(marketIndices[1]?...changePercent || 0)...toFixed(2)}%)
+              <span className={`text-sm ${(marketIndices[1]?.change || 0) >= 0 ? "text-green-500" : "text-red-500"}`}>
+                {Math.abs(marketIndices[1]?.change || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })} (
+                {Math.abs(marketIndices[1]?.changePercent || 0).toFixed(2)}%)
               </span>
             </div>
           </CardContent>
         </Card>
-      </motion...div>
+      </motion.div>
 
-      <motion...div
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0...3, delay: 0...3 }}
+        transition={{ duration: 0.3, delay: 0.3 }}
       >
         <Card className="bg-[#2a2a2a] border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -158,14 +158,14 @@ export default function PortfolioStats() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-white">
-              {new Date()...toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+              {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             </div>
             <p className="text-xs text-gray-500 pt-1">
-              {new Date()...toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" })}
+              {new Date().toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" })}
             </p>
           </CardContent>
         </Card>
-      </motion...div>
+      </motion.div>
     </div>
   )
 }

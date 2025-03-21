@@ -14,7 +14,7 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
   const plans = [
     {
       name: "Basic",
-      price: "$9...99",
+      price: "$9.99",
       period: "per month",
       description: "Essential features for new investors",
       features: ["Portfolio tracking", "Basic AI predictions", "Market news", "Email support"],
@@ -22,7 +22,7 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
     },
     {
       name: "Pro",
-      price: "$29...99",
+      price: "$29.99",
       period: "per month",
       description: "Advanced features for serious investors",
       features: [
@@ -36,7 +36,7 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
     },
     {
       name: "Enterprise",
-      price: "$99...99",
+      price: "$99.99",
       period: "per month",
       description: "Complete solution for professional traders",
       features: [
@@ -55,25 +55,25 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
     {
       id: "INV-001",
       date: "Mar 1, 2023",
-      amount: "$29...99",
+      amount: "$29.99",
       status: "Paid",
     },
     {
       id: "INV-002",
       date: "Feb 1, 2023",
-      amount: "$29...99",
+      amount: "$29.99",
       status: "Paid",
     },
     {
       id: "INV-003",
       date: "Jan 1, 2023",
-      amount: "$29...99",
+      amount: "$29.99",
       status: "Paid",
     },
     {
       id: "INV-004",
       date: "Dec 1, 2022",
-      amount: "$29...99",
+      amount: "$29.99",
       status: "Paid",
     },
   ]
@@ -109,7 +109,7 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
                   <p className="text-sm text-gray-400">Billed monthly</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold">$29...99</p>
+                  <p className="text-2xl font-bold">$29.99</p>
                   <p className="text-sm text-gray-400">Next billing on Apr 1, 2023</p>
                 </div>
               </div>
@@ -129,25 +129,25 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
           </Card>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {plans...map((plan) => (
+            {plans.map((plan) => (
               <Card
-                key={plan...name}
-                className={`bg-[#2a2a2a] border-[#333333] text-white ${plan...current ? "border-emerald-500" : ""}`}
+                key={plan.name}
+                className={`bg-[#2a2a2a] border-[#333333] text-white ${plan.current ? "border-emerald-500" : ""}`}
               >
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>{plan...name}</CardTitle>
-                    {plan...current && <Badge className="bg-emerald-500">Current</Badge>}
+                    <CardTitle>{plan.name}</CardTitle>
+                    {plan.current && <Badge className="bg-emerald-500">Current</Badge>}
                   </div>
                   <div className="flex items-baseline">
-                    <span className="text-2xl font-bold">{plan...price}</span>
-                    <span className="ml-1 text-sm text-gray-400">{plan...period}</span>
+                    <span className="text-2xl font-bold">{plan.price}</span>
+                    <span className="ml-1 text-sm text-gray-400">{plan.period}</span>
                   </div>
-                  <CardDescription className="text-gray-400">{plan...description}</CardDescription>
+                  <CardDescription className="text-gray-400">{plan.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    {plan...features...map((feature, index) => (
+                    {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center">
                         <Check className="mr-2 h-4 w-4 text-emerald-500" />
                         <span>{feature}</span>
@@ -156,13 +156,13 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  {plan...current ? (
+                  {plan.current ? (
                     <Button className="w-full" disabled>
                       Current Plan
                     </Button>
                   ) : (
                     <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
-                      {plan...price === "$9...99" ? "Downgrade" : "Upgrade"}
+                      {plan.price === "$9.99" ? "Downgrade" : "Upgrade"}
                     </Button>
                   )}
                 </CardFooter>
@@ -222,7 +222,7 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
                 <p className="text-gray-400">123 Main Street</p>
                 <p className="text-gray-400">New York, NY 10001</p>
                 <p className="text-gray-400">United States</p>
-                <p className="mt-2 text-gray-400">john...doe@example...com</p>
+                <p className="mt-2 text-gray-400">john.doe@example.com</p>
               </div>
               <Button variant="outline" className="border-emerald-500 text-emerald-500">
                 Update Billing Information
@@ -239,20 +239,20 @@ export default function BillingPage({ onTabChange }: BillingPageProps) {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {invoices...map((invoice) => (
-                  <div key={invoice...id} className="flex items-center justify-between rounded-lg bg-[#333333] p-4">
+                {invoices.map((invoice) => (
+                  <div key={invoice.id} className="flex items-center justify-between rounded-lg bg-[#333333] p-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 rounded-full bg-[#444444] flex items-center justify-center">
                         <CreditCard className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">{invoice...id}</p>
-                        <p className="text-xs text-gray-400">{invoice...date}</p>
+                        <p className="font-medium">{invoice.id}</p>
+                        <p className="text-xs text-gray-400">{invoice.date}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <p className="font-medium">{invoice...amount}</p>
-                      <Badge className="bg-emerald-500">{invoice...status}</Badge>
+                      <p className="font-medium">{invoice.amount}</p>
+                      <Badge className="bg-emerald-500">{invoice.status}</Badge>
                       <Button variant="ghost" size="sm" className="text-emerald-500">
                         <Download className="h-4 w-4" />
                       </Button>

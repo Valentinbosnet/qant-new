@@ -6,7 +6,7 @@ export default function AboutPage() {
 
         <p className="text-gray-300 text-lg mb-12">
           TradeAssist is your intelligent investment companion, designed to help you make smarter investment decisions
-          through advanced AI-powered insights and real-time market analysis...
+          through advanced AI-powered insights and real-time market analysis.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
