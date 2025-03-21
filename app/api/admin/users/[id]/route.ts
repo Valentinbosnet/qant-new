@@ -1,132 +1,100 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth-options"
-import { PrismaClient } from "@prisma/client"
+import { db } from "@/lib/db"
 
-const prisma = new PrismaClient()
-
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const session = await getServerSession(authOptions)
 
+    // Vérifiez que l'utilisateur est authentifié et a le rôle admin
     if (!session || !session.user || session.user.role !== "admin") {
-      return NextResponse.json({ error: "Accès non autorisé" }, { status: 403 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { id } = params
+    const userId = params.id
 
-    const user = await prisma.user.findUnique({
-      where: { id },
-      include: {
-        membership: true,
-        portfolios: {
-          include: {
-            holdings: true,
-          },
-        },
-        connectedAccounts: true,
-        transactions: true,
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        onboardingCompleted: true,
+        // Autres champs que vous souhaitez sélectionner
       },
     })
 
     if (!user) {
-      return NextResponse.json({ error: "Utilisateur non trouvé" }, { status: 404 })
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
-    return NextResponse.json({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      role: user.role,
-      membership: user.membership,
-      portfolios: user.portfolios,
-      connectedAccounts: user.connectedAccounts,
-      transactions: user.transactions,
-      createdAt: user.createdAt,
-    })
+    return NextResponse.json(user)
   } catch (error) {
-    console.error("Erreur lors de la récupération de l'utilisateur:", error)
-    return NextResponse.json(
-      { error: "Une erreur est survenue lors de la récupération de l'utilisateur" },
-      { status: 500 },
-    )
+    console.error("Error fetching user:", error)
+    return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
 }
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+// Ajoutez également les méthodes PUT et DELETE si nécessaire
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const session = await getServerSession(authOptions)
 
     if (!session || !session.user || session.user.role !== "admin") {
-      return NextResponse.json({ error: "Accès non autorisé" }, { status: 403 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { id } = params
-    const body = await request.json()
-    const { name, role, plan, status } = body
+    const userId = params.id
+    const data = await request.json()
 
-    const updateData: any = {}
-
-    if (name !== undefined) updateData.name = name
-    if (role !== undefined) updateData.role = role
-
-    // Mettre à jour l'utilisateur
-    const user = await prisma.user.update({
-      where: { id },
-      data: updateData,
-      include: {
-        membership: true,
+    const updatedUser = await db.user.update({
+      where: { id: userId },
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        // Autres champs que vous souhaitez sélectionner
       },
     })
 
-    // Mettre à jour l'abonnement si nécessaire
-    if ((plan !== undefined || status !== undefined) && user.membership) {
-      await prisma.membership.update({
-        where: { id: user.membership.id },
-        data: {
-          ...(plan !== undefined && { plan }),
-          ...(status !== undefined && { status }),
-        },
-      })
-    }
-
-    return NextResponse.json({
-      message: "Utilisateur mis à jour avec succès",
-    })
+    return NextResponse.json(updatedUser)
   } catch (error) {
-    console.error("Erreur lors de la mise à jour de l'utilisateur:", error)
-    return NextResponse.json(
-      { error: "Une erreur est survenue lors de la mise à jour de l'utilisateur" },
-      { status: 500 },
-    )
+    console.error("Error updating user:", error)
+    return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const session = await getServerSession(authOptions)
 
     if (!session || !session.user || session.user.role !== "admin") {
-      return NextResponse.json({ error: "Accès non autorisé" }, { status: 403 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { id } = params
+    const userId = params.id
 
-    // Supprimer l'utilisateur
-    await prisma.user.delete({
-      where: { id },
+    await db.user.delete({
+      where: { id: userId },
     })
 
-    return NextResponse.json({
-      message: "Utilisateur supprimé avec succès",
-    })
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Erreur lors de la suppression de l'utilisateur:", error)
-    return NextResponse.json(
-      { error: "Une erreur est survenue lors de la suppression de l'utilisateur" },
-      { status: 500 },
-    )
+    console.error("Error deleting user:", error)
+    return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
 }
-
