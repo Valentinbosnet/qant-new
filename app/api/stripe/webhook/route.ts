@@ -1,107 +1,141 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
-import { PrismaClient } from "@prisma/client"
 import Stripe from "stripe"
+import { db } from "@/lib/db"
 
-const prisma = new PrismaClient()
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
+
+// Désactiver le parsing du body par Next.js pour les webhooks Stripe
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16",
+  apiVersion: "2023-10-16", // Utilisez la version API la plus récente
 })
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
+
+async function getBodyAsString(request: Request): Promise<string> {
+  const body = await request.text()
+  return body
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.text()
-    const signature = headers().get("stripe-signature") as string
+    const body = await getBodyAsString(request)
+    const signature = headers().get("stripe-signature") || ""
 
     let event: Stripe.Event
 
     try {
-      event = stripe.webhooks.constructEvent(body, signature, endpointSecret)
-    } catch (error) {
-      console.error("Erreur lors de la vérification de la signature:", error)
-      return NextResponse.json({ error: "Signature webhook invalide" }, { status: 400 })
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+    } catch (error: any) {
+      console.error(`Webhook signature verification failed: ${error.message}`)
+      return NextResponse.json({ error: `Webhook signature verification failed` }, { status: 400 })
     }
 
+    // Gérer les différents types d'événements Stripe
     switch (event.type) {
-      case "checkout.session.completed": {
-        const session = event.data.object as Stripe.Checkout.Session
+      case "checkout.session.completed":
+        const checkoutSession = event.data.object as Stripe.Checkout.Session
 
-        if (session.metadata?.userId && session.metadata?.plan) {
-          const { userId, plan } = session.metadata
+        if (checkoutSession.metadata?.userId) {
+          const userId = checkoutSession.metadata.userId
+          const plan = checkoutSession.metadata.plan || "premium"
 
           // Mettre à jour l'abonnement de l'utilisateur
-          await handleSubscriptionCreated(userId, plan, session.subscription as string)
+          await db.subscription.upsert({
+            where: { userId },
+            create: {
+              userId,
+              plan,
+              status: "active",
+              startDate: new Date(),
+              endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours
+            },
+            update: {
+              plan,
+              status: "active",
+              startDate: new Date(),
+              endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours
+            },
+          })
         }
         break
-      }
 
-      case "customer.subscription.updated": {
-        const subscription = event.data.object as Stripe.Subscription
-        await handleSubscriptionUpdated(subscription)
-        break
-      }
+      case "invoice.payment_succeeded":
+        const invoice = event.data.object as Stripe.Invoice
 
-      case "customer.subscription.deleted": {
-        const subscription = event.data.object as Stripe.Subscription
-        await handleSubscriptionDeleted(subscription)
+        if (invoice.customer_email) {
+          const user = await db.user.findUnique({
+            where: { email: invoice.customer_email },
+            select: { id: true },
+          })
+
+          if (user) {
+            // Prolonger l'abonnement
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: {
+                status: "active",
+                endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours
+              },
+            })
+          }
+        }
         break
-      }
+
+      case "customer.subscription.deleted":
+        const subscription = event.data.object as Stripe.Subscription
+
+        if (subscription.customer) {
+          const customerId =
+            typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id
+
+          // Trouver l'utilisateur par son ID client Stripe
+          const user = await db.user.findFirst({
+            where: {
+              accounts: {
+                some: {
+                  providerAccountId: customerId,
+                  provider: "stripe",
+                },
+              },
+            },
+            select: { id: true },
+          })
+
+          if (user) {
+            // Désactiver l'abonnement
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: {
+                status: "cancelled",
+              },
+            })
+          }
+        }
+        break
+
+      default:
+        console.log(`Unhandled event type: ${event.type}`)
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error("Erreur lors du traitement du webhook:", error)
-    return NextResponse.json({ error: "Une erreur est survenue lors du traitement du webhook" }, { status: 500 })
+    console.error("Error processing Stripe webhook:", error)
+    return NextResponse.json({ error: "An error occurred while processing the webhook" }, { status: 500 })
   }
 }
 
-async function handleSubscriptionCreated(userId: string, plan: string, subscriptionId: string) {
-  const subscription = await stripe.subscriptions.retrieve(subscriptionId)
-
-  await prisma.membership.update({
-    where: { userId },
-    data: {
-      plan,
-      status: subscription.status,
-      stripeSubscriptionId: subscription.id,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-    },
-  })
-}
-
-async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
-  const membership = await prisma.membership.findFirst({
-    where: { stripeSubscriptionId: subscription.id },
-  })
-
-  if (!membership) return
-
-  await prisma.membership.update({
-    where: { id: membership.id },
-    data: {
-      status: subscription.status,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-    },
-  })
-}
-
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  const membership = await prisma.membership.findFirst({
-    where: { stripeSubscriptionId: subscription.id },
-  })
-
-  if (!membership) return
-
-  await prisma.membership.update({
-    where: { id: membership.id },
-    data: {
-      plan: "free",
-      status: "inactive",
-      stripeSubscriptionId: null,
-      currentPeriodEnd: null,
-    },
+// Ajouter une méthode GET pour éviter les erreurs de build
+export async function GET() {
+  return NextResponse.json({
+    message: "This endpoint is for Stripe webhooks and requires a POST request",
   })
 }
 
