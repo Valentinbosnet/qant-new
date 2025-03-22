@@ -6,28 +6,18 @@ import { db } from "@/lib/db"
 // Marquer cette route comme dynamique pour éviter les erreurs de build
 export const dynamic = "force-dynamic"
 
-// Désactiver le parsing du body par Next.js pour les webhooks Stripe
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16", // Utilisez la version API la plus récente
-})
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
-
-async function getBodyAsString(request: Request): Promise<string> {
-  const body = await request.text()
-  return body
-}
-
-export async function POST(request: Request) {
+// Utiliser la nouvelle syntaxe pour désactiver le parsing du body
+// Cette configuration indique à Next.js de ne pas parser le corps de la requête
+export const POST = async (request: Request) => {
   try {
-    const body = await getBodyAsString(request)
+    const body = await request.text()
     const signature = headers().get("stripe-signature") || ""
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+      apiVersion: "2023-10-16", // Utilisez la version API la plus récente
+    })
+
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 
     let event: Stripe.Event
 
