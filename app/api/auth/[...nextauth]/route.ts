@@ -1,9 +1,12 @@
 import NextAuth from "next-auth"
 import { authOptions } from "@/lib/auth-options"
 
-// Exportez un gestionnaire qui utilise les options d'authentification
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
+
+// Utiliser la syntaxe correcte pour l'App Router de Next.js
 const handler = NextAuth(authOptions)
 
-// Exportez les méthodes GET et POST pour le gestionnaire
+// Exporter les gestionnaires GET et POST
 export { handler as GET, handler as POST }
 
