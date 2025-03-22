@@ -3,7 +3,10 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth-options"
 import { db } from "@/lib/db"
 
-export async function POST() {
+// Marquer cette route comme dynamique pour éviter les erreurs de build
+export const dynamic = "force-dynamic"
+
+export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions)
 
@@ -11,17 +14,32 @@ export async function POST() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    await db.user.update({
+    // Mettre à jour le statut d'onboarding de l'utilisateur
+    const updatedUser = await db.user.update({
       where: { email: session.user.email },
-      data: {
+      data: { onboardingCompleted: true },
+      select: {
+        id: true,
+        email: true,
         onboardingCompleted: true,
       },
     })
 
-    return NextResponse.json({ message: "Onboarding completed successfully" }, { status: 200 })
+    return NextResponse.json({
+      success: true,
+      message: "Onboarding marked as completed",
+      user: updatedUser,
+    })
   } catch (error) {
-    console.error("Error updating onboarding status:", error)
-    return NextResponse.json({ error: "Server error" }, { status: 500 })
+    console.error("Error completing onboarding:", error)
+    return NextResponse.json({ error: "An error occurred while completing onboarding" }, { status: 500 })
   }
+}
+
+// Ajouter une méthode GET pour éviter les erreurs de build
+export async function GET() {
+  return NextResponse.json({
+    message: "This endpoint requires a POST request to complete user onboarding",
+  })
 }
 
